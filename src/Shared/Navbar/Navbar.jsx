@@ -1,9 +1,10 @@
+import { Button } from '@/components/ui/button';
 import React from 'react';
 
 const Navbar = () => {
     return (
         <div>
-            <h1>nav bar--------------</h1>
+             <Button className="bg-red-500">button</Button>
         </div>
     );
 };
