@@ -1,22 +1,38 @@
-
-import { Link } from 'react-router-dom';
+import { useFormik } from "formik";
+ import *as Yup from "yup"
+ 
 
 const Register = () => {
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+            imageURL: "",
+            email: '',
+            password: ""
+        },
+         
+        validationSchema: Yup.object({
+            name: Yup.string().required(),
+            imageURL: Yup.string().url().required(),
+            email: Yup.string().email().required(),
+            password: Yup.string().min(6).required()
+        }),
+        onSubmit: (values) => {
+            console.log( 'form submitted',values)
+        },
+        
+    })
 
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        console.log(e.target)
-    }
     return (
-        <div className="flex items-center justify-center min-h-screen bg-[#FFF1F4]">
-            <div className="w-full max-w-sm shadow-xl card bg-white border border-[#F3D6C2]">
+        <div className="flex items-center justify-center min-h-screen ">
+            <div className="w-full max-w-sm shadow-xl card border border-[#F3D6C2] bg-white">
                 <div className="card-body">
                     <h2 className="text-2xl font-bold text-center text-[#A47149]">Register to your account</h2>
                     <p className="mb-4 text-sm text-center text-gray-600">
                         Enter your email below to register to your account
                     </p>
 
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
                         {/* Name */}
                         <div className="mb-4 form-control">
                             <label className="label">
@@ -24,10 +40,16 @@ const Register = () => {
                             </label>
                             <input
                                 type="text"
+                                name="name"
                                 placeholder="Your name"
                                 className="input input-bordered"
-                                required
+                                onChange={formik.handleChange}
+                                value={formik.values.name}
+                                onBlur={formik.handleBlur}
                             />
+                             {formik.touched.name && formik.errors.name && (
+                                <p className="text-red-500">{formik.errors.name}</p>
+                            )}
                         </div>
 
                         {/* Image URL */}
@@ -37,10 +59,16 @@ const Register = () => {
                             </label>
                             <input
                                 type="text"
+                                name="imageURL"
                                 placeholder="https://your-image.jpg"
                                 className="input input-bordered"
-                                required
+                                onChange={formik.handleChange}
+                                value={formik.values.imageURL}
+                                onBlur={formik.handleBlur}
                             />
+                           {formik.touched.imageURL && formik.errors.imageURL && (
+                            <p className="text-red-500">{formik.errors.imageURL}</p>
+                           )}
                         </div>
 
                         {/* Email */}
@@ -50,10 +78,16 @@ const Register = () => {
                             </label>
                             <input
                                 type="email"
+                                name="email"
                                 placeholder="m@example.com"
                                 className="input input-bordered"
-                                required
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                                onBlur={formik.handleBlur}
                             />
+                            {formik.touched.email && formik.errors.email && (
+                                <p className="text-red-500">{formik.errors.email}</p>
+                            )}
                         </div>
 
                         {/* Password */}
@@ -62,7 +96,17 @@ const Register = () => {
                                 <span className="label-text text-[#4B3F3F]">Password</span>
                                 <a href="#" className="text-sm link link-hover text-[#A47149]">Forgot password?</a>
                             </label>
-                            <input type="password" className="input input-bordered" required />
+                            <input
+                                type="password"
+                                name="password"
+                                className="input input-bordered"
+                                onChange={formik.handleChange}
+                                value={formik.values.password}
+                                onBlur={formik.handleBlur}
+                            />
+                            {formik.touched.password && formik.errors.password && (
+                                <p className="text-red-500">{formik.errors.password}</p>
+                            )}
                         </div>
 
                         <div className="form-control">
@@ -72,7 +116,7 @@ const Register = () => {
                         </div>
                     </form>
 
-                   
+
                 </div>
             </div>
         </div>
