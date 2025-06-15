@@ -1,8 +1,12 @@
+import useAuth from "@/Hooks/Auth/useAuth";
 import { useFormik } from "formik";
- import *as Yup from "yup"
- 
+import Swal from "sweetalert2";
+import *as Yup from "yup"
+
 
 const Register = () => {
+    const { register } = useAuth()
+
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -10,7 +14,7 @@ const Register = () => {
             email: '',
             password: ""
         },
-         
+
         validationSchema: Yup.object({
             name: Yup.string().required(),
             imageURL: Yup.string().url().required(),
@@ -18,9 +22,34 @@ const Register = () => {
             password: Yup.string().min(6).required()
         }),
         onSubmit: (values) => {
-            console.log( 'form submitted',values)
+            register(values.email, values.password)
+                .then(result => {
+                    const user = result.user
+                    if (user) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "user successfully created",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+
+                })
+                .catch(err => {
+                    const errMsg = err.message
+                    if (errMsg) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: errMsg,
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                        });
+                    }
+                })
+
         },
-        
+
     })
 
     return (
@@ -47,7 +76,7 @@ const Register = () => {
                                 value={formik.values.name}
                                 onBlur={formik.handleBlur}
                             />
-                             {formik.touched.name && formik.errors.name && (
+                            {formik.touched.name && formik.errors.name && (
                                 <p className="text-red-500">{formik.errors.name}</p>
                             )}
                         </div>
@@ -66,9 +95,9 @@ const Register = () => {
                                 value={formik.values.imageURL}
                                 onBlur={formik.handleBlur}
                             />
-                           {formik.touched.imageURL && formik.errors.imageURL && (
-                            <p className="text-red-500">{formik.errors.imageURL}</p>
-                           )}
+                            {formik.touched.imageURL && formik.errors.imageURL && (
+                                <p className="text-red-500">{formik.errors.imageURL}</p>
+                            )}
                         </div>
 
                         {/* Email */}
