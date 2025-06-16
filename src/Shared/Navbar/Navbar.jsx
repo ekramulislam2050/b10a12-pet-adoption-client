@@ -1,13 +1,21 @@
 import {  NavLink } from "react-router-dom";
  import logo from '../../assets/logo/logo.png.png'
+import useAuth from "@/Hooks/Auth/useAuth";
 const Navbar = () => {
-
+    const {user,logOut}=useAuth()
     const links = <>
         <li className="hover:text-[#A47149]"><NavLink to={"/"}>Home</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/petListing"}>PetListing</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/donationCampaigns"}>Donation Campaigns</NavLink></li>
-        <li className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></li>
-        <li className="hover:text-[#A47149]"><NavLink to={"/register"}>Register</NavLink></li>
+
+        {/* toggle login logout--------------- */}
+        {
+            user? <li className="hover:text-[#A47149]" onClick={logOut}>LogOut</li>
+            :
+            <li className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></li>
+        }
+        
+       
         
     </>
     return (

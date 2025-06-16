@@ -1,14 +1,25 @@
+import useAuth from "@/Hooks/Auth/useAuth";
+import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import { useFormik } from "formik"
 import { Link } from "react-router-dom";
 import *as Yup from "yup"
 
 const Login = () => {
+    const {login}=useAuth()
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        onSubmit: (values) => {
+        onSubmit: async(values) => {
+            try{
+               const user = await login(values.email,values.password)
+               if(user){
+                //   TODO:USE LOCATION--------
+               }
+            }catch(err){
+                errorMsg(err.message)
+            }
             console.log(values)
         },
         validationSchema: Yup.object({

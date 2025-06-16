@@ -1,12 +1,14 @@
 import useAuth from "@/Hooks/Auth/useAuth";
+import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
+ 
 import { useFormik } from "formik";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import *as Yup from "yup"
 
 
 const Register = () => {
     const { register } = useAuth()
-
+     const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -21,33 +23,16 @@ const Register = () => {
             email: Yup.string().email().required(),
             password: Yup.string().min(6).required()
         }),
-        onSubmit: (values) => {
-            register(values.email, values.password)
-                .then(result => {
-                    const user = result.user
-                    if (user) {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: "user successfully created",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-
-                })
-                .catch(err => {
-                    const errMsg = err.message
-                    if (errMsg) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: errMsg,
-                            footer: '<a href="#">Why do I have this issue?</a>'
-                        });
-                    }
-                })
-
+        onSubmit: async(values,{resetForm}) => {
+              try{
+                  const user = await register(values.email, values.password)
+                  if( user){
+                    resetForm()
+                    navigate('/login')
+                  }
+              }catch(err){
+                  errorMsg(err.message)
+              }
         },
 
     })
