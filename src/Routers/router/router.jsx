@@ -6,6 +6,7 @@ import Login from "@/Pages/Login/Login";
 import Register from "@/Pages/Register/Register";
 import PetListing from "@/Pages/PetListing/PetListing";
 import DonationCampaigns from "@/Pages/DonationCampaigns/DonationCampaigns";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
  
 
 
@@ -33,7 +34,7 @@ const router =createBrowserRouter([
             },
             {
                 path:"/donationCampaigns",
-                element:<DonationCampaigns></DonationCampaigns>
+                element:<PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
             }
         ]
     }

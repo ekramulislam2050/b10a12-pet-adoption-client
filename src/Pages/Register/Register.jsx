@@ -7,7 +7,7 @@ import *as Yup from "yup"
 
 
 const Register = () => {
-    const { register } = useAuth()
+    const { register,updateUser } = useAuth()
      const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -27,6 +27,7 @@ const Register = () => {
               try{
                   const user = await register(values.email, values.password)
                   if( user){
+                   await updateUser(values.name,values.imageURL)
                     resetForm()
                     navigate('/login')
                   }

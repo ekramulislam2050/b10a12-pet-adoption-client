@@ -1,15 +1,15 @@
 import auth from "@/firebaseConfig/firebase.config";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, } from "firebase/auth";
+import { createContext, useEffect, useState } from "react";
+
 
 
 export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
 
 
   // for  created user--------------------
@@ -20,14 +20,30 @@ const AuthProvider = ({ children }) => {
       const user = result.user
       if (user) {
         successMsg("Registration successful")
-        setUser(user)
+
         return user
       }
+
     } catch (err) {
       const errMsg = err.message
       errorMsg(errMsg)
     } finally {
       setLoading(false)
+    }
+  }
+
+  // for update user profile-------------------
+
+  const updateUser = async (name, photoUrl) => {
+    try {
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: photoUrl
+      })
+      successMsg('user profile updated')
+
+    } catch (err) {
+      errorMsg(err.message)
     }
   }
 
@@ -41,7 +57,7 @@ const AuthProvider = ({ children }) => {
       const user = result.user
       if (user) {
         successMsg("Login successful")
-        setUser(user)
+     
         return user
       }
     } catch (err) {
@@ -51,24 +67,43 @@ const AuthProvider = ({ children }) => {
       setLoading(false)
     }
   }
+  
 
   // for logOut -----------------
-   const logOut =async()=>{
-        try{
-            await signOut(auth)
-            setUser(null)
-            successMsg("logout successful")
-           
-        }catch(err){
-            errorMsg(err.message)
-        }
-   }
+  const logOut = async () => {
+    try {
+      setLoading(true)
+      await signOut(auth)
+      setUser(null)
+      successMsg("logout successful")
+
+    } catch (err) {
+      errorMsg(err.message)
+    }
+  }
+
+
+
+  //  for reload problem solving and get user info---------
+  useEffect(() => {
+    const unSubscriber = onAuthStateChanged(auth, (currentUser) => {
+
+
+      setUser(currentUser)
+      setLoading(false)
+
+
+    })
+    return () => unSubscriber()
+  }, [])
+
   const info = {
     register,
     loading,
     user,
     login,
-    logOut
+    logOut,
+    updateUser
   }
   return (
     <AuthContext.Provider value={info}>

@@ -1,22 +1,19 @@
-import {  NavLink } from "react-router-dom";
- import logo from '../../assets/logo/logo.png.png'
+import { NavLink } from "react-router-dom";
+import logo from '../../assets/logo/logo.png.png'
 import useAuth from "@/Hooks/Auth/useAuth";
+import { IoMdArrowDropdownCircle } from "react-icons/io";
 const Navbar = () => {
-    const {user,logOut}=useAuth()
+    const { user, logOut } = useAuth()
+    console.log(user)
     const links = <>
         <li className="hover:text-[#A47149]"><NavLink to={"/"}>Home</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/petListing"}>PetListing</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/donationCampaigns"}>Donation Campaigns</NavLink></li>
 
-        {/* toggle login logout--------------- */}
-        {
-            user? <li className="hover:text-[#A47149]" onClick={logOut}>LogOut</li>
-            :
-            <li className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></li>
-        }
-        
-       
-        
+
+
+
+
     </>
     return (
         <div className="shadow-sm navbar bg-[#FADADD] text-[#333333]">
@@ -31,10 +28,10 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                  <div  className="flex items-center space-x-2">
-                      <img src={logo} alt="adoptNest logo" className="w-14 h-14 border shadow-md border-[#A47149] rounded-full   object-contain p-1"/>
-                       <a className="text-2xl font-extrabold tracking-tighter text-[#A47149]">AdoptNest</a>
-                  </div>
+                <div className="flex items-center space-x-2">
+                    <img src={logo} alt="adoptNest logo" className="w-14 h-14 border shadow-md border-[#A47149] rounded-full   object-contain p-1" />
+                    <a className="text-2xl font-extrabold tracking-tighter text-[#A47149]">AdoptNest</a>
+                </div>
             </div>
             <div className="hidden navbar-center lg:flex">
                 <ul className="px-1 menu menu-horizontal">
@@ -43,9 +40,44 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
+
+            {/* toggle login logout--------------- */}
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <div className="pr-1">
+                    {
+                      user ? <>
+                                 <li className="hover:text-[#A47149] cursor-pointer" onClick={logOut}>LogOut</li>
+                        </>
+                            :
+                            <>
+                                 <li className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></li>
+                             </>
+                    }
+                </div>
+                {/* user img dropdown menu---------------- */}
+                {
+                   user  && <div className="flex items-center justify-center gap-1">
+                        <div className="avatar avatar-online ">
+                            <div className="rounded-full w-14 ">
+                                <img src={user.photoURL} className="w-14 h-14 border-2 shadow-md border-[#A47149] rounded-full   object-contain p-1"/>
+                            </div>
+
+                        </div>
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button">
+                                <IoMdArrowDropdownCircle className="text-xl text-[#A47149]" />
+                            </div>
+                            <ul tabIndex={0} className="mt-8 p-2 shadow-sm dropdown-content menu bg-[#FADADD] rounded-box z-1 w-52">
+                                <li><a>Item 1</a></li>
+                                <li><a>Item 2</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+
             </div>
+
+
         </div>
     );
 };

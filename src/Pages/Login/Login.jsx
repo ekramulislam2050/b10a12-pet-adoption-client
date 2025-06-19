@@ -1,27 +1,44 @@
 import useAuth from "@/Hooks/Auth/useAuth";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import { useFormik } from "formik"
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import *as Yup from "yup"
 
 const Login = () => {
     const {login}=useAuth()
+    const navigate = useNavigate()
+    const location=useLocation()
+    const from = location?.state?.from?.pathname || "/"
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
+        
         onSubmit: async(values) => {
             try{
                const user = await login(values.email,values.password)
                if(user){
-                //   TODO:USE LOCATION--------
+                 
+                 const res = await fetch("http://localhost:5000/jwt",{
+                    method:"POST",
+                    headers:{"content-type":"application/json"},
+                    body:JSON.stringify({email:user.email})
+                 })
+            
+                 const data =await res.json();
+                 if(data.token){
+                    localStorage.setItem("accessToken",data.token)
+                 }
+
+                 navigate(from,{replace:true})
                }
             }catch(err){
                 errorMsg(err.message)
             }
-            console.log(values)
+            // console.log(values)
         },
+        
         validationSchema: Yup.object({
             email:Yup.string().required(),
             password:Yup.string().min(6).required()
@@ -79,8 +96,8 @@ const Login = () => {
                         </div>
                           <div className="my-1">
                              <Link to={"/register"}>
-                                  <p className="flex items-center justify-center">have an account?
-                                  <span className="text-red-500">Register</span>    
+                                  <p className="flex items-center justify-center gap-1 text-sm"> Do not have an account?
+                                  <span className="font-semibold text-red-500 underline">Register</span>    
                                 
                                </p>
                              </Link>
