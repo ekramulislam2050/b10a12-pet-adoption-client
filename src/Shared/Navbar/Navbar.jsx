@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from '../../assets/logo/logo.png.png'
 import useAuth from "@/Hooks/Auth/useAuth";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
@@ -45,21 +45,17 @@ const Navbar = () => {
             <div className="navbar-end">
                 <div className="pr-1">
                     {
-                      user ? <>
-                                 <li className="hover:text-[#A47149] cursor-pointer" onClick={logOut}>LogOut</li>
-                        </>
-                            :
-                            <>
-                                 <li className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></li>
-                             </>
+                        !user ?
+                            <button className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></button> : ""
+                            
                     }
                 </div>
                 {/* user img dropdown menu---------------- */}
                 {
-                   user  && <div className="flex items-center justify-center gap-1">
+                    user && <div className="flex items-center justify-center gap-1">
                         <div className="avatar avatar-online ">
                             <div className="rounded-full w-14 ">
-                                <img src={user.photoURL} className="w-14 h-14 border-2 shadow-md border-[#A47149] rounded-full   object-contain p-1"/>
+                                <img src={user?.photoURL} className="w-14 h-14 border-2 shadow-md border-[#A47149] rounded-full   object-contain p-1" />
                             </div>
 
                         </div>
@@ -67,9 +63,11 @@ const Navbar = () => {
                             <div tabIndex={0} role="button">
                                 <IoMdArrowDropdownCircle className="text-xl text-[#A47149]" />
                             </div>
-                            <ul tabIndex={0} className="mt-8 p-2 shadow-sm dropdown-content menu bg-[#FADADD] rounded-box z-1 w-52">
-                                <li><a>Item 1</a></li>
-                                <li><a>Item 2</a></li>
+                            <ul tabIndex={0} className="mt-8 p-2 shadow-sm dropdown-content menu bg-[#A47149] rounded-box z-1 w-52">
+                                <li><Link to={"/dashboard"} className="text-[#fff] cursor-pointer">Dashboard</Link></li>
+                                <li>
+                                    <button className="text-[#fff] cursor-pointer" onClick={logOut}>LogOut</button>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -24,6 +24,7 @@ const useAxiosSecure = () => {
                 return config
             },
             (error) => {
+                console.log("err form request interceptors")
                 return Promise.reject(error)
             }
         )

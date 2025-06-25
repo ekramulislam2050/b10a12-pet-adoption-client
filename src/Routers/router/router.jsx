@@ -7,6 +7,7 @@ import Register from "@/Pages/Register/Register";
 import PetListing from "@/Pages/PetListing/PetListing";
 import DonationCampaigns from "@/Pages/DonationCampaigns/DonationCampaigns";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import Dashboard from "@/Pages/Dashboard/Dashboard";
  
 
 
@@ -32,9 +33,13 @@ const router =createBrowserRouter([
                 path:"/petListing",
                 element:<PetListing></PetListing>
             },
-            {
+            {   
                 path:"/donationCampaigns",
                 element:<PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
+            },
+            {
+                path:"/dashboard",
+                element:<Dashboard></Dashboard>
             }
         ]
     }

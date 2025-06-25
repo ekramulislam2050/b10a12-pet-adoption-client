@@ -1,10 +1,10 @@
 import auth from "@/firebaseConfig/firebase.config";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, } from "firebase/auth";
+import { createUserWithEmailAndPassword, FacebookAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 
-
+// E&f1990
 
 export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
     }
   }
 
-  // for login user----------------
+  // for login  ----------------
 
   const login = async (email, password) => {
     try {
@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
       const user = result.user
       if (user) {
         successMsg("Login successful")
-     
+
         return user
       }
     } catch (err) {
@@ -67,7 +67,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false)
     }
   }
-  
+
 
   // for logOut -----------------
   const logOut = async () => {
@@ -79,18 +79,74 @@ const AuthProvider = ({ children }) => {
 
     } catch (err) {
       errorMsg(err.message)
+    }finally{
+      setLoading(false)
     }
   }
 
+  //  login by google-----------------
+  const provider = new GoogleAuthProvider()
+  const loginByGoogle = async () => {
+    try {
+      setLoading(true)
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+      if (user) {
+        successMsg("login successful by google")
+        return user
+      }
+    } catch (err) {
+      errorMsg(err.message)
+    }finally{
+      setLoading(false)
+    }
 
+  }
+
+  // facebook login----------------------------
+     const facebookProvider = new FacebookAuthProvider()
+    const loginByFB=async()=>{
+        try{
+             setLoading(true)
+              const result = await signInWithPopup(auth,facebookProvider)
+               const user = result.user
+               if(user){
+                 successMsg("login by facebook successful")
+                 return user
+               }
+        }catch(err){
+          errorMsg(err.message)
+        }finally{
+          setLoading(false)
+        }
+    }
 
   //  for reload problem solving and get user info---------
   useEffect(() => {
-    const unSubscriber = onAuthStateChanged(auth, (currentUser) => {
+    const unSubscriber = onAuthStateChanged(auth, async (currentUser) => {
+        setLoading(true)
+      try {
+        if (currentUser) {
+            const res = await fetch("http://localhost:5000/jwt", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ email: currentUser.email })
+          })
 
+          const data = await res.json();
+          if (data.token) {
+            localStorage.setItem("accessToken", data.token)
+          }
 
-      setUser(currentUser)
-      setLoading(false)
+         setUser(currentUser)
+     
+        }
+      } catch (err) {
+        errorMsg(err.message)
+      }finally{
+                 setLoading(false)
+      }
+
 
 
     })
@@ -103,7 +159,9 @@ const AuthProvider = ({ children }) => {
     user,
     login,
     logOut,
-    updateUser
+    updateUser,
+    loginByGoogle,
+    loginByFB
   }
   return (
     <AuthContext.Provider value={info}>

@@ -5,10 +5,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import *as Yup from "yup"
 
 const Login = () => {
-    const {login}=useAuth()
+    const {login,loginByGoogle,loginByFB}=useAuth()
     const navigate = useNavigate()
     const location=useLocation()
     const from = location?.state?.from?.pathname || "/"
+     
+    // use formik------------------
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -18,21 +20,10 @@ const Login = () => {
         onSubmit: async(values) => {
             try{
                const user = await login(values.email,values.password)
-               if(user){
-                 
-                 const res = await fetch("http://localhost:5000/jwt",{
-                    method:"POST",
-                    headers:{"content-type":"application/json"},
-                    body:JSON.stringify({email:user.email})
-                 })
-            
-                 const data =await res.json();
-                 if(data.token){
-                    localStorage.setItem("accessToken",data.token)
+                 if(user){
+                     navigate(from,{replace:true})
                  }
-
-                 navigate(from,{replace:true})
-               }
+              
             }catch(err){
                 errorMsg(err.message)
             }
@@ -45,6 +36,31 @@ const Login = () => {
         })
      
     })
+
+    // handle google login--------------
+      const handleGoogleLogin = async()=>{
+         try{
+              const user = await loginByGoogle()
+               if( user){
+                  navigate(from,{replace:true})
+               }
+         }catch(err){
+            errorMsg(err.message)
+         }
+      }
+
+    // handle facebook login---------------
+
+    const handleFacebookLogin=async()=>{
+       try{
+          const user = await loginByFB()
+          if(user){
+            navigate(from,{replace:true})
+          }
+       }catch(err){
+        errorMsg(err.message)
+       }
+    }
     
     return (
         <div className="flex items-center justify-center min-h-screen ">
@@ -108,7 +124,20 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
-
+                      <div className="divider">OR</div>
+                      {/* google login------------- */}
+                      <div>
+                          <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]" onClick={handleGoogleLogin}>
+                                Login By Google
+                            </button>
+                      </div>
+                      <div className="divider">OR</div>
+                      {/* facebook login------------- */}
+                      <div>
+                          <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]" onClick={handleFacebookLogin}>
+                                Login By Facebook
+                            </button>
+                      </div>
 
                 </div>
             </div>
