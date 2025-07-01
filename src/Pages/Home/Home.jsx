@@ -1,5 +1,6 @@
 import Banner from "@/Components/Banner/Banner";
 import Category from "@/Components/Category/Category";
+import Inspiration from "@/Components/Inspiration/Inspiration";
 
 
  const Home = () => {
@@ -7,6 +8,7 @@ import Category from "@/Components/Category/Category";
         <div>
             <Banner></Banner>
             <Category></Category>
+            <Inspiration></Inspiration>
         </div>
     );
 };
