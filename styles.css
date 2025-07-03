@@ -29,3 +29,7 @@
   stroke-dashoffset: calc(125.6 * (1 - var(--progress)));
   transition: stroke-dashoffset 0.25s linear;
 }
+
+
+ 
+  
