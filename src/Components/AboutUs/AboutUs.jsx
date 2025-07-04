@@ -7,12 +7,14 @@ import OurMission from "../OurMission/OurMission";
 import HowItWork from "../HowItWork/HowItWork";
 import WhyItBuiltThis from "../WhyItBuiltThis/WhyItBuiltThis";
 
+
+
 const tabs = [
-    { icon: "🐶", label: "About Team" ,content:<AboutTeam></AboutTeam>},
-    { icon: "🐱", label: "Who We Are",content:<WhoWeAre></WhoWeAre> },
-    { icon: "🐰", label: "Our Mission" ,content:<OurMission></OurMission>},
-    { icon: "🐱", label: "How It Work",content:<HowItWork></HowItWork> },
-    { icon: "🐰", label: "Why we Built This",content:<WhyItBuiltThis></WhyItBuiltThis> },
+    { label: "About Team", content: <AboutTeam></AboutTeam> },
+    { label: "Who We Are", content: <WhoWeAre></WhoWeAre> },
+    { label: "Our Mission", content: <OurMission></OurMission> },
+    { label: "How It Work", content: <HowItWork></HowItWork> },
+    { label: "Why we Built This", content: <WhyItBuiltThis></WhyItBuiltThis> },
 ];
 
 
@@ -28,7 +30,7 @@ const AboutUs = () => {
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
-                className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#607f33] p-2 sm:p-3 rounded-full"
+                className="w-14 h-14 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#607f33] p-2 sm:p-3 rounded-full"
                 fill="black"
             >
                 <path
@@ -45,33 +47,38 @@ const AboutUs = () => {
 
             {/* --------------------------- */}
             <div className="w-[98%] flex flex-col items-center justify-center border border-red-500">
-                <nav  className="flex justify-center w-full ">
-                    <div className="max-w-full overflow-x-auto scrollbar-thin scrollbar-thumb-[#607f33] scrollbar-track-[#607f33]">
-                        <ul className="flex gap-1 w-max whitespace-nowrap">
-                        {tabs.map((item) => (
-                            <motion.li
-                                key={item.label}
-                                initial={false}
-                                animate={{
-                                    backgroundColor:
-                                        item === selectedTab ? "#607f33" : "#A47149",
-                                }}
-                              
-                                onClick={() => setSelectedTab(item)}
-                                className="text-[#ffffff] rounded-full px-3 py-[2px] text-[16px] cursor-pointer"
-                            >
-                                {`${item.icon} ${item.label}`}
-                                {item === selectedTab ? (
-                                    <motion.div
-                                       
-                                        layoutId="underline"
-                                        id="underline"
-                                    />
-                                ) : null}
-                            </motion.li>
-                        ))}
-                    </ul>
+                <nav className="flex justify-center w-full ">
+                    <div className="lg:w-[45%] lg:h-[15vh] overflow-x-scroll md:w-[60%]  md:h-[15vh]  ">
+                        <ul className="flex gap-1 px-2 py-2 w-max whitespace-nowrap">
+                            {tabs.map((item) => (
+                                <motion.li
+                                    key={item.label}
+                                    initial={false}
+                                    animate={{
+                                        backgroundColor:
+                                            item === selectedTab ? "#607f33" : "#A47149",
+                                    }}
+
+                                    onClick={() => setSelectedTab(item)}
+                                    className="text-[#ffffff] rounded-full px-3 py-[2px] text-[16px] cursor-pointer"
+                                >
+                                    {`${item.label}`}
+                                    {item === selectedTab ? (
+                                        <motion.div
+
+                                            layoutId="underline"
+                                            id="underline"
+                                        />
+                                    ) : null}
+                                </motion.li>
+                            ))}
+                        </ul>
+                        <div className="flex justify-center text-sm font-semibold text-orange-300 animate-pulse ">
+                            ⇆ Drag
+                        </div>
                     </div>
+
+
                 </nav>
                 <main className="w-full  h-[70vh] flex items-center justify-center" >
                     <AnimatePresence mode="wait">
@@ -81,7 +88,7 @@ const AboutUs = () => {
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -10, opacity: 0 }}
                             transition={{ duration: 0.2 }}
-                            
+
                         >
                             {selectedTab ? selectedTab.content : "😋"}
                         </motion.div>
@@ -90,7 +97,7 @@ const AboutUs = () => {
             </div>
 
 
-           
+
 
 
         </div>
