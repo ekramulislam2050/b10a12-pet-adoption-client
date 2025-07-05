@@ -46,7 +46,7 @@ const AboutUs = () => {
             <Heading headingMsg={"About Us"} />
 
             {/* --------------------------- */}
-            <div className="w-[98%] flex flex-col items-center justify-center border border-red-500">
+            <div className="w-[98%] flex flex-col items-center justify-center ">
                 <nav className="flex justify-center w-full ">
                     <div className="lg:w-[45%] lg:h-[15vh] overflow-x-scroll md:w-[60%]  md:h-[15vh]  ">
                         <ul className="flex gap-1 px-2 py-2 w-max whitespace-nowrap">
@@ -80,7 +80,7 @@ const AboutUs = () => {
 
 
                 </nav>
-                <main className="w-full  h-[70vh] flex items-center justify-center" >
+                <main className="flex items-center justify-center w-full" >
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={selectedTab ? selectedTab.label : "empty"}

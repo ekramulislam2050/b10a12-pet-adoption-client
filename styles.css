@@ -30,3 +30,56 @@
   transition: stroke-dashoffset 0.25s linear;
 }
 
+/* animated border-------------------- */
+.border-1 {
+
+  padding: 3px;
+  position: relative;
+
+  border-radius: 12px;
+  background: conic-gradient(from var(--angle),
+  
+      #65a30d 0deg,
+      #8bc34a 60deg,
+      #A47149 120deg,
+      #65a30d 360deg);
+  animation: 3s spin linear infinite;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.border-1::after,
+.border-1::before {
+
+  content: '';
+  border-radius: 10px;
+  margin: 5px;
+  background: black;
+  position: absolute;
+  padding: 5px;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+}
+
+.border-1::before {
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+
+  to {
+    --angle: 360deg;
+  }
+}
