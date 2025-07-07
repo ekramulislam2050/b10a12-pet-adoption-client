@@ -5,7 +5,7 @@ import AboutTeam from "../AboutTeam/AboutTeam";
 import WhoWeAre from "../WhoWeAre/WhoWeAre";
 import OurMission from "../OurMission/OurMission";
 import HowItWork from "../HowItWork/HowItWork";
-import WhyItBuiltThis from "../WhyItBuiltThis/WhyItBuiltThis";
+import WhyWeBuiltThis from "../WhyWeBuiltThis/WhyWeBuiltThis";
 
 
 
@@ -14,7 +14,7 @@ const tabs = [
     { label: "Who We Are", content: <WhoWeAre></WhoWeAre> },
     { label: "Our Mission", content: <OurMission></OurMission> },
     { label: "How It Work", content: <HowItWork></HowItWork> },
-    { label: "Why we Built This", content: <WhyItBuiltThis></WhyItBuiltThis> },
+    { label: "Why We Built This", content: <WhyWeBuiltThis></WhyWeBuiltThis> },
 ];
 
 
