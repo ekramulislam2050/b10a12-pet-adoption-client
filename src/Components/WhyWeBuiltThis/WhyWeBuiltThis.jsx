@@ -72,7 +72,8 @@ const WhyWeBuiltThis = () => {
         {/* card----overly---------------------- */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 py-8 overflow-y-auto text-white">
 
-          <h2 className="mb-8 text-4xl md:text-5xl font-bold text-center font-[kapakana] drop-shadow-xl">🐾 How It Works</h2>
+          <h2 className="mb-8 text-4xl md:text-5xl font-bold text-center font-[kapakana] drop-shadow-xl">🐾 Why We Built This</h2>
+          {/* card------------------- */}
           <div className="grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {
               cardData.map((data, index) => <div key={index} className="p-6 text-center text-gray-800 transition bg-white shadow-md bg-opacity-90 rounded-xl hover:shadow-lg ">
@@ -82,6 +83,7 @@ const WhyWeBuiltThis = () => {
               </div>)
             }
           </div>
+          
         </div>
       </div>
 

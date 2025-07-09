@@ -26,6 +26,7 @@ const HowItWork = () => {
     return (
         <div className="min-h-screen w-full bg-gradient-to-b from-[#A47149] to-[#607f33] py-16 px-6 flex flex-col justify-center items-center mt-5">
             <h2 className="mb-12 text-5xl font-bold text-center text-white font-[kapakana]">🐾 How It Works</h2>
+            {/* card-------------- */}
             <div className="grid max-w-6xl grid-cols-1 gap-8 mx- auto md:grid-cols-2 lg:grid-cols-4">
                 {
                     cardData.map((data, index) => <div key={index} className="p-6 text-center transition duration-300 bg-[#ffffff] shadow-md rounded-xl hover:shadow-xl">

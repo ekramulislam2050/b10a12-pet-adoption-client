@@ -12,6 +12,7 @@ import Cats from "@/Pages/Cats/Cats";
 import Dogs from "@/Pages/Dogs/Dogs";
 import Rabbits from "@/Pages/Rabbits/Rabbits";
 import Fish from "@/Pages/Fish/Fish";
+import PetCareTipsDetails from "@/Pages/PetCareTipsDetails/PetCareTipsDetails";
  
 
 
@@ -60,6 +61,10 @@ const router =createBrowserRouter([
             {
                 path:"/fish",
                 element:<Fish></Fish>
+            },
+            {
+                path:"/petCareTipsDetails",
+                element:<PetCareTipsDetails></PetCareTipsDetails>
             }
         ]
     }
