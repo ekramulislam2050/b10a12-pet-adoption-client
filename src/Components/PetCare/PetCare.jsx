@@ -1,6 +1,6 @@
 import { FaPaw } from "react-icons/fa";
 import img from "../../assets/logo/Screenshot (5).png"
-import Marquee from "react-fast-marquee";
+
 import {
     FaStethoscope, FaUtensils, FaDog, FaShower, FaSyringe,
     FaHeart, FaBan, FaBed
