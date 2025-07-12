@@ -1,0 +1,83 @@
+[
+    {
+    "name": "Luna",
+    "category": "Cat",
+    "age": "2 years",
+    "location": "Dhaka",
+    "image": "https://i.ibb.co/8nDTsz6d/alvan-nee-ZCHj-2l-JP00-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-20T12:00:00Z",
+    "value":"200"
+  },
+  {
+    "name": "Milo",
+    "category": "Cat",
+    "age": "1 year",
+    "location": "Chattogram",
+    "image": "https://i.ibb.co/d4BG2kgp/erik-jan-leusink-Ib-Px-GLg-Ji-MI-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-21T12:00:00Z",
+    "value":"100"
+  },
+   {
+    "name": "Buddy",
+    "category": "Dog",
+    "age": "3 years",
+    "location": "Dhaka",
+    "image": "https://i.ibb.co/DfmZCZRJ/adam-griffith-s-Wkk-Ii-TJMYc-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-20T10:00:00Z",
+    "value":"250"
+  },
+  {
+    "name": "Charlie",
+    "category": "Dog",
+    "age": "2 years",
+    "location": "Chattogram",
+    "image": "https://i.ibb.co/Hp7CnDrs/ahmer-kalam-B3-QKG1t-Rd-KA-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-21T10:00:00Z",
+    "value":"300"
+  },
+  {
+    "name": "Thumper",
+    "category": "Rabbit",
+    "age": "6 months",
+    "location": "Dhaka",
+    "image": "https://i.ibb.co/FLB8D14S/christopher-paul-high-z-Xb8-X-9hp0-M-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-20T13:00:00Z",
+    "value":"150"
+  },
+  {
+    "name": "Snowball",
+    "category": "Rabbit",
+    "age": "1 year",
+    "location": "Chattogram",
+    "image": "https://i.ibb.co/nN2b82TV/erik-jan-leusink-SDX4-KWIb-A-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-21T13:00:00Z",
+    "value":"220"
+  }, 
+  {
+    "name": "Goldie",
+    "category": "Fish",
+    "age": "3 months",
+    "location": "Dhaka",
+    "image": "https://i.ibb.co/NdF62kBg/claudio-guglieri-K2-RH1-QZd-LF4-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-20T14:00:00Z",
+    "value":"320"
+  },
+  {
+    "name": "Bubbles",
+    "category": "Fish",
+    "age": "2 months",
+    "location": "Chattogram",
+    "image": "https://i.ibb.co/XGbJ3p5/david-clode-9-Fv-TOCfvt-w-unsplash.jpg",
+    "adopted": false,
+    "postedDate": "2025-06-21T14:00:00Z",
+    "value":"260"
+  }
+ 
+]

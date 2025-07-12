@@ -17,6 +17,7 @@
     "flubber": "^0.4.2",
     "formik": "^2.4.6",
     "framer-motion": "^12.23.0",
+    "keen-slider": "^6.8.6",
     "localforage": "^1.10.0",
     "match-sorter": "^8.0.2",
     "motion": "^12.23.0",

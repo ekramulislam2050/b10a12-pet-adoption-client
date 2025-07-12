@@ -83,3 +83,121 @@
     --angle: 360deg;
   }
 }
+
+/* 3d carousel----------------- */
+
+  [class^="number-slide"],
+[class*=" number-slide"] {
+  background: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #fff;
+  font-weight: 500;
+  height: 200px;
+  max-height: 100vh;
+}
+
+.number-slide1 {
+  background-image: url("https://i.ibb.co/cSLdMVfz/zoe-gayah-jonker-G7k-UPmzi80-E-unsplash.jpg");
+  background-size: cover;
+ 
+}
+
+.number-slide2 {
+    background-image: url("https://i.ibb.co/cWT6rWS/lloyd-dirks-R1o-Sj2m-7-Ks-unsplash.jpg");
+      background-size: cover;
+  
+}
+
+.number-slide3 {
+    background-image: url("https://i.ibb.co/DfmZCZRJ/adam-griffith-s-Wkk-Ii-TJMYc-unsplash.jpg");
+      background-size: cover;
+  
+ 
+}
+
+.number-slide4 {
+    background-image: url("https://i.ibb.co/6cZWSbCC/nathan-dumlao-y-CKKd37-Osg-I-unsplash.jpg");
+      background-size: cover;
+  
+}
+
+.number-slide5 {
+    background-image: url("https://i.ibb.co/FLB8D14S/christopher-paul-high-z-Xb8-X-9hp0-M-unsplash.jpg");
+      background-size: cover;
+  
+}
+
+.number-slide6 {
+    background-image: url("https://i.ibb.co/Xxkkb3LW/janan-302xfi-IGOf-E-unsplash.jpg");
+      background-size: cover;
+       
+ 
+} 
+
+.number-slide7 {
+    background-image: url("https://i.ibb.co/Q3nC5n71/kyaw-tun-n-I3b-UW1-Xqik-unsplash.jpg");
+      background-size: cover;
+      
+ 
+}
+
+.number-slide8 {
+    background-image: url("https://i.ibb.co/8Df3yQGG/david-clode-EDf-Z0-Sjmp-w-unsplash.jpg");
+    background-size: cover;
+  
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+.scene {
+  width: 260px;
+  height: 200px;
+  perspective: 1000px;
+  position: relative;
+}
+.scene .carousel.keen-slider {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: visible;
+  transform: translateZ(-288px);
+  transform-style: preserve-3d;
+}
+ 
+
+ 
+  .carousel__cell{
+  position: absolute;
+  width: 300px;
+  height: 350px;
+  margin:0 auto;
+  left: -6%;
+}
+ 
+
+@media (min-width:1024px) {
+  .carousel__cell {
+ 
+   position: absolute;
+   width: 350px;
+   height: 500px;
+  
+}
+}
+
+@media (min-width:640px) {
+.carousel__cell{
+    position: absolute;
+    width:300px;
+    height: 400px;
+     
+ 
+
+   }
+} 
+
