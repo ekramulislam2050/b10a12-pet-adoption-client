@@ -57,7 +57,7 @@ const PetCare = () => {
 
     return (
         <div>
-            <div className="flex flex-col items-center ">
+            <div className="flex flex-col items-center mt-5">
                 <div className="w-[340px] h-[300px] p-5  relative">
                     <img src={img} alt="img" className="object-cover w-full h-full" />
                     <h1 className="absolute font-[kapakana] text-5xl font-semibold text-[#f7921e] top-20 translate-x-20">Pet Care Tips</h1>

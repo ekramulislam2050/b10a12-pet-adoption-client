@@ -3,7 +3,7 @@ import leaf from "../../assets/logo/leaf213.jpg"
 const Heading = ({headingMsg}) => {
     return (
         <div className="relative flex items-center justify-center px-4 mt-8">
-            <h2 className="text-[#A47149] font-semibold text-center  text-4xl md:text-5xl sm:text-4xl lg:text-6xl xl:text-7xl mb-4 absolute -top-9"
+            <h2 className="text-[#A47149] font-semibold text-center  text-5xl md:text-5xl sm:text-4xl lg:text-6xl xl:text-7xl absolute -top-9 tracking-wide"
                 style={{ fontFamily: "kapakana,sens-serif" }}
             >{headingMsg}</h2>
 

@@ -30,7 +30,7 @@ const AboutUs = () => {
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
-                className="w-14 h-14 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 bg-[#607f33] p-2 sm:p-3 rounded-full"
+                className="w-16 h-16 sm:w-18 sm:h-18 md:w-18 md:h-18 lg:w-20 lg:h-20 bg-[#607f33] p-2  rounded-full"
                 fill="black"
             >
                 <path

@@ -11,18 +11,18 @@ import img5 from "../../assets/inspirational-img/gettyimages-2149058679-612x612.
 
 const Inspiration = () => {
     return (
-        <div className="flex flex-col items-center px-4 py-10 space-y-6 md:px-8 lg:px-16">
+        <div className="flex flex-col items-center px-4 pt-3 space-y-6 md:px-8 lg:px-16 md:pt-12">
             {/* heading---------------- */}
-            <div className="w-full space-y-4">
+            <div className="w-full space-y-1">
                 <div className="relative flex justify-center">
 
-                    <img src="https://i.ibb.co/JRhkGZQx/9007065.png" alt="" className="lg:h-[300px] h-[150px] md:h-[250px]" />
+                    <img src="https://i.ibb.co/JRhkGZQx/9007065.png" alt="" className="lg:h-[300px] h-[250px] md:h-[250px]" />
 
-                    <p className="lg:text-4xl text-[#A47149] text-center absolute top-1/2 font-[kapakana,sens-serif] font-semibold md:text-3xl text-xl -translate-y-1/2">Be Kind. Adopt.</p>
+                    <p className="lg:text-4xl text-[#A47149] text-center absolute top-1/2 font-[kapakana,sens-serif] font-semibold md:text-3xl text-3xl -translate-y-1/2 tracking-wide">Be Kind. Adopt.</p>
 
                 </div>
                 <div className="mb-2 text-center md:mb-6">
-                    <p className="text-lg md:text-2xl lg:text-3xl font-[kapakana,sens-serif]  text-[#A47149]">Adopt a pet today and change a life — theirs and yours.</p>
+                    <p className="text-3xl md:text-4xl lg:text-4xl font-[kapakana,sens-serif]  text-[#A47149] font-semibold tracking-wide">Adopt a pet today and change a life — theirs and yours.</p>
                 </div>
             </div>
             <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">

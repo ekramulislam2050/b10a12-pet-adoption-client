@@ -39,7 +39,7 @@ const CategorySpotlight = () => {
     return (
 
 
-        <div className="mb-[50vh] flex flex-col items-center justify-center ">
+        <div className="mb-[30vh] flex flex-col items-center justify-center ">
             <h1 className="pb-4 text-3xl sm:text-4xl text-[#A47149]">Category Spotlight</h1>
             <b className="pb-4 text-red-500 animate-pulse">🎯 Swipe or drag to rotate the 3D carousel.</b>
             <div className=" wrapper">

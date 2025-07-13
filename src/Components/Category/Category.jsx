@@ -3,14 +3,22 @@ import cat from "../../assets/category icon/icons8-cat-face-48.png"
 import dog from "../../assets/category icon/icons8-dog-100.png"
 import rabbit from "../../assets/category icon/icons8-rabbit-48.png"
 import fish from "../../assets/category icon/icons8-fish-60.png"
-
+import leaf from "../../assets/logo/leaf213.jpg"
 import { Link } from "react-router-dom"
-import Heading from "../Heading/Heading"
+
 
 const Category = () => {
   return (
-    <div className="py-10 text-center">
-           <Heading headingMsg={'Explore Your Cute Pet Categories'}></Heading>
+    <div className="pt-12 text-center sm:pt-8">
+      <div className="relative flex items-center justify-center px-4 mt-8">
+        <h2 className="text-[#A47149] font-semibold text-center  text-5xl md:text-5xl sm:text-4xl lg:text-6xl xl:text-7xl absolute -top-20 tracking-wide sm:-top-10"
+          style={{ fontFamily: "kapakana,sens-serif" }}
+        >Explore Your Cute Pet Categories</h2>
+
+        <img src={leaf} alt="leaf" className='w-full h-auto max-w-[600px] object-contain' />
+      </div>
+
+      
       {/* category card-------------------- */}
       <div className="flex justify-center gap-1">
 

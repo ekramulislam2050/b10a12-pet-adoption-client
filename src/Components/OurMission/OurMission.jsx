@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const OurMission = () => {
   return (
-    <div>
+    <div className="mb-10">
       <h2 className="mt-5 text-4xl text-center">🌟<b className="font-[kapakana] text-5xl text-[#607f33]"> Our Mission</b></h2>
       <div style={container} className="grid grid-cols-1 gap-8 px-4 py-16 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
           
