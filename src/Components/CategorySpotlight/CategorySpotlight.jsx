@@ -1,5 +1,4 @@
-import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
-import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
+
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import '/styles.css'

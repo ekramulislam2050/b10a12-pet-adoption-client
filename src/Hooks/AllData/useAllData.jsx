@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../AxiosSecure/useAxiosSecure";
-import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
-import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
+
 
  
 

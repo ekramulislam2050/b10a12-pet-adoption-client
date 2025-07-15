@@ -13,6 +13,7 @@ import Dogs from "@/Pages/Dogs/Dogs";
 import Rabbits from "@/Pages/Rabbits/Rabbits";
 import Fish from "@/Pages/Fish/Fish";
 import PetCareTipsDetails from "@/Pages/PetCareTipsDetails/PetCareTipsDetails";
+import PetDetails from "@/Pages/PetDetails/PetDetails";
  
 
 
@@ -65,6 +66,11 @@ const router =createBrowserRouter([
             {
                 path:"/petCareTipsDetails",
                 element:<PetCareTipsDetails></PetCareTipsDetails>
+            },
+            {
+                path:'/petDetails/:id',
+                element:<PetDetails></PetDetails>,
+                loader:({params})=>fetch(`http://localhost:5000/allpet/${params.id}`)
             }
         ]
     }

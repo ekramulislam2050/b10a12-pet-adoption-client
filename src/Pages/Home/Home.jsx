@@ -12,7 +12,7 @@ import SuccessChart from "@/Components/SuccessChart/SuccessChart";
         <div className="overflow-hidden">
             <Banner></Banner>
             <Category></Category>
-             <CategorySpotlight></CategorySpotlight>
+             {/* <CategorySpotlight></CategorySpotlight> */}
             <Inspiration></Inspiration>
             <AboutUs></AboutUs>
             <PetCare></PetCare>
