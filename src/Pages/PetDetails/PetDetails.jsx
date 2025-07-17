@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import img1 from "../../assets/Pet-Care-img/care-1.png"
 import img2 from "../../assets/Pet-Care-img/care-2.png"
+import Modal from "@/Components/Modal/Modal";
 
 const PetDetails = () => {
     const { id } = useParams()
@@ -26,7 +27,7 @@ const PetDetails = () => {
     }
 
     const { name, age, category, image, location, postedDate, _id } = data || {}
-    console.log(data)
+    // console.log(data)
     return (
         <div className="min-h-screen ">
             <div className="flex flex-col items-center mt-5">
@@ -48,12 +49,15 @@ const PetDetails = () => {
                             <div>🐾 <strong>Category:</strong> {category}</div>
                             <div>📍 <strong>location:</strong> {location}</div>
                             <div>📅 <strong>postedDate:</strong> {postedDate}</div>
+                            <div>🆔 <strong>Id:</strong> {_id}</div>
                             <p className="text-lg text-gray-700">
                                 {name} is a lovely <span className="font-semibold text-red-500">{category}</span> looking for a caring home.
                                 With a friendly personality and gentle nature, this pet would make a wonderful companion.
                             </p>
                         </div>
-                        <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide">Adopt</button>
+                         {/* Open the modal using document.getElementById('ID').showModal() method */}
+                        <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_5').showModal()}>Adopt Now</button>
+                         <Modal data={data}></Modal>
                     </div>
                 </div>
             </div>
