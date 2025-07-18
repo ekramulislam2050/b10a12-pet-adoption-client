@@ -2,12 +2,13 @@ import useAxiosPublic from "@/Hooks/AxiosPublic/UseAxiosPublic";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import img1 from "../../assets/Pet-Care-img/care-1.png"
 import img2 from "../../assets/Pet-Care-img/care-2.png"
 import Modal from "@/Components/Modal/Modal";
 
 const PetDetails = () => {
+   
     const { id } = useParams()
     // console.log(id)
     const axiosPublic = useAxiosPublic()

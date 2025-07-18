@@ -1,7 +1,7 @@
 import useAllData from "@/Hooks/AllData/useAllData";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
-import PetListing from "../PetListing/PetListing";
+
 import PetSwiper from "@/Components/Swiper/PetSwiper";
 import Heading from "@/Components/Heading/Heading";
 

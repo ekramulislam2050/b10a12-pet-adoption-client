@@ -1,21 +1,28 @@
 import useAuth from '@/Hooks/Auth/useAuth';
 import { Formik, Field, Form } from 'formik';
-
 import img2 from "../../assets/Pet-Care-img/care-2.png"
 import useAxiosPublic from '@/Hooks/AxiosPublic/useAxiosPublic';
 import successMsg from '@/ReUseAbleFunction/SuccessMsg/successMsg';
 import errorMsg from '@/ReUseAbleFunction/ErrorMsg/errorMsg';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Modal = ({ data }) => {
+    const navigate = useNavigate()
     const modalRef = useRef()
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
-    console.log(user)
-    const { name, age, category, image, location, postedDate, _id } = data || {}
-    // console.log(data)
+    // console.log(user)
+    const { name, image, _id, category } = data || {}
+    // console.log(category)
+    const categoryToPath = {
+        Dog: "dogs",
+        Cat: "cats",
+        Rabbit: "rabbits",
+        Fish: "fish"
+    }
     return (
         <dialog ref={modalRef} id="my_modal_5" className="modal modal-bottom sm:modal-middle">
 
@@ -31,8 +38,8 @@ const Modal = ({ data }) => {
                         petName: name,
                         petImg: image,
                         petId: _id,
-                        userName: user?.displayName || '',
-                        userEmail: user?.email || "",
+                        userName: user?.displayName || 'loading from firebase',
+                        userEmail: user?.email || "loading from firebase",
                         userPhone: "",
                         userAddress: ""
                     }}
@@ -46,6 +53,8 @@ const Modal = ({ data }) => {
                                 //  modal close---------
                                 modalRef.current.close()
                                 document.activeElement?.blur()
+                                // navigate to same category---------
+                                navigate(`/${categoryToPath[category]}`)
                             }
 
 
