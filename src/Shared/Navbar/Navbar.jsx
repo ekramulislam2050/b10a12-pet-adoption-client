@@ -9,6 +9,7 @@ const Navbar = () => {
         <li className="hover:text-[#A47149]"><NavLink to={"/"}>Home</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/petListing"}>PetListing</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/donationCampaigns"}>Donation Campaigns</NavLink></li>
+        <li className="hover:text-[#A47149]"><NavLink to={"/dashboard"}>Dashboard</NavLink></li>
 
 
 
@@ -47,7 +48,7 @@ const Navbar = () => {
                     {
                         !user ?
                             <button className="hover:text-[#A47149]"><NavLink to={"/login"}>Login</NavLink></button> : ""
-                            
+
                     }
                 </div>
                 {/* user img dropdown menu---------------- */}

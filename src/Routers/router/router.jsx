@@ -14,6 +14,14 @@ import Rabbits from "@/Pages/Rabbits/Rabbits";
 import Fish from "@/Pages/Fish/Fish";
 import PetCareTipsDetails from "@/Pages/PetCareTipsDetails/PetCareTipsDetails";
 import PetDetails from "@/Pages/PetDetails/PetDetails";
+import DashboardError from "@/Pages/DashboardError/DashboardError";
+import AddPet from "@/Components/AddPet/AddPet";
+import MyAddedPets from "@/Components/MyAddedPets/MyAddedPets";
+import AdoptionRequest from "@/Components/AdoptionRequest/AdoptionRequest";
+import CreateDonationCampaigns from "@/Components/CreateDonationCampaigns/CreateDonationCampaigns";
+import MyDonationCampaigns from "@/Components/MyDonationCampaigns/MyDonationCampaigns";
+import MyDonations from "@/Components/MyDonations/MyDonations";
+ 
  
 
 
@@ -43,10 +51,7 @@ const router =createBrowserRouter([
                 path:"/donationCampaigns",
                 element:<PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
             },
-            {
-                path:"/dashboard",
-                element:<Dashboard></Dashboard>
-            },
+           
             {
                 path:"/cats",
                 element:<Cats></Cats>
@@ -71,7 +76,40 @@ const router =createBrowserRouter([
                 path:'/petDetails/:id',
                 element:<PetDetails></PetDetails>,
                 loader:({params})=>fetch(`http://localhost:5000/allpet/${params.id}`)
-            }
+            },
+           
+        ]
+    },
+    // normal user---------------
+    {
+        path:"/dashboard",
+        element:<Dashboard></Dashboard>,
+        errorElement:<DashboardError></DashboardError>,
+        children:[
+              {
+                path:"/dashboard/addPet",
+                element:<AddPet></AddPet>
+              },
+              {
+                path:"/dashboard/myAddedPets",
+                element:<MyAddedPets></MyAddedPets>
+              },
+              {
+                path:"/dashboard/adoptionRequest",
+                element:<AdoptionRequest></AdoptionRequest>
+              },
+              {
+                path:"/dashboard/createDonationCampaign",
+                element:<CreateDonationCampaigns></CreateDonationCampaigns>
+              },
+              {
+                path:"/dashboard/myDonationsCampaign",
+                element:<MyDonationCampaigns></MyDonationCampaigns>
+              },
+              {
+                path:"/dashboard/myDonations",
+                element:<MyDonations></MyDonations>
+              },
         ]
     }
 ]) 
