@@ -14,7 +14,7 @@ const DashboardSideBar = () => {
 
     </>
     return (
-        <div className="flex-col h-screen shadow-sm navbar bg-[#0e5a4d] overflow-y-auto">
+        <div className="flex-col lg:h-screen shadow-sm navbar bg-[#0e5a4d] overflow-y-auto  ">
             <div className="flex-col navbar-start ">
                 {/* user img------------ */}
                 <div className="my-4 avatar avatar-online">
@@ -27,13 +27,16 @@ const DashboardSideBar = () => {
                 <p className="text-[#ffffff] ">{user?.displayName}</p>
                 {/* divider------------ */}
                 <div className="divider divider-warning"></div>
-                <div className="flex flex-col w-full lg:hidden">
+
+                {/* <div className="flex flex-col w-full lg:hidden">
                     <ul className="  text-center text-[#ffffff]  ">
                         {
                             links
                         }
                     </ul>
-                </div>
+                </div> */}
+               
+
 
             </div>
             <div className="hidden navbar-center lg:flex">

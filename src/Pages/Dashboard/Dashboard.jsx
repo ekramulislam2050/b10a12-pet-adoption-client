@@ -13,13 +13,13 @@ const Dashboard = () => {
                 </div>
                 <DashboardSideBar></DashboardSideBar>
             </div>
-            <div className="lg:col-span-9 bg-[#054560] ">
+            <div className="lg:col-span-9 bg-[#054560]">
                 <div className="hidden lg:block">
                     <DashboardNavbar></DashboardNavbar>
                 </div>
-
-                <Outlet></Outlet>
-
+                   <Outlet></Outlet>
+       
+        
             </div>
 
         </div>
