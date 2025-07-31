@@ -22,7 +22,7 @@ const PetListing = () => {
     }
     return (
         <div>
-          <InfiniteScrolling availablePets={availablePets}></InfiniteScrolling>
+          <InfiniteScrolling data={availablePets} type='availablePets'></InfiniteScrolling>
         </div>
     );
 };

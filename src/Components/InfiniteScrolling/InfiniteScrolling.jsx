@@ -1,9 +1,9 @@
 import { motion, useScroll } from "framer-motion";
- 
 import SearchAndFilter from "../SearchAndFilter/SearchAndFilter";
+import DonationCampaignsUi from "../DonationCampaignsUI/DonationCampaignsUi";
 
 
-const InfiniteScrolling = ({ availablePets }) => {
+const InfiniteScrolling = ({ data, type }) => {
   // console.log(availablePets)
   const { scrollYProgress } = useScroll()
 
@@ -23,7 +23,7 @@ const InfiniteScrolling = ({ availablePets }) => {
           zIndex: 50,
         }}
       />
-      <Content availablePets={availablePets} />
+      <Content data={data} type={type} />
     </div>
   );
 };
@@ -34,13 +34,16 @@ export default InfiniteScrolling;
  * ==============   Utils   ================
  */
 
-function Content({ availablePets }) {
+function Content({ data, type }) {
   return (
     <div className="flex flex-col ">
-     
-      {/* search and filter------------------- */}
-       <SearchAndFilter availablePets={availablePets}></SearchAndFilter>
-      
+      {type === "availablePets" && (
+        <SearchAndFilter data={data}></SearchAndFilter>
+      )}
+      {type === "cdcData" && (
+        <DonationCampaignsUi data={data}></DonationCampaignsUi>
+      )}
+
     </div>
   )
 }

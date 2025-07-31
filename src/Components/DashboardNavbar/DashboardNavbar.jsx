@@ -52,10 +52,10 @@ const DashboardNavbar = () => {
                     <ul
                         tabIndex={0}
                         className="right-0 p-2 mt-3 shadow menu menu-sm dropdown-content  bg-[#0e5a4d]  rounded-box z-1 w-52 border border-[#07c19f]">
-                          <NavLink to={"/"}>
-                              <li>Homepage</li>
+                          <NavLink to={"/"} className='cursor-pointer btn-ghost btn'>
+                              <li  >Homepage</li>
                           </NavLink>
-                          <li onClick={handleLogOut} className="cursor-pointer">LogOut</li>
+                          <li onClick={handleLogOut} className="cursor-pointer btn-ghost btn">LogOut</li>
                          
                         
                     </ul>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaSortAmountDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const SearchAndFilter = ({ availablePets }) => {
+const SearchAndFilter = ({ data }) => {
     const [searchTxt, setSearchTxt] = useState("")
     const [category, setCategory] = useState("All")
     const [filterResult, setFilterResult] = useState([])
@@ -16,8 +16,8 @@ const SearchAndFilter = ({ availablePets }) => {
 
     //   filtering-------------
     useEffect(() => {
-        const result = availablePets.filter(pet => {
-            const searchedPet = pet.name.toLowerCase().includes(searchTxt.toLowerCase())
+        const result = data.filter(pet => {
+            const searchedPet = pet?.name?.toLowerCase().includes(searchTxt?.toLowerCase())
             const petCategory = category === "All" || pet.category === category
             return searchedPet && petCategory
         }
@@ -91,7 +91,7 @@ const SearchAndFilter = ({ availablePets }) => {
                                     <div className=" card-body">
                                         {/* img------------------ */}
 
-                                        <div className='w-full h-[200px] px-10  '>
+                                        <div className='w-full h-[200px]   '>
                                             <img src={pet.image} alt="petImg" className='object-cover w-full h-full rounded-xl' />
                                         </div>
 

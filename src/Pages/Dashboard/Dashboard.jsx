@@ -7,7 +7,7 @@ const Dashboard = () => {
     return (
 
         <div className="grid grid-cols-1 lg:grid-cols-12">
-            <div className="lg:col-span-3 ">
+            <div className="lg:col-span-3 bg-[#0e5a4d]">
                 <div className="lg:hidden">
                     <DashboardNavbar></DashboardNavbar>
                 </div>
