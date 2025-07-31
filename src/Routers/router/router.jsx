@@ -21,6 +21,7 @@ import AdoptionRequest from "@/Components/AdoptionRequest/AdoptionRequest";
 import CreateDonationCampaigns from "@/Components/CreateDonationCampaigns/CreateDonationCampaigns";
 import MyDonationCampaigns from "@/Components/MyDonationCampaigns/MyDonationCampaigns";
 import MyDonations from "@/Components/MyDonations/MyDonations";
+import DonationCampaignDetails from "@/Components/DonationCampaignDetail/DonationCampaignDetails";
  
  
 
@@ -51,7 +52,11 @@ const router =createBrowserRouter([
                 path:"/donationCampaigns",
                 element:<PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
             },
-           
+             {
+                path:"/donationCampaigns/:id",
+                element:<DonationCampaignDetails></DonationCampaignDetails>,
+                loader:({params})=>fetch(`http://localhost:5000/cdcData/${params.id}`)
+             },
             {
                 path:"/cats",
                 element:<Cats></Cats>

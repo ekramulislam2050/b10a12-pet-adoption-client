@@ -2,13 +2,13 @@ import useAxiosPublic from "@/Hooks/AxiosPublic/UseAxiosPublic";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { useQuery } from "@tanstack/react-query";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import img1 from "../../assets/Pet-Care-img/care-1.png"
 import img2 from "../../assets/Pet-Care-img/care-2.png"
 import Modal from "@/Components/Modal/Modal";
 
 const PetDetails = () => {
-   
+
     const { id } = useParams()
     // console.log(id)
     const axiosPublic = useAxiosPublic()
@@ -33,7 +33,7 @@ const PetDetails = () => {
         <div className="min-h-screen ">
             <div className="flex flex-col items-center mt-5">
                 <img src={img1} alt="img1" className="w-[15%]" />
-                <h1 className="sm:text-5xl font-semibold font-[kapakana] text-[#e48d11] text-4xl">{name}`s details</h1>
+                <h1 className="sm:text-5xl font-semibold font-[kapakana] text-[#e48d11] text-4xl">{name}, s details</h1>
                 <img src={img2} alt="img2" className="w-[15%]" />
             </div>
             <div className="hero">
@@ -56,9 +56,9 @@ const PetDetails = () => {
                                 With a friendly personality and gentle nature, this pet would make a wonderful companion.
                             </p>
                         </div>
-                         {/* Open the modal using document.getElementById('ID').showModal() method */}
+                        {/* Open the modal using document.getElementById('ID').showModal() method */}
                         <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_5').showModal()}>Adopt Now</button>
-                         <Modal data={data}></Modal>
+                        <Modal data={data}></Modal>
                     </div>
                 </div>
             </div>

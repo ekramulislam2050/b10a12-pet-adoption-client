@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
+import { FaSortAmountDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 
 const DonationCampaignsUi = ({ data }) => {
+    const [descending, setDescending] = useState(true)
+    const [sort, setSort] = useState([])
+
+    // sorting--------------
+    useEffect(() => {
+        const result = [...data].sort((a, b) => {
+            return descending
+                ? new Date(b.lastDateOfDonation) - new Date(a.lastDateOfDonation)
+                : new Date(a.lastDateOfDonation) - new Date(b.lastDateOfDonation)
+
+        })
+        setSort(result)
+    }, [descending])
 
     return (
         <div >
@@ -21,12 +36,18 @@ const DonationCampaignsUi = ({ data }) => {
                 <div className="flex justify-center mb-3">
                     <span className="text-4xl text-orange-500">*****</span>
                 </div>
+                {/* sort icon------------- */}
+                <div className="flex justify-end w-full px-5 mb-3">
+                    <button className="btn" onClick={() => setDescending(!descending)}>
+                        <FaSortAmountDown className="text-xl text-blue-500" />Sort
+                    </button>
+                </div>
             </div>
 
             {/*  cdcData--------------- */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {
-                    data.map(cdcData => <div key={cdcData._id} className="mb-5">
+                    sort.length > 0 ? (sort.map(cdcData => <div key={cdcData._id} className="mb-5">
                         <div className='flex justify-center h-full '>
                             <div className=" w-[90%] shadow-xl card border border-[#F3D6C2] bg-white hover:border-[#A47148]  group  h-full " >
                                 <div className=" card-body">
@@ -45,7 +66,7 @@ const DonationCampaignsUi = ({ data }) => {
                                             📅  date of donation : <span className='font-semibold tracking-wide text-orange-600 '>{cdcData.
                                                 lastDateOfDonation.split("T")[0]}</span>
                                         </p>
-                                        <Link to={``}>
+                                        <Link to={`/donationCampaigns/${cdcData._id}`}>
                                             <span className='flex text-xl text-blue-600 cursor-pointer animate-bounce hover:underline'>  👉 Details</span>
                                         </Link>
                                     </div>
@@ -55,10 +76,13 @@ const DonationCampaignsUi = ({ data }) => {
                             </div>
 
                         </div>
+                    </div>)) : (<div className="col-span-3 mt-10 text-2xl font-semibold text-center text-red-500 ">
+                        <h2 className="text-5xl animate-bounce">  ❌Pet not found</h2>
                     </div>)
 
                 }
             </div>
+            
         </div>
     );
 };
