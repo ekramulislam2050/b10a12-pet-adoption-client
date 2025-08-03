@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import img1 from "../../assets/Pet-Care-img/care-1.png"
 import img2 from "../../assets/Pet-Care-img/care-2.png"
+import DonationModal from "../DonationModal/DonationModal";
 
 
 const DonationCampaignDetails = () => {
@@ -53,8 +54,8 @@ const DonationCampaignDetails = () => {
                             </p>
                         </div>
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
-                        <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_5').showModal()}>Donate Now</button>
-                        {/* <Modal data={data}></Modal> */}
+                        <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_4').showModal()}>Donate Now</button>
+                         <DonationModal data={dcDetails}></DonationModal>
                     </div>
                 </div>
             </div>
