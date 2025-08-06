@@ -1,7 +1,7 @@
-import { Field, Formik } from "formik";
-import img2 from "../../assets/Pet-Care-img/care-2.png"
+ 
+ 
 import useAuth from "@/Hooks/Auth/useAuth";
-import { Form } from "react-router-dom";
+ 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
@@ -9,8 +9,8 @@ import CheckoutForm from "../CheckoutForm/CheckoutForm";
 
 const DonationModal = ({ data }) => {
     const stripePromise = loadStripe(import.meta.env.VITE_stripe_pk)
-    const { petPicture, petName, _id } = data || {}
-    const { user } = useAuth()
+    const { petPicture,_id } = data || {}
+     
     return (
 
         <dialog id="my_modal_4" className="modal modal-bottom sm:modal-middle">
@@ -31,7 +31,7 @@ const DonationModal = ({ data }) => {
                 {/* stripe----------- */}
                 <div>
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm></CheckoutForm>
+                        <CheckoutForm id={_id}></CheckoutForm>
                     </Elements>
                 </div>
 

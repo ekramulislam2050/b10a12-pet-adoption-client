@@ -1,39 +1,94 @@
+import useAuth from "@/Hooks/Auth/useAuth";
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
-import { CardCvcElement, CardElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
+ 
 
 
 
-const CheckoutForm = () => {
+
+const CheckoutForm = ({id}) => {
+    const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
     const stripe = useStripe()
     const elements = useElements()
+
+
     const handleSubmit = async (event) => {
         event.preventDefault()
+        // donation amount field---------
+        const donationAmount= Number(event.target.donationAmount.value)
+
+
+        // clientSecret--------------
+        const res = await axiosSecure.post("/create_payment_intent", { donationAmount })
+        const clientSecret = res.data.clientSecret
 
         if (!stripe || !elements) {
             return
         }
-        const card = elements.getElement(CardElement)
-        if (card == null) {
+        // stripes elements-------------
+        const cardNumber = elements.getElement(CardNumberElement)
+        if (cardNumber == null) {
             return
         }
+        // stripe payment method-----------
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: "card",
-            card
+            card: cardNumber
         });
 
         if (error) {
             errorMsg(error.message)
             console.log('[error]', error)
+            return
         } else {
             successMsg("created paymentMethod successfully")
+            document.getElementById("my_modal_4").close()
             console.log("[paymentMethod]", paymentMethod)
         }
+        // stripe confirmation------------
+        let paymentStatus=""
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: cardNumber,
+                billing_details: {
+                    email: user?.email || "anonymous",
+                    name: user?.displayName || "anonymous"
+                }
+            }
+        })
+        if (confirmError) {
+            errorMsg(confirmError.message)
+            paymentStatus="failed"
+        } else {
+            if (paymentIntent.status === "succeeded") {
+                successMsg("confirm payment")
+                paymentStatus="success"
+               
+            }
+        }
 
-
+        // payment details-----------
+        const paymentDetails={
+            email:user?.email,
+            donationAmount:donationAmount,
+            petId:id,
+            donatedDated:new Date().toISOString(),
+            status:paymentStatus
+        }
+        
+        // post payment to db--------
+        const response = await axiosSecure.post("/donationPayment",paymentDetails)
+        console.log(response)
+          if(response?.data?.insertedId){
+            successMsg("payment details post success")
+          }
     }
 
-    const inputStyle = {
+   const inputStyle = {
         style: {
             base: {
 
@@ -53,6 +108,13 @@ const CheckoutForm = () => {
     return (
         <div className="w-full mx-auto">
             <form onSubmit={handleSubmit}>
+                {/* for donation */}
+                <div>
+                    <label className="text-lg font-semibold text-orange-500">Donation amount :</label>
+                    <div >
+                        <input type="number" placeholder="Enter your donation amount" name="donationAmount" className="w-full p-3 border border-orange-300 rounded-xl " />
+                    </div>
+                </div>
                 {/* card number---------- */}
                 <label className="text-lg font-semibold text-orange-500">Card Number : </label>
                 <div className="p-3 mt-2 border border-orange-300 rounded-xl">
