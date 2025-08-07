@@ -22,6 +22,7 @@ import CreateDonationCampaigns from "@/Components/CreateDonationCampaigns/Create
 import MyDonationCampaigns from "@/Components/MyDonationCampaigns/MyDonationCampaigns";
 import MyDonations from "@/Components/MyDonations/MyDonations";
 import DonationCampaignDetails from "@/Components/DonationCampaignDetail/DonationCampaignDetails";
+import RecommendationDonationDetails from "@/Pages/RecommendedDonationDetails/RecommendationDonationDetails";
  
  
 
@@ -82,7 +83,11 @@ const router =createBrowserRouter([
                 element:<PetDetails></PetDetails>,
                 loader:({params})=>fetch(`http://localhost:5000/allpet/${params.id}`)
             },
-           
+           {
+            path:"/recommendedDonationDetails/:id",
+            element:<RecommendationDonationDetails></RecommendationDonationDetails>,
+            loader:({params})=>fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
+           }
         ]
     },
     // normal user---------------
