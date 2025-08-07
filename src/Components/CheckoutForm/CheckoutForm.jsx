@@ -4,12 +4,8 @@ import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
- 
 
-
-
-
-const CheckoutForm = ({id}) => {
+const CheckoutForm = ({ id }) => {
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const stripe = useStripe()
@@ -19,7 +15,7 @@ const CheckoutForm = ({id}) => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         // donation amount field---------
-        const donationAmount= Number(event.target.donationAmount.value)
+        const donationAmount = Number(event.target.donationAmount.value)
 
 
         // clientSecret--------------
@@ -31,7 +27,10 @@ const CheckoutForm = ({id}) => {
         }
         // stripes elements-------------
         const cardNumber = elements.getElement(CardNumberElement)
-        if (cardNumber == null) {
+        const expiry = elements.getElement(CardExpiryElement)
+        const cvc = elements.getElement(CardCvcElement)
+        if (!cardNumber || !expiry || !cvc ) {
+            errorMsg("card information is incomplete")
             return
         }
         // stripe payment method-----------
@@ -50,7 +49,7 @@ const CheckoutForm = ({id}) => {
             console.log("[paymentMethod]", paymentMethod)
         }
         // stripe confirmation------------
-        let paymentStatus=""
+        let paymentStatus = ""
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: cardNumber,
@@ -62,33 +61,40 @@ const CheckoutForm = ({id}) => {
         })
         if (confirmError) {
             errorMsg(confirmError.message)
-            paymentStatus="failed"
+            paymentStatus = "failed"
         } else {
             if (paymentIntent.status === "succeeded") {
                 successMsg("confirm payment")
-                paymentStatus="success"
-               
+                paymentStatus = "success"
+                // form field reset------------
+                event.target.reset()
+                // stripe field reset----------
+                cardNumber?.clear()
+                expiry?.clear()
+                cvc?.clear()
+            // for show recommendation donation section--------
+              document.getElementById("rd").style.display="block"
             }
         }
 
         // payment details-----------
-        const paymentDetails={
-            email:user?.email,
-            donationAmount:donationAmount,
-            petId:id,
-            donatedDated:new Date().toISOString(),
-            status:paymentStatus
+        const paymentDetails = {
+            email: user?.email,
+            donationAmount: donationAmount,
+            petId: id,
+            donatedDated: new Date().toISOString(),
+            status: paymentStatus
         }
-        
+
         // post payment to db--------
-        const response = await axiosSecure.post("/donationPayment",paymentDetails)
+        const response = await axiosSecure.post("/donationPayment", paymentDetails)
         console.log(response)
-          if(response?.data?.insertedId){
+        if (response?.data?.insertedId) {
             successMsg("payment details post success")
-          }
+        }
     }
 
-   const inputStyle = {
+    const inputStyle = {
         style: {
             base: {
 
