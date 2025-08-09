@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const DonationCampaignsUi = ({ data }) => {
     const [descending, setDescending] = useState(true)
     const [sort, setSort] = useState([])
-
+ 
     // sorting--------------
     useEffect(() => {
         const result = [...data].sort((a, b) => {
@@ -16,7 +16,7 @@ const DonationCampaignsUi = ({ data }) => {
 
         })
         setSort(result)
-    }, [descending])
+    }, [descending,data])
 
     return (
         <div >
@@ -60,8 +60,8 @@ const DonationCampaignsUi = ({ data }) => {
                                     {/* pet name--------------- */}
                                     <div>
                                         <p className='text-5xl font-semibold text-center text-[#A47149]  font-[kapakana] group-hover:font-sans transition-all duration-500 group-hover:text-4xl'>{cdcData.petName}</p>
-                                        <p className="text-lg">💰 Max-donation amount : {cdcData.maximumDonationAmount}</p>
-                                        <p className="text-lg">💸Donated amount : { }</p>
+                                        <p className="text-lg">💰 Max-donation amount : {cdcData.maximumDonationAmount}tk</p>
+                                        <p className="text-lg">💸Donated amount : {cdcData?.totalDonation }tk</p>
                                         <p className="text-lg ">
                                             📅  date of donation : <span className='font-semibold tracking-wide text-orange-600 '>{cdcData.
                                                 lastDateOfDonation.split("T")[0]}</span>

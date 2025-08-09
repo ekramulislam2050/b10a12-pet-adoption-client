@@ -15,7 +15,7 @@ const RecommendedDonation = () => {
         }
     })
     return (
-        <div id='rd' style={{ display: " " }}>
+        <div id='rd' style={{ display: "none" }}>
             <div className="flex flex-col items-center my-5">
                 <h1 className="flex justify-center  text-3xl font-bold text-[#00bf83]">👐Extend your Kindness</h1>
                 <p className="text-4xl font-bold">*****</p>

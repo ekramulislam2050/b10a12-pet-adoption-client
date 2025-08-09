@@ -1,15 +1,20 @@
+
 import useAuth from "@/Hooks/Auth/useAuth";
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useQueryClient } from "@tanstack/react-query";
+ 
 
 
 const CheckoutForm = ({ id }) => {
+
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const stripe = useStripe()
     const elements = useElements()
+  const queryClient = useQueryClient();
 
 
     const handleSubmit = async (event) => {
@@ -29,7 +34,7 @@ const CheckoutForm = ({ id }) => {
         const cardNumber = elements.getElement(CardNumberElement)
         const expiry = elements.getElement(CardExpiryElement)
         const cvc = elements.getElement(CardCvcElement)
-        if (!cardNumber || !expiry || !cvc ) {
+        if (!cardNumber || !expiry || !cvc) {
             errorMsg("card information is incomplete")
             return
         }
@@ -72,8 +77,9 @@ const CheckoutForm = ({ id }) => {
                 cardNumber?.clear()
                 expiry?.clear()
                 cvc?.clear()
-            // for show recommendation donation section--------
-              document.getElementById("rd").style.display="block"
+                // for show recommendation donation section--------
+                document.getElementById("rd").style.display = "block"
+
             }
         }
 
@@ -82,7 +88,7 @@ const CheckoutForm = ({ id }) => {
             email: user?.email,
             donationAmount: donationAmount,
             petId: id,
-            donatedDated: new Date().toISOString(),
+            donatedDate: new Date().toISOString(),
             status: paymentStatus
         }
 
@@ -91,7 +97,9 @@ const CheckoutForm = ({ id }) => {
         console.log(response)
         if (response?.data?.insertedId) {
             successMsg("payment details post success")
+          queryClient.invalidateQueries("cdcData");
         }
+
     }
 
     const inputStyle = {
@@ -153,3 +161,5 @@ const CheckoutForm = ({ id }) => {
 };
 
 export default CheckoutForm;
+
+

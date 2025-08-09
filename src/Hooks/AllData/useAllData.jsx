@@ -6,7 +6,7 @@ import useAxiosSecure from "../AxiosSecure/useAxiosSecure";
 
 const useAllData = () => {
     const axiosSecure=useAxiosSecure()
-    const {data:allData,isLoading,isError,error}=useQuery({
+    const {data:allData,isLoading,isError,error,refetch}=useQuery({
         queryKey:["allData"],
         queryFn:async()=>{
             const res = await axiosSecure.get("/allPet")
@@ -14,7 +14,7 @@ const useAllData = () => {
         }
     })
     
-    return {allData,isLoading,isError,error}
+    return {allData,isLoading,isError,error,refetch}
 };
 
 export default useAllData;

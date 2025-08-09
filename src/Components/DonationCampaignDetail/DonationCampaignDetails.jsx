@@ -11,14 +11,16 @@ import RecommendedDonation from "../RecommendedDonation/RecommendedDonation";
 
 const DonationCampaignDetails = () => {
     const { id } = useParams()
+ 
     const axiosPublic = useAxiosPublic()
-    const { data: dcDetails = {}, isLoading, isError, error } = useQuery({
+    const { data: dcDetails = {}, isLoading, isError, error,  } = useQuery({
         queryKey: ['dcDetails', id],
         queryFn: async () => {
             const res = await axiosPublic.get(`/cdcData/${id}`)
             return res.data
         }
     })
+    // console.log(dcDetails)
     if (isLoading) {
         return <Spinner isLoading={isLoading}></Spinner>
     }
@@ -45,7 +47,7 @@ const DonationCampaignDetails = () => {
                             <div className="p-6">
 
                                 <div>💰 <strong>Max-donation amount :</strong> {dcDetails.maximumDonationAmount}</div>
-                                <div>💸 <strong>Donated amount :</strong> {''}</div>
+                                <div>💸 <strong>Donated amount :</strong> {dcDetails.totalDonation}</div>
                                 <div> 📅 <strong>Last date of donation :</strong> {dcDetails.lastDateOfDonation}</div>
 
                                 <p className="text-lg text-gray-700">
@@ -57,7 +59,7 @@ const DonationCampaignDetails = () => {
                             </div>
                             {/* Open the modal using document.getElementById('ID').showModal() method */}
                             <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_4').showModal()}>Donate Now</button>
-                            <DonationModal data={dcDetails}></DonationModal>
+                            <DonationModal data={dcDetails}  ></DonationModal>
 
 
 

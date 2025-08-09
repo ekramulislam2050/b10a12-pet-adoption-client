@@ -5,10 +5,10 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 
 
-const DonationModal = ({ data }) => {
+const DonationModal = ({ data  }) => {
     const stripePromise = loadStripe(import.meta.env.VITE_stripe_pk)
     const { petPicture,_id } = data || {}
-     
+  
     return (
 
         <dialog id="my_modal_4" className="modal modal-bottom sm:modal-middle">
@@ -29,7 +29,7 @@ const DonationModal = ({ data }) => {
                 {/* stripe----------- */}
                 <div>
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm id={_id}></CheckoutForm>
+                        <CheckoutForm id={_id}  ></CheckoutForm>
                     </Elements>
                 </div>
 
