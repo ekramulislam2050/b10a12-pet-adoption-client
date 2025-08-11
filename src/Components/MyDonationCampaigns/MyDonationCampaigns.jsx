@@ -3,8 +3,8 @@ import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { useQuery } from "@tanstack/react-query";
-
-
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 
 const MyDonationCampaigns = () => {
@@ -70,7 +70,7 @@ const MyDonationCampaigns = () => {
                     </div>
                     <div>
                       <div className="font-bold">{data.campaignInfo.petName}</div>
-                      {/* <div className="text-sm opacity-50">United States</div> */}
+
                     </div>
                   </div>
                 </td>
@@ -79,16 +79,31 @@ const MyDonationCampaigns = () => {
                   <p className="badge badge-ghost badge-sm">{data.campaignInfo.maximumDonationAmount
                   }<span className="text-sm font-extrabold text-orange-400">৳</span></p>
                 </td>
-                <td>Purple</td>
-                <th className="flex items-center justify-between">
-                  <div className="bg-[#ffffff] px-3 rounded-full">
-                    <button className="text-black btn btn-ghost btn-xs">Edit</button>
+                {/* progress bar---------- */}
+                <td  >
+                  <div style={{ width: 45, height: 45 }}>
+                    <CircularProgressbar
+                      value={Number(data?.donatedPercentage || 0).toFixed(0)}
+                      text={`${Number(data?.donatedPercentage || 0).toFixed(0)}%`}
+                      styles={{
+                        text: { fontSize: '30px', fill: "#ffffff" },
+                        path: { stroke: '#f97316' },
+                        trail: { stroke: '#ffffff' },
+                      }}
+                    />
                   </div>
-                  <div className="bg-[#ffffff] px-3 rounded-full">
-                    <button className="text-black btn btn-ghost btn-xs">Pause</button>
-                  </div>
-                  <div className="bg-orange-500 rounded-full">
-                    <button className="btn btn-ghost btn-xs ">Donators</button>
+                </td>
+                <th >
+                  <div className="flex items-center justify-between">
+                    <div className="bg-[#ffffff] px-3 rounded-full">
+                      <button className="text-black btn btn-ghost btn-xs">Edit</button>
+                    </div>
+                    <div className="bg-[#ffffff] px-3 rounded-full">
+                      <button className="text-black btn btn-ghost btn-xs">Pause</button>
+                    </div>
+                    <div className="bg-orange-500 rounded-full">
+                      <button className="btn btn-ghost btn-xs ">Donators</button>
+                    </div>
                   </div>
                 </th>
               </tr>)
