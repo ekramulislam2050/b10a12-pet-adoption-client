@@ -1,3 +1,4 @@
+import useAuth from "@/Hooks/Auth/useAuth";
 import useAxiosPublic from "@/Hooks/AxiosPublic/useAxiosPublic";
 
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
@@ -11,10 +12,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const CreateDonationCampaigns = () => {
     const axiosPublic=useAxiosPublic()
-  
+    const {user}=useAuth()
     const [selectedDate, setSelectedDate] = useState(null)
     const formik = useFormik({
         initialValues: {
+            email:user?.email ||'',
             petName:'',
             petPicture: '',
             maximumDonationAmount: '',
@@ -22,6 +24,7 @@ const CreateDonationCampaigns = () => {
             shortDescription: '',
             longDescription: ''
         },
+        enableReinitialize:true,
         onSubmit: async (values, { resetForm }) => {
             try {
                 const result = await axiosPublic.post("/createDonationCampaign", values)
@@ -44,6 +47,22 @@ const CreateDonationCampaigns = () => {
             </div>
             <div className="flex flex-col ">
                 <form onSubmit={formik.handleSubmit}>
+                    {/* email------------ */}
+                    <div className="flex flex-col gap-3 px-2 py-3 ">
+                        <label htmlFor="petPicture" className="text-[#ffffff] ">Email :</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder={user?.email}
+                            // onChange={formik.handleChange}
+                            value={formik.values.email}
+                            readOnly
+                            className="bg-[#054560] border border-orange-300 w-full
+                          rounded-[8px] p-1 text-[#ffffff]
+                         "
+                        />
+                    </div>
                     {/* pet name------------ */}
                     <div className="flex flex-col gap-3 px-2 py-3 ">
                         <label htmlFor="petPicture" className="text-[#ffffff] ">Pet Name :</label>

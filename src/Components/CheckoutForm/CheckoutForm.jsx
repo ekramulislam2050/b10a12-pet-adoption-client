@@ -16,7 +16,7 @@ const CheckoutForm = ({ id }) => {
     const elements = useElements()
   const queryClient = useQueryClient();
 
-
+ 
     const handleSubmit = async (event) => {
         event.preventDefault()
         // donation amount field---------
@@ -85,6 +85,8 @@ const CheckoutForm = ({ id }) => {
 
         // payment details-----------
         const paymentDetails = {
+            photo:user?.photoURL,
+            name:user?.displayName,
             email: user?.email,
             donationAmount: donationAmount,
             petId: id,
