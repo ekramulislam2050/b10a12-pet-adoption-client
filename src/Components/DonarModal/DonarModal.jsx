@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 
 
-const DonarModal = ( {data,id} ) => {
+const DonarModal = ({ data, id }) => {
 
     const axiosSecure = useAxiosSecure()
     const { data: donarData = [] } = useQuery({
@@ -15,27 +15,31 @@ const DonarModal = ( {data,id} ) => {
         enabled: !!data._id,
         refetchOnWindowFocus: false
     })
-    //   console.log('donarData=',donarData)
+    // total donation--------
+    const totalDonation = donarData.reduce((total, donar) => total + (Number(donar.donationAmount || 0)), 0)
 
     return (
-        <div  >
 
-            <dialog id={id} className=" modal modal-bottom sm:modal-middle">
-                <div className="bg-[#014D4E] rounded-xl ">
+        <div>
+            <dialog id={id} className="flex justify-center modal modal-middle sm:modal-middle">
+                {/* for desktop and tab------------ */}
+                <div className="bg-[#014D4E] rounded-xl hidden sm:block 
+                h-[400px] overflow-y-auto  ">
                     {/* heading--------- */}
                     <div className="flex flex-col items-center mt-5 ">
-                          <div className="w-[90px] h-[90px]">
-                               <img src={data.petPicture} alt="img1" className=" rounded-full   border-[#ffffff] border-2 p-1 w-full h-full" />
-                          </div>
-                        <h1 className="sm:text-xl font-semibold   text-[#e48d11] text-2xl pb-2">Generous Donors for {data.petName}, </h1>
-                      
+                        <div className=" w-[90px]  h-[90px]  ">
+                            <img src={data.petPicture} alt="img1" className=" rounded-full   border-[#ffffff] border-2 p-1 w-full h-full" />
+                        </div>
+                        <h1 className="sm:text-2xl font-semibold   text-[#e48d11] text-xl pb-2  ">Generous Donors for {data.petName}, </h1>
+
                     </div>
-                    <div className="overflow-x-auto">
+
+                    <div className="overflow-x-auto ">
                         <table className="table">
                             {/* head */}
-                            <thead  className="bg-[#01585a]" >
+                            <thead className="bg-[#01585a]" >
                                 <tr className="text-[#ffffff]   ">
-                                    
+
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Amount</th>
@@ -45,8 +49,8 @@ const DonarModal = ( {data,id} ) => {
                             <tbody>
 
                                 {
-                                    donarData.map((data, index) => <tr key={index}>
-                                        
+                                    donarData.map((data, index) => <tr key={index} >
+
                                         <td>
                                             <div className="flex items-center gap-3">
                                                 <div className="avatar">
@@ -68,10 +72,26 @@ const DonarModal = ( {data,id} ) => {
                                             <span className="badge badge-ghost badge-sm">{data.email}</span>
                                         </td>
                                         <td>{data.donationAmount}</td>
-                                        <th>
-                                            <button className="btn btn-ghost btn-xs">{data.donatedDate.split("T")[0]}</button>
-                                        </th>
-                                    </tr>)
+                                        <td>{data.donatedDate.split("T")[0]}</td>
+
+                                    </tr>
+
+
+                                    )
+                                }
+
+                                {
+                                    donarData.length > 0 && (
+                                        <>
+                                            <tr className="border-b-2 border-[#ffffff]"></tr>
+                                            <tr>
+
+                                                <td colSpan={2}>Total Amount =</td>
+                                                <td colSpan={2}>{totalDonation} Taka</td>
+                                            </tr>
+
+                                        </>
+                                    )
                                 }
 
                             </tbody>
@@ -82,17 +102,56 @@ const DonarModal = ( {data,id} ) => {
                             <div className="w-[90%] mx-auto">
                                 <button
                                     type="submit"
-                                    className="bg-[#ffffff] text-gray-700 my-2 py-2 rounded-full w-full"
-                                    onClick={() => document.getElementById("donarModal").close()}
+                                    className="bg-[#ffffff] text-gray-700  py-2 mt-2 mb-5 rounded-full w-full"
+                                    onClick={() => document.getElementById(id).close()}
                                 >
                                     Ok
                                 </button>
                             </div>
                         </form>
                     </div>
+
                 </div>
+
+
+                {/* for mobile-------------- */}
+                <div className="block sm:hidden bg-[#01585a] rounded-xl w-[90%]  h-[400px] overflow-y-auto">
+                    {/* heading--------- */}
+                    <div className="flex flex-col items-center my-5 ">
+                        <div className=" w-[90px]  h-[90px]  ">
+                            <img src={data.petPicture} alt="img1" className=" rounded-full   border-[#ffffff] border-2 p-1 w-full h-full" />
+                        </div>
+                        <h1 className="sm:text-2xl font-semibold   text-[#e48d11] text-xl pb-2  ">Generous Donors for {data.petName}, </h1>
+
+                    </div>
+                    {/* card-------------------- */}
+                    {
+                        donarData.map((data, index) => <div key={index} className="flex flex-col items-center " >
+
+                            <div className="w-[80px] h-[80px] my-3">
+                                <img src={data.photo} alt="img" className="w-full h-full rounded-full border-2 border-[#ffffff]" />
+                            </div>
+
+                            <p>Name : {data.name}</p>
+                            <p>Email : {data.email}</p>
+                            <p>Date : {data.donatedDate.split("T")[0]}</p>
+                            <p>Amount : {data.donationAmount}</p>
+
+                        </div>
+                        )
+                    }
+                    {/* btn---------- */}
+                    <div className="w-[90%]   mx-auto pt-3 pb-5">
+                        <button className="w-full bg-[#ffffff] text-gray-600 rounded-full" onClick={() => document.getElementById(id).close()}>ok</button>
+                    </div>
+                </div>
+
             </dialog>
-        </div >
+        </div>
+
+
+
+
     );
 };
 

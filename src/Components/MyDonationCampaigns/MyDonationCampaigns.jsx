@@ -86,11 +86,7 @@ const MyDonationCampaigns = () => {
                 {/* head */}
                 <thead className="">
                   <tr className="text-[#fcb700] border border-[#07c19f]  ">
-                    <th>
-                      <label>
-                        <input type="checkbox" className="checkbox" />
-                      </label>
-                    </th>
+                   
                     <th>Pet Name</th>
                     <th>Max Donation</th>
                     <th>Progress</th>
@@ -101,11 +97,7 @@ const MyDonationCampaigns = () => {
 
                   {
                     dpData.map((data, index) => <tr className="border border-[#07c19f] text-[#ffffff]" key={index}>
-                      <th>
-                        <label>
-                          <input type="checkbox" className="checkbox" />
-                        </label>
-                      </th>
+                      
                       <td>
                         <div className="flex items-center gap-3">
                           <div className="avatar">
@@ -165,16 +157,7 @@ const MyDonationCampaigns = () => {
 
 
                 </tbody>
-                {/* foot */}
-                <tfoot className="">
-                  <tr className="text-[#ffffff]  border border-[#07c19f] ">
-                    <th></th>
-                    <th>Name</th>
-                    <th>Job</th>
-                    <th>Favorite Color</th>
-                    <th></th>
-                  </tr>
-                </tfoot>
+              
               </table>
             </div>
           </div>)
