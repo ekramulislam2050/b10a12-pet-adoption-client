@@ -44,7 +44,7 @@ const MyDonationCampaigns = () => {
               {/* heading-------------- */}
               <div>
                 <h1 className=" text-4xl sm:text-5xl flex justify-center text-orange-500 font-[kapakana] font-semibold tracking-wide py-5 px-2">
-                    🚫 No Donation Campaigns Found
+                  🚫 No Donation Campaigns Found
                 </h1>
               </div>
               {/* heading message----------- */}
@@ -57,7 +57,7 @@ const MyDonationCampaigns = () => {
                 <span className="text-4xl text-orange-500">*****</span>
               </div>
               <div className="flex flex-col items-center">
-                  <span className="text-[200px]">😩</span>
+                <span className="text-[200px]">😩</span>
               </div>
             </div>
           )
@@ -81,83 +81,128 @@ const MyDonationCampaigns = () => {
             <div className="flex justify-center mb-3">
               <span className="text-4xl text-orange-500">*****</span>
             </div>
-            <div className="overflow-x-auto border border-[#07c19f] rounded-lg">
+            <div className="overflow-x-hidden sm:overflow-x-auto border border-[#07c19f] rounded-lg">
               <table className="table ">
                 {/* head */}
-                <thead className="">
+                <thead className="text-center sm:text-left">
                   <tr className="text-[#fcb700] border border-[#07c19f]  ">
-                   
+
                     <th>Pet Name</th>
                     <th>Max Donation</th>
                     <th>Progress</th>
-                    <th>Action</th>
+                    <th className="hidden sm:block">Action</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
 
                   {
-                    dpData.map((data, index) => <tr className="border border-[#07c19f] text-[#ffffff]" key={index}>
-                      
-                      <td>
-                        <div className="flex items-center gap-3">
-                          <div className="avatar">
-                            <div className="w-12 h-12 mask mask-squircle">
-                              <img
-                                src={data.petPicture}
-                                alt="Avatar Tailwind CSS Component" />
+                    dpData.map((data, index) => <>
+                      <tr className="text-[#ffffff]  sm:border-b-0  sm:border sm:border-[#07c19f]" key={index}>
+
+                        <td>
+                          <div className="flex items-center gap-3">
+                            <div className="avatar">
+                              <div className="w-12 h-12 mask mask-squircle">
+                                <img
+                                  src={data.petPicture}
+                                  alt="Avatar Tailwind CSS Component" />
+                              </div>
+                            </div>
+                            <div>
+                              <div className="font-bold">{data.petName}</div>
+
                             </div>
                           </div>
-                          <div>
-                            <div className="font-bold">{data.petName}</div>
+                        </td>
+                        <td>
 
+                          <p className="badge badge-ghost badge-sm">{data.maximumDonationAmount
+                          }<span className="text-sm font-extrabold text-orange-400">৳</span></p>
+                        </td>
+                        {/* progress bar---------- */}
+                        <td  >
+                          <div style={{ width: 45, height: 45 }}>
+                            <CircularProgressbar
+                              value={Number(data?.percentage || 0).toFixed(0)}
+                              text={`${Number(data?.percentage || 0).toFixed(0)}%`}
+                              styles={{
+                                text: { fontSize: '30px', fill: "#ffffff" },
+                                path: { stroke: '#f97316' },
+                                trail: { stroke: '#ffffff' },
+                              }}
+                            />
                           </div>
-                        </div>
-                      </td>
-                      <td>
+                        </td>
+                        {/* btn for desktop------------- */}
+                        <th >
+                          <div className="hidden sm:block">
+                            <div className="flex items-center justify-between ">
+                              {/* edit btn----------- */}
+                              <div className="bg-[#ffffff] px-3 rounded-full">
+                                <button className="text-black btn btn-ghost btn-xs"
+                                  onClick={() => { document.getElementById("my_modal_6").showModal() }}>Edit</button>
+                                {/* <EditModal  id={data._id}></EditModal> */}
+                              </div>
+                              {/* pause btn------------- */}
+                              <div className="bg-[#ffffff] px-3 rounded-full">
+                                <button className="text-black btn btn-ghost btn-xs">Pause</button>
+                              </div>
+                              {/* donar btn--------------- */}
+                              <div className="bg-orange-500 rounded-full" onClick={() => { document.getElementById(`donarModal-${data._id}`).showModal() }}>
+                                <button className="btn btn-ghost btn-xs ">Donators</button>
+                                <DonarModal data={data} id={`donarModal-${data._id}`} ></DonarModal>
+                              </div>
+                            </div>
+                          </div>
+                        </th>
 
-                        <p className="badge badge-ghost badge-sm">{data.maximumDonationAmount
-                        }<span className="text-sm font-extrabold text-orange-400">৳</span></p>
-                      </td>
-                      {/* progress bar---------- */}
-                      <td  >
-                        <div style={{ width: 45, height: 45 }}>
-                          <CircularProgressbar
-                            value={Number(data?.percentage || 0).toFixed(0)}
-                            text={`${Number(data?.percentage || 0).toFixed(0)}%`}
-                            styles={{
-                              text: { fontSize: '30px', fill: "#ffffff" },
-                              path: { stroke: '#f97316' },
-                              trail: { stroke: '#ffffff' },
-                            }}
-                          />
-                        </div>
-                      </td>
-                      <th >
-                        <div className="flex items-center justify-between">
-                          {/* edit btn----------- */}
-                          <div className="bg-[#ffffff] px-3 rounded-full">
-                            <button className="text-black btn btn-ghost btn-xs"
-                              onClick={() => { document.getElementById("my_modal_6").showModal() }}>Edit</button>
-                            {/* <EditModal  id={data._id}></EditModal> */}
+                      </tr>
+                      {/* btn for mobil------------ */}
+                      <tr className="border-b border-red-500 sm:border-0">
+                        <td colSpan={4}  >
+                          <div className="block sm:hidden">
+                            <div className="flex justify-evenly text-[#ffffff] ">
+                              {/* edit btn----------- */}
+                              <div className="bg-[#ffffff] px-3 rounded-full  ">
+                                <button className="text-black btn btn-ghost btn-xs"
+                                  onClick={() => { document.getElementById("my_modal_6").showModal() }}>Edit</button>
+                                {/* <EditModal  id={data._id}></EditModal> */}
+                                 
+                              </div>
+                               
+                              
+                                
+                              {/* pause btn------------- */}
+                              <div className="bg-[#ffffff] px-3 rounded-full">
+                                <button className="text-black btn btn-ghost btn-xs">Pause</button>
+                              </div>
+                              {/* donar btn--------------- */}
+                              <div className="bg-orange-500 rounded-full" onClick={() => {
+                                document.getElementById(`donarModal-${data.
+                                  _id}`).showModal()
+                              }}>
+                                <button className="btn btn-ghost btn-xs ">Donators</button>
+                                <DonarModal data={data} id={`donarModal-${data._id}`} ></DonarModal>
+                              </div>
+                            </div>
                           </div>
-                          {/* pause btn------------- */}
-                          <div className="bg-[#ffffff] px-3 rounded-full">
-                            <button className="text-black btn btn-ghost btn-xs">Pause</button>
-                          </div>
-                          {/* donar btn--------------- */}
-                          <div className="bg-orange-500 rounded-full" onClick={()=>{document.getElementById(`donarModal-${data._id}`).showModal()}}>
-                            <button className="btn btn-ghost btn-xs ">Donators</button>
-                            <DonarModal data={data} id={`donarModal-${data._id}`} ></DonarModal>
-                          </div>
-                        </div>
-                      </th>
-                    </tr>)
+
+                        </td>
+
+
+                      </tr>
+
+
+
+
+                    </>
+                    )
                   }
 
 
 
                 </tbody>
-              
+
               </table>
             </div>
           </div>)
