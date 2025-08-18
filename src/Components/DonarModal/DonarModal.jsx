@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 
 const DonarModal = ({ data, id }) => {
-
+    console.log(data)
     const axiosSecure = useAxiosSecure()
     const { data: donarData = [] } = useQuery({
         queryKey: ["donarData", data._id],
@@ -61,7 +61,7 @@ const DonarModal = ({ data, id }) => {
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold"> {data.name}</div>
+                                                    <div className="font-bold text-[#ffffff]"> {data.name}</div>
 
 
                                                 </div>
@@ -71,8 +71,8 @@ const DonarModal = ({ data, id }) => {
 
                                             <span className="badge badge-ghost badge-sm">{data.email}</span>
                                         </td>
-                                        <td>{data.donationAmount}</td>
-                                        <td>{data.donatedDate.split("T")[0]}</td>
+                                        <td className="text-[#ffffff]">{data.donationAmount}</td>
+                                        <td className="text-[#ffffff]">{data.donatedDate.split("T")[0]}</td>
 
                                     </tr>
 
@@ -86,8 +86,8 @@ const DonarModal = ({ data, id }) => {
                                             <tr className="border-b-2 border-[#ffffff]"></tr>
                                             <tr>
 
-                                                <td colSpan={2}>Total Amount =</td>
-                                                <td colSpan={2}>{totalDonation} Taka</td>
+                                                <td colSpan={2} className="text-[#ffffff]">Total Amount =</td>
+                                                <td colSpan={2} className="text-[#ffffff]">{totalDonation} Taka</td>
                                             </tr>
 
                                         </>
@@ -132,14 +132,29 @@ const DonarModal = ({ data, id }) => {
                                 <img src={data.photo} alt="img" className="w-full h-full rounded-full border-2 border-[#ffffff]" />
                             </div>
 
-                            <p>Name : {data.name}</p>
-                            <p>Email : {data.email}</p>
-                            <p>Date : {data.donatedDate.split("T")[0]}</p>
-                            <p>Amount : {data.donationAmount}</p>
+                            <p className="text-[#ffffff]">Name : {data.name}</p>
+                            <p className="text-[#ffffff]">Email : {data.email}</p>
+                            <p className="text-[#ffffff]">Date : {data.donatedDate.split("T")[0]}</p>
+                            <p className="text-[#ffffff]">Amount : {data.donationAmount}</p>
 
                         </div>
                         )
                     }
+                    {/* total donation stat--------------- */}
+                    <div className="flex justify-center">
+                        <div className="flex flex-col items-center mt-3 border w-[80%] border-[#ffffff] pt-2 rounded-xl">
+                            <div className=" w-[90px]  h-[90px]  ">
+                                <img src={data.petPicture} alt="img1" className=" rounded-full   border-[#ffffff] border-2 p-1 w-full h-full" />
+                            </div>
+                            <div className="py-2 text-center">
+                                <p className="text-[#ffffff]">Name : {data.petName}</p>
+                                <p className="text-[#ffffff]">MaxDonation : {data.maximumDonationAmount} tk</p>
+                                <p className="font-semibold text-red-400 ">TotalDonation : {totalDonation} tk</p>
+                            </div>
+
+                        </div>
+                    </div>
+
                     {/* btn---------- */}
                     <div className="w-[90%]   mx-auto pt-3 pb-5">
                         <button className="w-full bg-[#ffffff] text-gray-600 rounded-full" onClick={() => document.getElementById(id).close()}>ok</button>

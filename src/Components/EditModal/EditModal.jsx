@@ -1,48 +1,34 @@
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
-import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
-import { useQuery } from "@tanstack/react-query";
-import { Field, Formik, useFormik } from "formik";
-import { useRef, useState } from "react";
-import DatePicker from "react-datepicker";
-import { Form } from "react-router-dom";
+import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 
 
-const EditModal = ({ id }) => {
-    const axiosSecure = useAxiosSecure({})
-    const modalRef = useRef()
 
-    const { data: cdcData = {}, isLoading, isError, error } = useQuery({
-        queryKey: ["cdcData", petId],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/cdcData/${petId}`)
-            return res.data
-        }
-    })
-    if (isLoading) {
-        return <Spinner isLoading={isLoading}></Spinner>
-    }
-    if (isError) {
-        return errorMsg(error.message)
-    }
+const EditModal = ({id,data }) => {
+    const axiosSecure = useAxiosSecure()
+    const navigate =useNavigate()
+    // console.log("editModal", data)
 
-    const [selectedDate, setSelectedDate] = useState(null)
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
-            petName: '',
-            petPicture: '',
-            maximumDonationAmount: '',
-            lastDateOfDonation: '',
-            shortDescription: '',
-            longDescription: ''
+            email:data?.email || "",
+            petName: data?.petName || '',
+            petPicture: data?.petPicture,
+            maximumDonationAmount: data?.maximumDonationAmount || "",
+            lastDateOfDonation: data?.lastDateOfDonation || "",
+            shortDescription: data?.shortDescription || "",
+            longDescription: data?.longDescription || ""
         },
         onSubmit: async (values, { resetForm }) => {
             try {
-                const result = await axiosPublic.post("/createDonationCampaign", values)
-                if (result.data.insertedId) {
-                    successMsg("successful post")
+                const result = await axiosSecure.patch(`/cdcData/${data._id}`, values)
+                if (result.data.modifiedCount > 0) {
+                    successMsg("patch successful ")
                     resetForm();
-                    setSelectedDate(null)
+                    navigate("/donationCampaigns")
                 }
             } catch (err) {
                 errorMsg(err.message)
@@ -51,16 +37,30 @@ const EditModal = ({ id }) => {
         },
     });
     return (
-        <div>
-            <dialog ref={modalRef} id="my_modal_6" className="modal modal-bottom sm:modal-middle">
-
-                <div  >
+        <div className="">
+            <dialog id={id} className= " modal sm:modal-middle modal-middle">
+                <div className="bg-[#054560] h-[400px] overflow-y-auto p-5 rounded-xl shadow-lg  ">
                     {/* heading------------ */}
                     <div className="flex justify-center p-2 mt-3">
-                        <h1 className="text-orange-300 text-4xl font-[kapakana]  tracking-wide sm:text-5xl font-semibold" > 📢	Create Donation Campaign</h1>
+                        <h1 className="text-orange-300 text-4xl font-[kapakana]  tracking-wide sm:text-5xl font-semibold" >✏️ Edit Donation Campaign</h1>
                     </div>
                     <div className="flex flex-col ">
                         <form onSubmit={formik.handleSubmit}>
+                            {/* pet name------------ */}
+                            <div className="flex flex-col gap-3 px-2 py-3 ">
+                                <label htmlFor="petPicture" className="text-[#ffffff] ">Email :</label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                     onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                     readOnly
+                                    className="bg-[#054560] border border-orange-300 w-full
+                                        rounded-[8px] p-1 text-[#ffffff]
+                                       "
+                                />
+                            </div>
                             {/* pet name------------ */}
                             <div className="flex flex-col gap-3 px-2 py-3 ">
                                 <label htmlFor="petPicture" className="text-[#ffffff] ">Pet Name :</label>
@@ -100,7 +100,6 @@ const EditModal = ({ id }) => {
                                         id="maximumDonationAmount"
                                         name="maximumDonationAmount"
                                         type="number"
-                                        placeholder="input maximum donation amount"
                                         onChange={formik.handleChange}
                                         value={formik.values.maximumDonationAmount}
                                         className="bg-[#054560] border border-orange-300 w-full
@@ -111,17 +110,12 @@ const EditModal = ({ id }) => {
                                 {/* last date of donation----------------- */}
                                 <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%] ">
                                     <label htmlFor="lastDateOfDonation" className="text-[#ffffff] ">Last date of donation :</label>
-                                    <DatePicker
+                                    <input
                                         id="lastDateOfDonation"
                                         name="lastDateOfDonation"
-                                        selected={selectedDate}
-                                        onChange={(date) => {
-                                            const formattedDate = date.toISOString().split("T")[0]
-                                            setSelectedDate(date)
-                                            formik.setFieldValue('lastDateOfDonation', formattedDate)
-                                        }}
-                                        dateFormat="dd/MM/yyyy"
-                                        placeholderText="select a date"
+                                        type="date"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.lastDateOfDonation}
                                         className="bg-[#054560] border border-orange-300 w-full
                                         rounded-[8px] p-1 text-[#ffffff]
                                        "
@@ -164,6 +158,7 @@ const EditModal = ({ id }) => {
                         </form>
                     </div>
                 </div>
+
             </dialog>
         </div>
     );

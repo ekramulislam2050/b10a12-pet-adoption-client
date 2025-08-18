@@ -5,7 +5,7 @@ import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import Heading from "../Heading/Heading";
+
 import EditModal from "../EditModal/EditModal";
 import DonarModal from "../DonarModal/DonarModal";
 
@@ -137,12 +137,14 @@ const MyDonationCampaigns = () => {
                         <th >
                           <div className="hidden sm:block">
                             <div className="flex items-center justify-between ">
+
                               {/* edit btn----------- */}
                               <div className="bg-[#ffffff] px-3 rounded-full">
                                 <button className="text-black btn btn-ghost btn-xs"
-                                  onClick={() => { document.getElementById("my_modal_6").showModal() }}>Edit</button>
-                                {/* <EditModal  id={data._id}></EditModal> */}
+                                  onClick={() => { document.getElementById(`editModal-${data._id}`).showModal() }}>Edit</button>
+
                               </div>
+
                               {/* pause btn------------- */}
                               <div className="bg-[#ffffff] px-3 rounded-full">
                                 <button className="text-black btn btn-ghost btn-xs">Pause</button>
@@ -150,13 +152,20 @@ const MyDonationCampaigns = () => {
                               {/* donar btn--------------- */}
                               <div className="bg-orange-500 rounded-full" onClick={() => { document.getElementById(`donarModal-${data._id}`).showModal() }}>
                                 <button className="btn btn-ghost btn-xs ">Donators</button>
-                                <DonarModal data={data} id={`donarModal-${data._id}`} ></DonarModal>
+
                               </div>
                             </div>
                           </div>
                         </th>
 
                       </tr>
+
+                      {/* modal component------------- */}
+                      <EditModal id={`editModal-${data._id}`} data={data}></EditModal>
+
+                      <DonarModal data={data} id={`donarModal-${data._id}`} ></DonarModal>
+
+
                       {/* btn for mobil------------ */}
                       <tr className="border-b border-red-500 sm:border-0">
                         <td colSpan={4}  >
@@ -165,24 +174,23 @@ const MyDonationCampaigns = () => {
                               {/* edit btn----------- */}
                               <div className="bg-[#ffffff] px-3 rounded-full  ">
                                 <button className="text-black btn btn-ghost btn-xs"
-                                  onClick={() => { document.getElementById("my_modal_6").showModal() }}>Edit</button>
-                                {/* <EditModal  id={data._id}></EditModal> */}
-                                 
+                                  onClick={() => { document.getElementById(`editModal-${data._id}`).showModal() }}>Edit</button>
+
+
                               </div>
-                               
-                              
-                                
+
                               {/* pause btn------------- */}
                               <div className="bg-[#ffffff] px-3 rounded-full">
                                 <button className="text-black btn btn-ghost btn-xs">Pause</button>
                               </div>
+
                               {/* donar btn--------------- */}
                               <div className="bg-orange-500 rounded-full" onClick={() => {
                                 document.getElementById(`donarModal-${data.
                                   _id}`).showModal()
                               }}>
                                 <button className="btn btn-ghost btn-xs ">Donators</button>
-                                <DonarModal data={data} id={`donarModal-${data._id}`} ></DonarModal>
+
                               </div>
                             </div>
                           </div>
@@ -191,7 +199,6 @@ const MyDonationCampaigns = () => {
 
 
                       </tr>
-
 
 
 
