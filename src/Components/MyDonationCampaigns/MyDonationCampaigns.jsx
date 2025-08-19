@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 import EditModal from "../EditModal/EditModal";
 import DonarModal from "../DonarModal/DonarModal";
+import PauseBtn from "../PauseBtn/PauseBtn";
 
 
 const MyDonationCampaigns = () => {
@@ -146,9 +147,8 @@ const MyDonationCampaigns = () => {
                               </div>
 
                               {/* pause btn------------- */}
-                              <div className="bg-[#ffffff] px-3 rounded-full">
-                                <button className="text-black btn btn-ghost btn-xs">Pause</button>
-                              </div>
+                              <PauseBtn data={data}
+                              ></PauseBtn>
                               {/* donar btn--------------- */}
                               <div className="bg-orange-500 rounded-full" onClick={() => { document.getElementById(`donarModal-${data._id}`).showModal() }}>
                                 <button className="btn btn-ghost btn-xs ">Donators</button>
@@ -171,18 +171,15 @@ const MyDonationCampaigns = () => {
                         <td colSpan={4}  >
                           <div className="block sm:hidden">
                             <div className="flex justify-evenly text-[#ffffff] ">
+
                               {/* edit btn----------- */}
                               <div className="bg-[#ffffff] px-3 rounded-full  ">
                                 <button className="text-black btn btn-ghost btn-xs"
                                   onClick={() => { document.getElementById(`editModal-${data._id}`).showModal() }}>Edit</button>
-
-
                               </div>
 
                               {/* pause btn------------- */}
-                              <div className="bg-[#ffffff] px-3 rounded-full">
-                                <button className="text-black btn btn-ghost btn-xs">Pause</button>
-                              </div>
+                              <PauseBtn data={data} ></PauseBtn>
 
                               {/* donar btn--------------- */}
                               <div className="bg-orange-500 rounded-full" onClick={() => {
