@@ -140,8 +140,8 @@ const MyDonationCampaigns = () => {
                             <div className="flex items-center justify-between ">
 
                               {/* edit btn----------- */}
-                              <div className="bg-[#ffffff] px-3 rounded-full">
-                                <button className="text-black btn btn-ghost btn-xs"
+                              <div className="bg-[#ffffff] rounded-full">
+                                <button className="px-6 text-black btn btn-ghost btn-xs"
                                   onClick={() => { document.getElementById(`editModal-${data._id}`).showModal() }}>Edit</button>
 
                               </div>

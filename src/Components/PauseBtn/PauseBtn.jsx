@@ -35,8 +35,8 @@ const handleClick = () => {
 }
 return (
 
-    <div className={`${data.status === "Active" ? "bg-green-500" : "bg-red-500"}   px-3 rounded-full text-[#ffffff] `} >
-        <button className="btn btn-ghost btn-xs"
+    <div className={`${data.status === "Active" ? "bg-green-500" : "bg-red-500"}  rounded-full text-[#ffffff] `} >
+        <button className="px-5 btn btn-ghost btn-xs"
             onClick={handleClick}
             disabled={isPending}
         >{data.status === "Active" ? "Pause" : "Active"}</button>
