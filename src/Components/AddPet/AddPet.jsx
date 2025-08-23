@@ -3,28 +3,32 @@ import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
 
 
 const AddPet = () => {
-    const navigate=useNavigate()
+
+    const [upLoading, setUploading] = useState(false)
+    const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
     const [selectedDate, setSelectedDate] = useState(null)
 
-    const { mutate, isPending } = useMutation({
+    const { mutate } = useMutation({
         mutationKey: ["addPet"],
         mutationFn: async (values) => {
-            const res = await axiosSecure.post("/allPet",values)
+            const res = await axiosSecure.post("/allPet", values)
             return res.data
         },
-        onSuccess:()=>{
+        onSuccess: () => {
             successMsg("pet added successfully!")
             navigate("/petListing")
         },
-        onError:()=>{
+        onError: () => {
             errorMsg("something went wrong!")
         }
     })
@@ -36,12 +40,44 @@ const AddPet = () => {
             age: '',
             location: '',
             image: '',
-            postedDate: ''
+            postedDate: '',
+            shortDescription: '',
+            longDescription: ''
         },
         onSubmit: values => {
+
             mutate(values)
         }
     })
+    //cloudinary img url------------
+    const handleChangeImgUrl = async (e) => {
+        const file = e.target.files[0]
+        if (!file) {
+            return
+        }
+        setUploading(true)
+        const formattedDate = new FormData()
+        formattedDate.append("file", file)
+        formattedDate.append("upload_preset", "firs_time_using_cloudinary")
+
+        try {
+            const res = await axios.post("https://api.cloudinary.com/v1_1/dkupkd5fq/image/upload", formattedDate)
+            const imgUrl = res.data.secure_url
+
+            formik.setFieldValue("image", imgUrl)
+        } catch (err) {
+            errorMsg(err.message)
+        } finally {
+            setUploading(false)
+        }
+    }
+    // category-----------
+    const categoryOptions = [
+        { value: "Cat", label: "Cat" },
+        { value: "Dog", label: "Dog" },
+        { value: "Fish", label: "Fish" },
+        { value: "Rabbit", label: "Rabbit" },
+    ];
     return (
         <div  >
             {/* heading------------ */}
@@ -51,109 +87,185 @@ const AddPet = () => {
             <div className="flex flex-col ">
                 <form onSubmit={formik.handleSubmit}>
 
-                    {/* pet name------------ */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="name" className="text-[#ffffff] ">Pet Name :</label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            placeholder="pet Name"
-                            onChange={formik.handleChange}
-                            value={formik.values.name}
-                            className="bg-[#054560] border border-orange-300 w-full
+                    <div className="grid grid-cols-1 sm:grid-cols-2">
+                        {/* pet name------------ */}
+                        <div className="flex flex-col gap-3 px-2 py-3 ">
+                            <label htmlFor="name" className="text-[#ffffff] ">Pet Name :</label>
+                            <input
+                                required
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder="pet Name"
+                                onChange={formik.handleChange}
+                                value={formik.values.name}
+                                className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
                                 "
-                        />
-                    </div>
-                    {/* pet picture------------ */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="image" className="text-[#ffffff] ">Pet Picture :</label>
-                        <input
-                            id="image"
-                            name="image"
-                            type="url"
-                            placeholder="input pet image link"
-                            onChange={formik.handleChange}
-                            value={formik.values.image}
-                            className="bg-[#054560] border border-orange-300 w-full
+                            />
+                        </div>
+                        
+                        {/* pet picture------------ */}
+                        <div className="flex flex-col gap-3 px-2 py-3 ">
+                            <label htmlFor="image" className="text-[#ffffff] ">Pet Picture :</label>
+                            <input
+                                required
+                                id="image"
+                                name="image"
+                                type="file"
+                                accept="image/*"
+
+                                onChange={handleChangeImgUrl}
+
+                                className="hidden "
+                            />
+                             <label 
+                             htmlFor="image"
+                             className="bg-[#054560] border border-orange-300 w-full
+                                 rounded-[8px] p-1 text-[#ffffff]"
+                             >
+                                 {upLoading?"upLoading--------":"Choose Image"}
+                               
+                             
+                             </label>
+                              {
+                                    !upLoading &&   <p className="mt-1 text-green-500">✅ Image uploaded successfully!</p>
+                                }
+                           
+                        </div>
+
+                        {/* pet age------------ */}
+                        <div className="flex flex-col gap-3 px-2 py-3 ">
+                            <label htmlFor="age" className="text-[#ffffff] ">Pet Age :</label>
+                            <input
+                                required
+                                id="age"
+                                name="age"
+                                type="number"
+                                placeholder="input pet age"
+                                onChange={formik.handleChange}
+                                value={formik.values.age}
+                                className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
                                 "
-                        />
-                    </div>
+                            />
+                        </div>
 
-                    {/* pet age------------ */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="age" className="text-[#ffffff] ">Pet Age :</label>
-                        <input
-                            id="age"
-                            name="age"
-                            type="number"
-                            placeholder="input pet image link"
-                            onChange={formik.handleChange}
-                            value={formik.values.age}
-                            className="bg-[#054560] border border-orange-300 w-full
+                        {/* location------------ */}
+                        <div className="flex flex-col gap-3 px-2 py-3 ">
+                            <label htmlFor="location" className="text-[#ffffff] ">Location :</label>
+                            <input
+                                required
+                                id="location"
+                                name="location"
+                                type="text"
+                                placeholder="input pet location"
+                                onChange={formik.handleChange}
+                                value={formik.values.location}
+                                className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
                                 "
-                        />
+                            />
+                        </div>
+
+
+                        {/* category------------ */}
+                        <div className="flex flex-col gap-3 px-2 py-3 ">
+                            <label htmlFor="category" className="text-[#ffffff] ">category :</label>
+                            <Select
+                                styles={{
+                                    control:(base)=>({
+                                        ...base,
+                                        backgroundColor:"#054560",
+                                        borderColor:"orange",
+                                        borderRadius:"8px",
+                                         
+                                    }) ,
+                                    menu:(base)=>({
+                                           ...base,
+                                           backgroundColor:"#065475",
+                                           color:"white",
+                                        
+                                    }),
+                                    option:(base,state)=>({
+                                        ...base,
+                                        backgroundColor:state.isFocused?"#054560":"#065475"
+                                    }),
+                                    singleValue:(base)=>({
+                                        ...base,
+                                        color:"#ffffff"
+                                    }),
+                                    placeholder:(base)=>({
+                                        ...base,
+                                        color:"lightgray"
+                                    })
+                                }}
+                                options={categoryOptions}
+                                onChange={(selectedCategory) => {
+                                    formik.setFieldValue("category", selectedCategory.value)
+                                }}
+                                placeholder={'select category'}
+                                className="w-full p-1 "
+                            />
+                        </div>
+
+                        {/* postedDate---------------- */}
+                        <div className="flex flex-col gap-3 px-2 py-3">
+                            <label htmlFor="location" className="text-[#ffffff] ">Date :</label>
+                            <DatePicker
+                                required
+                                id="postedDate"
+                                name="postedDate"
+                                selected={selectedDate}
+                                onChange={(date) => {
+                                    setSelectedDate(date)
+                                    formik.setFieldValue("postedDate", date)
+                                }}
+                                dateFormat="dd/MM/yyyy"
+                                className="bg-[#054560] border border-orange-300 w-full
+                                 rounded-[8px] p-1 text-[#ffffff]
+                               "
+                                 calendarClassName="custom-calendar  "
+                                ></DatePicker>
+
+                        </div>
+
                     </div>
 
-                    {/* location------------ */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="location" className="text-[#ffffff] ">Location :</label>
-                        <input
-                            id="location"
-                            name="location"
-                            type="text"
-                            placeholder="input pet image link"
+                    {/* short description---------------- */}
+                    <div className="flex flex-col gap-3 px-2 py-3">
+                        <label htmlFor="location" className="text-[#ffffff] ">Short Description :</label>
+
+                        <textarea
+                            required
+                            placeholder="write short description about pet"
+                            id="shortDescription"
+                            name="shortDescription"
                             onChange={formik.handleChange}
-                            value={formik.values.location}
+                            value={formik.values.shortDescription}
                             className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
-                                "
-                        />
+                                ">
+                                  
+                        </textarea>
                     </div>
+                    {/* long description---------------- */}
+                    <div className="flex flex-col gap-3 px-2 py-3">
+                        <label htmlFor="location" className="text-[#ffffff] ">Long Description :</label>
 
-                    {/* posted date------------ */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="postedDate" className="text-[#ffffff] ">Date :</label>
-                        <DatePicker
-                            name="postedDate"
-                            id="postedDate"
-                            selected={selectedDate}
-                            onChange={(data) => {
-                                const formattedDate = data.toISOString().split("T")[0]
-                                setSelectedDate(data)
-                                formik.setFieldValue("postedDate", formattedDate)
-                            }}
-                            dateFormat="dd/MM/yyyy"
+                        <textarea
+                            required
+                            placeholder="write long description about pet"
+                            id="longDescription"
+                            name="longDescription"
+                            onChange={formik.handleChange}
+                            value={formik.values.longDescription}
                             className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
-                                "
-                            placeholderText="input postedDate"
-                        />
+                                ">
 
-
+                        </textarea>
                     </div>
-                    {/* category------------ */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="category" className="text-[#ffffff] ">category :</label>
-                        <select
-                            name="category"
-                            id="category"
-                            onChange={formik.handleChange}
-                            value={formik.values.category}
-                            className="bg-[#054560] border border-orange-300 text-[#ffffff] rounded-[8px] p-1"
-                        >
-                            <option value="" >Choose</option>
-                            <option value="Cat">Cat</option>
-                            <option value="Dog">Dog</option>
-                            <option value="Fish">Fish</option>
-                            <option value="Rabbit">Rabbit</option>
-                        </select>
-                    </div>
-
-
 
                     {/* submit btn--------------- */}
                     <div className="my-3 text-center">

@@ -27,7 +27,7 @@ const PetDetails = () => {
         return errorMsg(error.message || "something went wrong")
     }
 
-    const { name, age, category, image, location, postedDate, _id } = data || {}
+    const { name, age, category, image, location, postedDate, _id,shortDescription,longDescription } = data || {}
     // console.log(data)
     return (
         <div className="min-h-screen ">
@@ -51,10 +51,9 @@ const PetDetails = () => {
                             <div>📍 <strong>location:</strong> {location}</div>
                             <div>📅 <strong>postedDate:</strong> {postedDate}</div>
                             <div>🆔 <strong>Id:</strong> {_id}</div>
-                            <p className="text-lg text-gray-700">
-                                {name} is a lovely <span className="font-semibold text-red-500">{category}</span> looking for a caring home.
-                                With a friendly personality and gentle nature, this pet would make a wonderful companion.
-                            </p>
+                            <div>📖 <strong>shortDescription : </strong> {shortDescription}</div>
+                            <div>📖 <strong>longDescription : </strong> {longDescription}</div>
+                          
                         </div>
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
                         <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_5').showModal()}>Adopt Now</button>

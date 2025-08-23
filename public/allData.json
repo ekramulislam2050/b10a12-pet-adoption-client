@@ -6,7 +6,9 @@
     "location": "Dhaka",
     "image": "https://i.ibb.co/8nDTsz6d/alvan-nee-ZCHj-2l-JP00-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-20T12:00:00Z"
+    "postedDate": "2025-06-20T12:00:00Z",
+    "shortDescription": "Playful 2-year-old cat from Dhaka.",
+    "longDescription": "Luna is a 2-year-old cat from Dhaka. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Milo",
@@ -15,7 +17,9 @@
     "location": "Chattogram",
     "image": "https://i.ibb.co/d4BG2kgp/erik-jan-leusink-Ib-Px-GLg-Ji-MI-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-21T12:00:00Z"
+    "postedDate": "2025-06-21T12:00:00Z",
+    "shortDescription": "Friendly 1-year-old cat from Chattogram.",
+    "longDescription": "Milo is a 1-year-old cat from Chattogram. He is friendly, curious, and loves attention, perfect for a family pet."
   },
   {
     "name": "Simba",
@@ -24,7 +28,9 @@
     "location": "Rajshahi",
     "image": "https://i.ibb.co/cWT6rWS/lloyd-dirks-R1o-Sj2m-7-Ks-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-22T12:00:00Z"
+    "postedDate": "2025-06-22T12:00:00Z",
+    "shortDescription": "Playful 3-year-old cat from Rajshahi.",
+    "longDescription": "Simba is a 3-year-old cat from Rajshahi. She is curious, playful, and loves human companionship."
   },
   {
     "name": "Bella",
@@ -33,7 +39,9 @@
     "location": "Sylhet",
     "image": "https://i.ibb.co/hR7PjKDy/lloyd-henneman-m-BRf-YA0d-YYE-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-23T12:00:00Z"
+    "postedDate": "2025-06-23T12:00:00Z",
+    "shortDescription": "Loyal 3-year-old dog from Dhaka.",
+    "longDescription": "Bella is a 3-year-old dog from Dhaka. Energetic, friendly, and protective, perfect for families and companionship."
   },
   {
     "name": "Oliver",
@@ -42,7 +50,9 @@
     "location": "Barisal",
     "image": "https://i.ibb.co/Kp7SVc9k/michael-sum-LEpfef-Qf4r-U-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-24T12:00:00Z"
+    "postedDate": "2025-06-24T12:00:00Z",
+    "shortDescription": "Playful 3-year-old cat from Barisal.",
+    "longDescription": "Oliver is a 2-year-old cat from Barisal. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Leo",
@@ -51,7 +61,9 @@
     "location": "Khulna",
     "image": "https://i.ibb.co/1fFHSFf2/oleg-ivanov-Ttj-Elwls-YDc-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-25T12:00:00Z"
+    "postedDate": "2025-06-25T12:00:00Z",
+    "shortDescription": "Playful 2.5-year-old cat from khulna.",
+    "longDescription": "Leo is a 2-year-old cat from khulna. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Chloe",
@@ -60,7 +72,9 @@
     "location": "Rangpur",
     "image": "https://i.ibb.co/jC5tCPm/philcreates-pd-ALzg0y-N-8-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-26T12:00:00Z"
+    "postedDate": "2025-06-26T12:00:00Z",
+    "shortDescription": "Playful 1-year-old cat from Rangpur.",
+    "longDescription": "Chloe is a 2-year-old cat from Rangpur. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Nala",
@@ -69,7 +83,9 @@
     "location": "Comilla",
     "image": "https://i.ibb.co/DHzz2CgP/rana-sawalha-X7-UR0-BDz-UY-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-27T12:00:00Z"
+    "postedDate": "2025-06-27T12:00:00Z",
+    "shortDescription": "Playful 4-months-old cat from Comilla.",
+    "longDescription": "Nala is a 4-months-old cat from Comilla. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Zara",
@@ -78,7 +94,9 @@
     "location": "Mymensingh",
     "image": "https://i.ibb.co/4nmbr9w1/thomas-park-On6b-RQRn5l-Y-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-28T12:00:00Z"
+    "postedDate": "2025-06-28T12:00:00Z",
+    "shortDescription": "Playful 2-year-old cat from Mymensingh.",
+    "longDescription": "Zara is a 2-year-old cat from Mymensingh. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Coco",
@@ -87,7 +105,9 @@
     "location": "Gazipur",
     "image": "https://i.ibb.co/QvD6W30K/yerlin-matu-Gtwi-Bmt-Jva-U-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-29T12:00:00Z"
+    "postedDate": "2025-06-29T12:00:00Z",
+    "shortDescription": "Fluffy 8-month-old rabbit from Khulna.",
+    "longDescription": "Coco is an 8-month-old rabbit from Khulna. Cute, calm, and enjoys vegetables, perfect for a gentle pet experience."
   },
   {
     "name": "Tiger",
@@ -96,7 +116,9 @@
     "location": "Narayanganj",
     "image": "https://i.ibb.co/1YYJ7LKL/zoe-gayah-jonker-13ky5-Ycf0ts-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-30T12:00:00Z"
+    "postedDate": "2025-06-30T12:00:00Z",
+    "shortDescription": "Playful 1.2-year-old cat from Narayanganj.",
+    "longDescription": "Tiger is a 1.2-year-old cat from Narayangong. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Misty",
@@ -105,7 +127,9 @@
     "location": "Bogura",
     "image": "https://i.ibb.co/cSLdMVfz/zoe-gayah-jonker-G7k-UPmzi80-E-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-31T12:00:00Z"
+    "postedDate": "2025-06-31T12:00:00Z",
+    "shortDescription": "Playful 8-months-old cat from Barisal.",
+    "longDescription": "Misty is a 8-months-old cat from Barisal. She is playful, gentle, and affectionate, looking for a loving home."
   },
   {
     "name": "Buddy",
@@ -114,7 +138,9 @@
     "location": "Dhaka",
     "image": "https://i.ibb.co/DfmZCZRJ/adam-griffith-s-Wkk-Ii-TJMYc-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-20T10:00:00Z"
+    "postedDate": "2025-06-20T10:00:00Z",
+    "shortDescription": "Buddy 3-year-old dog from Dhaka.",
+    "longDescription": "Shadow is a 3-year-old dog from Dhaka. Friendly, playful, and loves being around people."
   },
   {
     "name": "Charlie",
@@ -123,7 +149,9 @@
     "location": "Chattogram",
     "image": "https://i.ibb.co/Hp7CnDrs/ahmer-kalam-B3-QKG1t-Rd-KA-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-21T10:00:00Z"
+    "postedDate": "2025-06-21T10:00:00Z",
+    "shortDescription": "Loyal 2-year-old dog from Chattogram.",
+    "longDescription": "Charlie is a 2-year-old dog from Chattogram. Energetic, friendly, and loves to play, a perfect companion for active families."
   },
   {
     "name": "Max",
@@ -132,7 +160,9 @@
     "location": "Sylhet",
     "image": "https://i.ibb.co/PsHpj9GZ/alora-griffiths-k4-Zh-DNznn-Ao-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-22T10:00:00Z"
+    "postedDate": "2025-06-22T10:00:00Z",
+    "shortDescription": "Loyal 2-year-old dog from Sylhet.",
+    "longDescription": "Max is a 2-year-old dog from Sylhet. Friendly, playful, and protective, ideal for families with kids."
   },
   {
     "name": "Bella",
@@ -141,7 +171,9 @@
     "location": "Barisal",
     "image": "https://i.ibb.co/yTRBFp4/belinda-fewings-d-Q8t7f1n-Xd8-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-23T10:00:00Z"
+    "postedDate": "2025-06-23T10:00:00Z",
+    "shortDescription": "Loyal 1.5-year-old dog from Barisal.",
+    "longDescription": "Shadow is a 1.5-year-old dog from Barisal. Friendly, playful, and loves being around people."
   },
   {
     "name": "Rocky",
@@ -150,7 +182,9 @@
     "location": "Khulna",
     "image": "https://i.ibb.co/N6X1wtnz/ben-hanson-VUfj-R-Tqz-Kw-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-24T10:00:00Z"
+    "postedDate": "2025-06-24T10:00:00Z",
+    "shortDescription": "Loyal 1.5-year-old dog from Rajshahi.",
+    "longDescription": "Rocky is a 1.5-year-old dog from Rajshahi. Energetic, friendly, and protective, perfect for families and companionship."
   },
   {
     "name": "Lucy",
@@ -159,7 +193,9 @@
     "location": "Rajshahi",
     "image": "https://i.ibb.co/HTFLP0W0/eric-ward-ISg37-AI2-A-s-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-25T10:00:00Z"
+    "postedDate": "2025-06-25T10:00:00Z",
+    "shortDescription": "Loyal 1-year-old dog from Mymensingh.",
+    "longDescription": "Shadow is a 1-year-old dog from Mymensingh. Friendly, playful, and loves being around people."
   },
   {
     "name": "Daisy",
@@ -168,7 +204,9 @@
     "location": "Rangpur",
     "image": "https://i.ibb.co/67BnwTPP/helena-lopes-e-Qq-DVJg6q-X0-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-26T10:00:00Z"
+    "postedDate": "2025-06-26T10:00:00Z",
+    "shortDescription": "Fluffy 6-month-old rabbit from Sylhet.",
+    "longDescription": "Daisy is a 6-month-old rabbit from Sylhet. Cute, calm, and enjoys vegetables, an ideal gentle pet for any home."
   },
   {
     "name": "Bailey",
@@ -177,7 +215,9 @@
     "location": "Narsingdi",
     "image": "https://i.ibb.co/6cZWSbCC/nathan-dumlao-y-CKKd37-Osg-I-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-27T10:00:00Z"
+    "postedDate": "2025-06-27T10:00:00Z",
+    "shortDescription": "Beily 2-year-old dog from Narsingdi.",
+    "longDescription": "Shadow is a 2-year-old dog from Narsingdi. Friendly, playful, and loves being around people."
   },
   {
     "name": "Cooper",
@@ -186,7 +226,9 @@
     "location": "Noakhali",
     "image": "https://i.ibb.co/8LbRXtGv/pao-dayag-LHWj-3i-KWKw-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-28T10:00:00Z"
+    "postedDate": "2025-06-28T10:00:00Z",
+    "shortDescription": "Loyal 6-year-old dog from Noakhali.",
+    "longDescription": "Shadow is a 6-year-old dog from Noakhali. Friendly, playful, and loves being around people."
   },
   {
     "name": "Lola",
@@ -195,7 +237,9 @@
     "location": "Narayanganj",
     "image": "https://i.ibb.co/prKtW5nF/road-ahead-ut-NL-XFj6-CE-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-29T10:00:00Z"
+    "postedDate": "2025-06-29T10:00:00Z",
+    "shortDescription": "Lola 2.5-year-old dog from Narayanganj.",
+    "longDescription": "Shadow is a 2.5-year-old dog from Narayangang. Friendly, playful, and loves being around people."
   },
   {
     "name": "Bear",
@@ -204,7 +248,9 @@
     "location": "Comilla",
     "image": "https://i.ibb.co/fVGj0p6p/shakeel-ahammed-a5oc-H03-W4g-I-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-30T10:00:00Z"
+    "postedDate": "2025-06-30T10:00:00Z",
+    "shortDescription": "Bear 3-year-old dog from commilla.",
+    "longDescription": "Shadow is a 3-year-old dog from comilla. Friendly, playful, and loves being around people."
   },
   {
     "name": "Sadie",
@@ -213,7 +259,9 @@
     "location": "Gazipur",
     "image": "https://i.ibb.co/CykTW05/vander-films-N8-Wse-B4l-Gqo-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-31T10:00:00Z"
+    "postedDate": "2025-06-31T10:00:00Z",
+    "shortDescription": "Sadie 9-months-old dog from Gazipur.",
+    "longDescription": "Shadow is a 9-months-old dog from Gazipur. Friendly, playful, and loves being around people."
   },
   {
     "name": "Thumper",
@@ -222,7 +270,9 @@
     "location": "Dhaka",
     "image": "https://i.ibb.co/FLB8D14S/christopher-paul-high-z-Xb8-X-9hp0-M-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-20T13:00:00Z"
+    "postedDate": "2025-06-20T13:00:00Z",
+    "shortDescription": "Thumper 6-months-old dog from Dhaka.",
+    "longDescription": "Thumper is a 1-year-old dog from Dhaka. Friendly, playful, and loves being around people."
   },
   {
     "name": "Snowball",
@@ -231,7 +281,9 @@
     "location": "Chattogram",
     "image": "https://i.ibb.co/nN2b82TV/erik-jan-leusink-SDX4-KWIb-A-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-21T13:00:00Z"
+    "postedDate": "2025-06-21T13:00:00Z",
+    "shortDescription": "Snowball 1-month-old rabbit from Chattogram.",
+    "longDescription": "Snowball is a 1-month-old rabbit from Chattogram. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Bunbun",
@@ -240,25 +292,31 @@
     "location": "Sylhet",
     "image": "https://i.ibb.co/XrcBjZPR/gary-bendig-Kv-HT4dlt-PEQ-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-22T13:00:00Z"
+    "postedDate": "2025-06-22T13:00:00Z",
+    "shortDescription": "Bunbun 4-month-old rabbit from Sylhet.",
+    "longDescription": "Bunbun is a 4-month-old rabbit from Sylhet. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Floppy",
     "category": "Rabbit",
-    "age": "2 years",
+    "age": "6 month",
     "location": "Barisal",
     "image": "https://i.ibb.co/Xxkkb3LW/janan-302xfi-IGOf-E-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-23T13:00:00Z"
+    "postedDate": "2025-06-23T13:00:00Z",
+    "shortDescription": "Floppy 6-month-old rabbit from Barisal.",
+    "longDescription": "Floppy is a 6-month-old rabbit from Barisal. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Caramel",
     "category": "Rabbit",
-    "age": "1.5 years",
+    "age": "6 month",
     "location": "Khulna",
     "image": "https://i.ibb.co/LzBKFQ1V/janan-p2-Ub-TX6-Uoig-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-24T13:00:00Z"
+    "postedDate": "2025-06-24T13:00:00Z",
+    "shortDescription": "Caramel 6-month-old rabbit from Khulna.",
+    "longDescription": "Caramel is a 6-month-old rabbit from Khulna. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Oreo",
@@ -276,7 +334,9 @@
     "location": "Rangpur",
     "image": "https://i.ibb.co/tM0PK0Zm/nikolett-emmert-kkpom-Ot-VXT8-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-26T13:00:00Z"
+    "postedDate": "2025-06-26T13:00:00Z",
+    "shortDescription": "Colorful 6-month-old aquarium fish from Mymensingh.",
+    "longDescription": "Bubbles is a 6-month-old fish from Mymensingh. Beautiful and peaceful, perfect for brightening up your aquarium."
   },
   {
     "name": "Hazel",
@@ -285,7 +345,9 @@
     "location": "Mymensingh",
     "image": "https://i.ibb.co/93fmXBPC/pablo-martinez-Adagxt-VKRWE-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-27T13:00:00Z"
+    "postedDate": "2025-06-27T13:00:00Z",
+    "shortDescription": "Hazel 2-years-old rabbit from Mymensingh.",
+    "longDescription": "Hazel is a 2-Years-old rabbit from Mymensingh. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Poppy",
@@ -294,7 +356,9 @@
     "location": "Narsingdi",
     "image": "https://i.ibb.co/6cQcSHzJ/sandy-millar-k-KAa-Ce-Gf5w-Y-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-28T13:00:00Z"
+    "postedDate": "2025-06-28T13:00:00Z",
+    "shortDescription": "Poppy 1.2-years-old rabbit from Narsigdi.",
+    "longDescription": "Angel is a 1.2-years-old rabbit from Narsingdi. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Ruby",
@@ -303,7 +367,9 @@
     "location": "Noakhali",
     "image": "https://i.ibb.co/1fH006jR/satyabratasm-u-k-MWN-BWy-U-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-29T13:00:00Z"
+    "postedDate": "2025-06-29T13:00:00Z",
+    "shortDescription": "Playful 2-year-old cat from Mymensingh.",
+    "longDescription": "Ruby is a 2-year-old cat from Mymensingh. Gentle, affectionate, and loves to play."
   },
   {
     "name": "Lucky",
@@ -312,7 +378,9 @@
     "location": "Comilla",
     "image": "https://i.ibb.co/CKpPRtVY/tolga-ahmetler-r-GJCQvqh-JM-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-30T13:00:00Z"
+    "postedDate": "2025-06-30T13:00:00Z",
+    "shortDescription": "Lucky 10-month-old rabbit from Comilla.",
+    "longDescription": "Angel is a 10-month-old rabbit from Comilla. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Marshmallow",
@@ -321,7 +389,9 @@
     "location": "Gazipur",
     "image": "https://i.ibb.co/d0zHDnKZ/waranya-mooldee-Efj0-HGPd-PKs-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-31T13:00:00Z"
+    "postedDate": "2025-06-31T13:00:00Z",
+    "shortDescription": "Marshmallow 5-month-old rabbit from Gazipur.",
+    "longDescription": "Marshmallow is a 5-month-old rabbit from Gazipur. Calm, cute, and enjoys fresh vegetables, ideal for gentle pet lovers."
   },
   {
     "name": "Goldie",
@@ -330,7 +400,9 @@
     "location": "Dhaka",
     "image": "https://i.ibb.co/NdF62kBg/claudio-guglieri-K2-RH1-QZd-LF4-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-20T14:00:00Z"
+    "postedDate": "2025-06-20T14:00:00Z",
+    "shortDescription": "Colorful 8-month-old aquarium fish from Barisal.",
+    "longDescription": "Goldie is an 8-month-old fish from Barisal. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Bubbles",
@@ -339,7 +411,9 @@
     "location": "Chattogram",
     "image": "https://i.ibb.co/XGbJ3p5/david-clode-9-Fv-TOCfvt-w-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-21T14:00:00Z"
+    "postedDate": "2025-06-21T14:00:00Z",
+    "shortDescription": "Bubbles 2-month-old aquarium fish from chattogram.",
+    "longDescription": "Bubbles is an 2-month-old fish from Chattogram. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Finley",
@@ -348,7 +422,9 @@
     "location": "Sylhet",
     "image": "https://i.ibb.co/8Df3yQGG/david-clode-EDf-Z0-Sjmp-w-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-22T14:00:00Z"
+    "postedDate": "2025-06-22T14:00:00Z",
+    "shortDescription": "Finley 4-month-old aquarium fish from Sylhet.",
+    "longDescription": "Finley is an 4-month-old fish from Sylhet. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Nemo",
@@ -357,7 +433,9 @@
     "location": "Barisal",
     "image": "https://i.ibb.co/SXqBv54g/david-clode-i-Lw-QIb-Wxv-s-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-23T14:00:00Z"
+    "postedDate": "2025-06-23T14:00:00Z",
+    "shortDescription": "Colorful 1-year-old aquarium fish from Barisal.",
+    "longDescription": "Nemo is a 1-year-old fish from Barisal. Beautiful and peaceful, perfect for brightening up your aquarium."
   },
   {
     "name": "Marlin",
@@ -366,7 +444,9 @@
     "location": "Khulna",
     "image": "https://i.ibb.co/hJBYTpH9/david-clode-l-Qd-JMZX7-PU-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-24T14:00:00Z"
+    "postedDate": "2025-06-24T14:00:00Z",
+    "shortDescription": "Marlin 5-month-old aquarium fish from khulna.",
+    "longDescription": "Marlin is an 5-month-old fish from khulna. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Bluey",
@@ -375,16 +455,20 @@
     "location": "Rajshahi",
     "image": "https://i.ibb.co/wr4tTdNK/david-clode-u5-K46-Puk-KAo-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-25T14:00:00Z"
+    "postedDate": "2025-06-25T14:00:00Z",
+    "shortDescription": "Bluey 7-month-old aquarium fish from Rajshahi.",
+    "longDescription": "Bluey is an 7-month-old fish from Rajshahi. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Angel",
     "category": "Fish",
-    "age": "1 year",
+    "age": "8 month",
     "location": "Rangpur",
     "image": "https://i.ibb.co/QjzFwp5D/gabor-szuts-uu8s-DKv-Tx-g-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-26T14:00:00Z"
+    "postedDate": "2025-06-26T14:00:00Z",
+    "shortDescription": "Angle 8-month-old aquarium fish from Rangpur.",
+    "longDescription": "Angle is an 8-month-old fish from Rangpur. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Shiny",
@@ -393,7 +477,9 @@
     "location": "Mymensingh",
     "image": "https://i.ibb.co/Q3nC5n71/kyaw-tun-n-I3b-UW1-Xqik-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-27T14:00:00Z"
+    "postedDate": "2025-06-27T14:00:00Z",
+    "shortDescription": "shiny 3-month-old aquarium fish from Mymensingh.",
+    "longDescription": "shiny is an 3-month-old fish from Mymensingh. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Dory",
@@ -402,7 +488,9 @@
     "location": "Narsingdi",
     "image": "https://i.ibb.co/k2SPy6JH/kyaw-tun-tp5sz33n-Bcg-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-28T14:00:00Z"
+    "postedDate": "2025-06-28T14:00:00Z",
+    "shortDescription": "Dory 8-month-old aquarium fish from Narsingdi.",
+    "longDescription": "Dory is an 8-month-old fish from Narsingdi. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Stripe",
@@ -411,7 +499,9 @@
     "location": "Noakhali",
     "image": "https://i.ibb.co/mVQwdSWT/pawel-czerwinski-m-JMrb-Y-jtls-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-29T14:00:00Z"
+    "postedDate": "2025-06-29T14:00:00Z",
+    "shortDescription": "Stripe 6-month-old aquarium fish from Noakhli.",
+    "longDescription": "Stripe is an 6-month-old fish from Noakhali. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Flash",
@@ -420,15 +510,19 @@
     "location": "Comilla",
     "image": "https://i.ibb.co/ym2DdgVN/rachel-hisko-r-EM3c-K8-F1pk-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-30T14:00:00Z"
+    "postedDate": "2025-06-30T14:00:00Z",
+    "shortDescription": "Colorful 2-month-old aquarium fish from Comilla.",
+    "longDescription": "Flash is an 2-month-old fish from Comilla. Peaceful and colorful, perfect for brightening your aquarium."
   },
   {
     "name": "Coral",
     "category": "Fish",
-    "age": "1 year",
+    "age": "8 month",
     "location": "Gazipur",
     "image": "https://i.ibb.co/pr1KFrg4/zhengtao-tang-V7-SKRh-Xskv8-unsplash.jpg",
     "adopted": false,
-    "postedDate": "2025-06-31T14:00:00Z"
+    "postedDate": "2025-06-31T14:00:00Z",
+    "shortDescription": "Colorful 8-month-old aquarium fish from Gazipur.",
+    "longDescription": "Coral is an 8-month-old fish from Gazipur. Peaceful and colorful, perfect for brightening your aquarium."
   }
 ]
