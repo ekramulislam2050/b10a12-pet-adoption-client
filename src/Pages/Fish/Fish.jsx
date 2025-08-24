@@ -15,7 +15,7 @@ const Fish = () => {
         errorMsg(error.message || "something went wrong")
         return null
      }
-     const fishes = allData.filter(pets=>pets.category === "Fish")
+     const fishes = allData.filter(pets=>pets.category === "Fish" && pets.adopted===false)
     return (
         <div className="mt-2">
             <div className="pt-5 pb-10">

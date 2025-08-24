@@ -15,7 +15,7 @@ const Cats = () => {
         return null
     }
     //  console.log(allData)
-    const cats = allData?.filter(pets => pets.category === "Cat")
+    const cats = allData?.filter(pets => pets.category === "Cat" && pets.adopted === false)
   
     // console.log(dogs)
     return (

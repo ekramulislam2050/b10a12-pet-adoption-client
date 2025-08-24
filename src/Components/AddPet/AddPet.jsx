@@ -9,7 +9,8 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
-
+import { toast, ToastContainer } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
 
 const AddPet = () => {
 
@@ -65,6 +66,9 @@ const AddPet = () => {
             const imgUrl = res.data.secure_url
 
             formik.setFieldValue("image", imgUrl)
+            toast.success("✅ Image uploaded successfully!", {
+                
+            });
         } catch (err) {
             errorMsg(err.message)
         } finally {
@@ -80,6 +84,7 @@ const AddPet = () => {
     ];
     return (
         <div  >
+            <ToastContainer></ToastContainer>
             {/* heading------------ */}
             <div className="flex justify-center p-2 mt-3">
                 <h1 className="text-orange-300 text-4xl font-[kapakana]  tracking-wide sm:text-5xl font-semibold" > ➕ Add Your Pet</h1>
@@ -104,7 +109,7 @@ const AddPet = () => {
                                 "
                             />
                         </div>
-                        
+
                         {/* pet picture------------ */}
                         <div className="flex flex-col gap-3 px-2 py-3 ">
                             <label htmlFor="image" className="text-[#ffffff] ">Pet Picture :</label>
@@ -119,19 +124,17 @@ const AddPet = () => {
 
                                 className="hidden "
                             />
-                             <label 
-                             htmlFor="image"
-                             className="bg-[#054560] border border-orange-300 w-full
+                            <label
+                                htmlFor="image"
+                                className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]"
-                             >
-                                 {upLoading?"upLoading--------":"Choose Image"}
-                               
-                             
-                             </label>
-                              {
-                                    !upLoading &&   <p className="mt-1 text-green-500">✅ Image uploaded successfully!</p>
-                                }
+                            >
+                                {upLoading ? <p className="text-red-500">upLoading--------</p> : "Choose Image"}
+
+
+                            </label>
                            
+
                         </div>
 
                         {/* pet age------------ */}
@@ -174,30 +177,30 @@ const AddPet = () => {
                             <label htmlFor="category" className="text-[#ffffff] ">category :</label>
                             <Select
                                 styles={{
-                                    control:(base)=>({
+                                    control: (base) => ({
                                         ...base,
-                                        backgroundColor:"#054560",
-                                        borderColor:"orange",
-                                        borderRadius:"8px",
-                                         
-                                    }) ,
-                                    menu:(base)=>({
-                                           ...base,
-                                           backgroundColor:"#065475",
-                                           color:"white",
-                                        
+                                        backgroundColor: "#054560",
+                                        borderColor: "orange",
+                                        borderRadius: "8px",
+
                                     }),
-                                    option:(base,state)=>({
+                                    menu: (base) => ({
                                         ...base,
-                                        backgroundColor:state.isFocused?"#054560":"#065475"
+                                        backgroundColor: "#065475",
+                                        color: "white",
+
                                     }),
-                                    singleValue:(base)=>({
+                                    option: (base, state) => ({
                                         ...base,
-                                        color:"#ffffff"
+                                        backgroundColor: state.isFocused ? "#054560" : "#065475"
                                     }),
-                                    placeholder:(base)=>({
+                                    singleValue: (base) => ({
                                         ...base,
-                                        color:"lightgray"
+                                        color: "#ffffff"
+                                    }),
+                                    placeholder: (base) => ({
+                                        ...base,
+                                        color: "lightgray"
                                     })
                                 }}
                                 options={categoryOptions}
@@ -225,8 +228,8 @@ const AddPet = () => {
                                 className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
                                "
-                                 calendarClassName="custom-calendar  "
-                                ></DatePicker>
+                                calendarClassName="custom-calendar  "
+                            ></DatePicker>
 
                         </div>
 
@@ -246,7 +249,7 @@ const AddPet = () => {
                             className="bg-[#054560] border border-orange-300 w-full
                                  rounded-[8px] p-1 text-[#ffffff]
                                 ">
-                                  
+
                         </textarea>
                     </div>
                     {/* long description---------------- */}

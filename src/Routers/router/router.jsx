@@ -98,7 +98,7 @@ const router =createBrowserRouter([
         children:[
               {
                 path:"/dashboard/addPet",
-                element:<AddPet></AddPet>
+                element:<PrivateRouter><AddPet></AddPet></PrivateRouter>
               },
               {
                 path:"/dashboard/myAddedPets",
