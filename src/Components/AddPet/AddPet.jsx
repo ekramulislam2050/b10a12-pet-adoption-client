@@ -11,9 +11,10 @@ import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
  import "react-toastify/dist/ReactToastify.css";
+import useAuth from "@/Hooks/Auth/useAuth";
 
 const AddPet = () => {
-
+     const {user}=useAuth()
     const [upLoading, setUploading] = useState(false)
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
@@ -42,6 +43,7 @@ const AddPet = () => {
             location: '',
             image: '',
             postedDate: '',
+            email:user?.email || "not found email",
             shortDescription: '',
             longDescription: ''
         },
@@ -144,7 +146,7 @@ const AddPet = () => {
                                 required
                                 id="age"
                                 name="age"
-                                type="number"
+                                type="text"
                                 placeholder="input pet age"
                                 onChange={formik.handleChange}
                                 value={formik.values.age}
@@ -234,6 +236,23 @@ const AddPet = () => {
                         </div>
 
                     </div>
+                    
+                    {/* email---------- */}
+                    <div className="flex flex-col gap-3 px-2 py-3 ">
+                            <label htmlFor="location" className="text-[#ffffff] ">Email :</label>
+                            <input
+                                 readOnly
+                                id="email"
+                                name="email"
+                                type="email"
+                                placeholder="input pet location"
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                                className="bg-[#054560] border border-orange-300 w-full
+                                 rounded-[8px] p-1 text-[#ffffff]
+                                "
+                            />
+                        </div>
 
                     {/* short description---------------- */}
                     <div className="flex flex-col gap-3 px-2 py-3">
