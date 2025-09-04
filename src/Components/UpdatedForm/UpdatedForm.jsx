@@ -17,16 +17,18 @@ const UpdatedForm = ({ data }) => {
     const [upLoading, setUploading] = useState(false)
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
-    const [selectedDate, setSelectedDate] = useState(null)
+    const [selectedDate, setSelectedDate] = useState(
+        data?.postedDate ? new Date(data.postedDate) : null
+    )
 
     const { mutate } = useMutation({
-        mutationKey: ["addPet"],
+        mutationKey: ["updatePet"],
         mutationFn: async (values) => {
-            const res = await axiosSecure.patch("/allPet", values)
+            const res = await axiosSecure.patch(`/allPet/${data._id}`, values)
             return res.data
         },
         onSuccess: () => {
-            successMsg("pet added successfully!")
+            successMsg("pet update successfully!")
             navigate("/petListing")
         },
         onError: () => {
@@ -36,16 +38,16 @@ const UpdatedForm = ({ data }) => {
 
     const formik = useFormik({
         initialValues: {
-            name:data?.name || "",
-            category:data?.category || "",
-            age:data?.age || "",
-            location:data?.location || "",
-            image:data?.image || "",
-            postedDate:data?.postedDate || "",
-            shortDescription:data?.shortDescription || "",
-            longDescription:data?.longDescription || ""
+            name: data?.name || "",
+            category: data?.category || "",
+            age: data?.age || "",
+            location: data?.location || "",
+            image: data?.image || "",
+            postedDate: data?.postedDate || "",
+            shortDescription: data?.shortDescription || "",
+            longDescription: data?.longDescription || ""
         },
-        enableReinitialize:true,
+        enableReinitialize: true,
         onSubmit: values => {
 
             mutate(values)
@@ -134,7 +136,13 @@ const UpdatedForm = ({ data }) => {
 
 
                             </label>
-
+                            {formik.values.image && (
+                                <img
+                                    src={formik.values.image}
+                                    alt="Pet Preview"
+                                    className="object-cover h-12 mt-2 border border-orange-300 rounded-md w-14"
+                                />
+                            )}
 
                         </div>
 
@@ -210,6 +218,7 @@ const UpdatedForm = ({ data }) => {
                                 }}
                                 placeholder={'select category'}
                                 className="w-full p-1 "
+                                value={categoryOptions.find(opt => opt.value === formik.values.category)}
                             />
                         </div>
 
@@ -236,22 +245,6 @@ const UpdatedForm = ({ data }) => {
 
                     </div>
 
-                    {/* email---------- */}
-                    <div className="flex flex-col gap-3 px-2 py-3 ">
-                        <label htmlFor="location" className="text-[#ffffff] ">Email :</label>
-                        <input
-                            readOnly
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="input pet location"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            className="bg-[#054560] border border-orange-300 w-full
-                                 rounded-[8px] p-1 text-[#ffffff]
-                                "
-                        />
-                    </div>
 
                     {/* short description---------------- */}
                     <div className="flex flex-col gap-3 px-2 py-3">
