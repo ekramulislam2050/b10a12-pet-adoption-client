@@ -23,6 +23,7 @@ import MyDonationCampaigns from "@/Components/MyDonationCampaigns/MyDonationCamp
 import MyDonations from "@/Components/MyDonations/MyDonations";
 import DonationCampaignDetails from "@/Components/DonationCampaignDetail/DonationCampaignDetails";
 import RecommendationDonationDetails from "@/Pages/RecommendedDonationDetails/RecommendationDonationDetails";
+import UpdatedMyAddedPets from "@/Pages/UpdatedMyAddedPets/UpdatedMyAddedPets";
  
  
 
@@ -120,6 +121,11 @@ const router =createBrowserRouter([
                 path:"/dashboard/myDonations",
                 element:<MyDonations></MyDonations>
               },
+              {
+                path:"/dashboard/updatedMyAddedPets/:id",
+                element:<UpdatedMyAddedPets></UpdatedMyAddedPets>,
+                loader:(params)=>fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
+              }
         ]
     }
 ]) 
