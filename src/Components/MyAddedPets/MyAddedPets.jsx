@@ -2,6 +2,7 @@ import useAuth from "@/Hooks/Auth/useAuth";
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
+import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { useQuery } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
@@ -9,12 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 
 const MyAddedPets = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
     const [sorting, setSorting] = useState([])
 
-    const { data: pets = [], isLoading, isError, error } = useQuery({
+    const { data: pets = [], isLoading, isError, error,refetch } = useQuery({
         queryKey: ["myAddedPet", user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/allDataByEmail?email=${user?.email}`)
@@ -82,10 +83,12 @@ const MyAddedPets = () => {
                     <div className="flex gap-2">
                         {/* update-------- */}
                         <button className="px-2 py-1 btn btn-primary btn-sm"
-                        onClick={()=>navigate(`/dashboard/updatedMyAddedPets/${pet._id}`)}
+                            onClick={() => navigate(`/dashboard/updatedMyAddedPets/${pet._id}`)}
                         >Update</button>
                         {/* delete ---------- */}
-                        <button className="px-2 py-1 btn btn-error btn-sm">Delete</button>
+                        <button className="px-2 py-1 btn btn-error btn-sm"
+                            onClick={() => handleDelete(pet._id)}
+                        >Delete</button>
                         {/*adopt--------  */}
                         <button className="px-2 py-1 btn btn-success btn-sm">Adopt</button>
                     </div>
@@ -103,21 +106,39 @@ const MyAddedPets = () => {
         onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel:getPaginationRowModel(),
-        initialState:{
-            pagination:{
-                pageSize:10
+        getPaginationRowModel: getPaginationRowModel(),
+        initialState: {
+            pagination: {
+                pageSize: 10
             }
         },
+        meta:{refetch}
     })
+
+    // handle delete---------
+    const handleDelete = async (id) => {
+        try {
+            const confirmDelete = confirm("Are you sure you want to delete this pet?")
+            if (confirmDelete) {
+                const res = await axiosSecure.delete(`/allPet/${id}`)
+                if (res.data.deletedCount > 0) {
+                    successMsg("Pet deleted successfully!")
+                    table.options.meta?.refetch()
+                }
+            }
+
+        } catch (err) {
+            errorMsg(err.message)
+        }
+    }
 
     return (
         <div className="flex flex-col items-center ">
-             {/* heading ---------- */}
-              <div>
-                 <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">My Added Pets</h2>
-                  <p className="flex justify-center text-[#ffffff] pb-2">Here you can manage all the pets you have added </p>
-              </div>
+            {/* heading ---------- */}
+            <div>
+                <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">My Added Pets</h2>
+                <p className="flex justify-center text-[#ffffff] pb-2">Here you can manage all the pets you have added </p>
+            </div>
             <div className="overflow-x-auto ">
                 {isLoading && <Spinner isLoading={isLoading}></Spinner>}
                 {isError && errorMsg(error.message)}
@@ -163,17 +184,17 @@ const MyAddedPets = () => {
             {/* pagination control------- */}
             <div className="flex gap-5 py-2 my-2">
                 <button
-                 className="btn btn-sm"
-                 onClick={()=>table.previousPage()}
-                 disabled={!table.getCanPreviousPage()}
-                 >
+                    className="btn btn-sm"
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                >
                     Prev
                 </button>
-                
-                <button 
-                className="btn btn-sm"
-                onClick={()=>table.nextPage()}
-                disabled={!table.getCanNextPage()}
+
+                <button
+                    className="btn btn-sm"
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
                 >
                     Next
                 </button>
