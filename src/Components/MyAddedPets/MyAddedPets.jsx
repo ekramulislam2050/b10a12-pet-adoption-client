@@ -15,7 +15,7 @@ const MyAddedPets = () => {
     const axiosSecure = useAxiosSecure()
     const [sorting, setSorting] = useState([])
 
-    const { data: pets = [], isLoading, isError, error,refetch } = useQuery({
+    const { data: pets = [], isLoading, isError, error, refetch } = useQuery({
         queryKey: ["myAddedPet", user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/allDataByEmail?email=${user?.email}`)
@@ -90,7 +90,11 @@ const MyAddedPets = () => {
                             onClick={() => handleDelete(pet._id)}
                         >Delete</button>
                         {/*adopt--------  */}
-                        <button className="px-2 py-1 btn btn-success btn-sm">Adopt</button>
+                        <button 
+                        className= {`px-2 py-1 btn btn-success btn-sm ${pet.adopted ? " text-[#04709b] border-[#2fbbf2] " : ""}`}
+                            onClick={() => handleAdopt(pet._id)}
+                            disabled={pet.adopted}
+                        >Adopt</button>
                     </div>
                 )
             }
@@ -112,7 +116,7 @@ const MyAddedPets = () => {
                 pageSize: 10
             }
         },
-        meta:{refetch}
+        meta: { refetch }
     })
 
     // handle delete---------
@@ -125,6 +129,21 @@ const MyAddedPets = () => {
                     successMsg("Pet deleted successfully!")
                     table.options.meta?.refetch()
                 }
+            }
+
+        } catch (err) {
+            errorMsg(err.message)
+        }
+    }
+
+    // handle adopt----------
+    const handleAdopt = async (id) => {
+        try {
+            const res = await axiosSecure.patch(`/allPet/${id}/status`, { adopted: true })
+            if (res.data.modifiedCount > 0) {
+                successMsg("Adopt status updated successfully")
+
+                table.options.meta?.refetch()
             }
 
         } catch (err) {
