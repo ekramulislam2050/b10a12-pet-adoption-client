@@ -29,9 +29,9 @@ const MyAddedPets = () => {
     const columns = [
         columnHelper.display({
             id: "sl",
-            header: "SL",
+            header: () => <span className="hidden sm:block">SL</span>,
             cell: (info) => (
-                <span className="text-[#ffffff]">
+                <span className="text-[#ffffff] sm:block hidden">
                     {info.row.index + 1}
                 </span>
             )
@@ -40,7 +40,7 @@ const MyAddedPets = () => {
             id: "name",
             header: () => "Pet Name",
             cell: (info) => (
-                <span className="text-[#ffffff]">
+                <span className="text-[#ffffff] ">
                     {info.getValue()}
                 </span>
             ),
@@ -48,9 +48,9 @@ const MyAddedPets = () => {
         }),
         columnHelper.accessor("category", {
             id: "category",
-            header: () => "Category",
+            header: () => <span className="">Category</span>,
             cell: (info) => (
-                <span className="text-blue-100">
+                <span className="text-blue-100 ">
                     {info.getValue()}
                 </span>
             )
@@ -59,7 +59,7 @@ const MyAddedPets = () => {
             id: "image",
             header: () => "Image",
             cell: (info) => (
-                <img src={info.getValue()} alt="petImg" className="rounded w-14 h-14" />
+                <img src={info.getValue()} alt="petImg" className="w-10 h-10 border rounded-full border-[#2fbbf2] sm:rounded sm:w-14 sm:h-14" />
             )
         }),
         columnHelper.accessor("adopted", {
@@ -76,11 +76,14 @@ const MyAddedPets = () => {
         }),
         columnHelper.display({
             id: "action",
-            header: () => "Action",
+            header: () => <span className="hidden sm:block">Action</span>,
             cell: (info) => {
                 const pet = info.row.original
+
                 return (
-                    <div className="flex gap-2">
+
+
+                    <div className="hidden gap-2 sm:flex">
                         {/* update-------- */}
                         <button className="px-2 py-1 btn btn-primary btn-sm"
                             onClick={() => navigate(`/dashboard/updatedMyAddedPets/${pet._id}`)}
@@ -90,12 +93,15 @@ const MyAddedPets = () => {
                             onClick={() => handleDelete(pet._id)}
                         >Delete</button>
                         {/*adopt--------  */}
-                        <button 
-                        className= {`px-2 py-1 btn btn-success btn-sm ${pet.adopted ? " text-[#04709b] border-[#2fbbf2] " : ""}`}
+                        <button
+                            className={`px-2 py-1 btn btn-success btn-sm ${pet.adopted ? " text-[#04709b] border-[#2fbbf2] " : ""}`}
                             onClick={() => handleAdopt(pet._id)}
                             disabled={pet.adopted}
                         >Adopt</button>
                     </div>
+
+
+
                 )
             }
         })
@@ -152,24 +158,24 @@ const MyAddedPets = () => {
     }
 
     return (
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center overflow-x-auto">
             {/* heading ---------- */}
             <div>
                 <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">My Added Pets</h2>
                 <p className="flex justify-center text-[#ffffff] pb-2">Here you can manage all the pets you have added </p>
             </div>
-            <div className="overflow-x-auto ">
+            <div className="w-full overflow-hidden ">
                 {isLoading && <Spinner isLoading={isLoading}></Spinner>}
                 {isError && errorMsg(error.message)}
-                <table className="table ">
+                <table className="table overflow-hidden">
                     {/* head */}
-                    <thead>
+                    <thead className="overflow-hidden">
                         {table.getHeaderGroups().map((headerGroups) => (
                             <tr key={headerGroups.id} >
                                 {headerGroups.headers.map((header) => (
                                     <th
                                         key={header.id}
-                                        className="text-orange-400 cursor-pointer"
+                                        className="text-orange-400 cursor-pointer "
                                         onClick={header.column.getToggleSortingHandler()}
                                     >
                                         {flexRender(
@@ -184,18 +190,52 @@ const MyAddedPets = () => {
                         )
                         )}
                     </thead>
-                    <tbody>
+                    <tbody className="overflow-hidden">
                         {/* row 1 */}
-                        {table.getRowModel().rows.map((row) => (
-                            <tr key={row.id}>
-                                {row.getVisibleCells().map((cell) => (
-                                    <td key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </td>
-                                ))}
-                            </tr>
+                         <tr className="w-full border border-[#2fbbf2] sm:hidden text-center"></tr>
+                        {table.getRowModel().rows.map((row) => {
+                            const pet = row.original
+                            return (
+                                <>
+                                   
+                                    <tr key={row.id}>
+                                        {row.getVisibleCells().map((cell) => (
+                                            <td key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </td>
+                                        ))}
+                                    </tr>
 
-                        ))}
+                                    {/* for mobile responsiveness--------- */}
+                                    <tr tr className=" sm:hidden" >
+                                        <td colSpan={6}  >
+                                            <div className="flex justify-evenly ">
+                                                {/* update-------- */}
+                                                <button className=" btn btn-primary btn-sm"
+                                                    onClick={() => navigate(`/dashboard/updatedMyAddedPets/${pet._id}`)}
+                                                >Update</button>
+                                                {/* delete ---------- */}
+                                                <button className="px-2 py-1 btn btn-error btn-sm"
+                                                    onClick={() => handleDelete(pet._id)}
+                                                >Delete</button>
+                                                {/*adopt--------  */}
+                                                <button
+                                                    className={`px-2 py-1 btn btn-success btn-sm ${pet.adopted ? " text-[#04709b] border-[#2fbbf2] " : ""}`}
+                                                    onClick={() => handleAdopt(pet._id)}
+                                                    disabled={pet.adopted}
+                                                >Adopt</button>
+                                                   
+                                            </div>
+                                             <div className="border border-[#2fbbf2] mt-2 w-full text-center"></div>
+                                        </td>
+                                    </tr>
+                                </>
+                            )
+
+                        })}
+
+                    
+
                     </tbody>
 
                 </table>
@@ -218,7 +258,7 @@ const MyAddedPets = () => {
                     Next
                 </button>
             </div>
-        </div>
+        </div >
     )
 
 }
