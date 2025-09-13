@@ -15,8 +15,8 @@ const Modal = ({ data }) => {
     const { user } = useAuth()
     const axiosPublic = useAxiosPublic()
     // console.log(user)
-    const { name, image, _id, category } = data || {}
-    // console.log(category)
+    const { name, image, _id, category,email } = data || {}
+    console.log(data)
     const categoryToPath = {
         Dog: "dogs",
         Cat: "cats",
@@ -38,6 +38,7 @@ const Modal = ({ data }) => {
                         petName: name,
                         petImg: image,
                         petId: _id,
+                        ownerEmail:email,
                         userName: user?.displayName || 'loading from firebase',
                         userEmail: user?.email || "loading from firebase",
                         userPhone: "",

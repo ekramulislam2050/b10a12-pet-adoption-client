@@ -40,7 +40,7 @@ const MyDonations = () => {
    const columns = [
         columnHelper.accessor("petImg",{
          id:"petImg",
-         header:()=><span className="text-[#ffffff]">Pet Image</span>,
+         header:()=><span className="text-orange-400">Pet Image</span>,
          cell:(info)=>{
             return(
                <img src={info.getValue()} alt="petImg" className="rounded h-14 w-14"/>
@@ -49,17 +49,17 @@ const MyDonations = () => {
         }),
         columnHelper.accessor("petName",{
          id:"petName",
-         header:()=><span className="text-[#ffffff]">Pet Name</span>,
+         header:()=><span className="text-orange-400">Pet Name</span>,
          cell:(info)=><span className="text-[#ffffff]">{info.getValue()}</span>
         }),
         columnHelper.accessor("donationAmount",{
           id:"donationAmount",
-          header:()=><span className="text-[#ffffff]">Amount</span>,
+          header:()=><span className="text-orange-400">Amount</span>,
           cell:(info)=><span className="text-[#ffffff]">{info.getValue()}</span>
         }),
         columnHelper.display({
          id:"refund",
-         header:()=><span className="text-[#ffffff]">Refund</span>,
+         header:()=><span className="text-orange-400">Refund</span>,
          cell:(info)=>{
             return(
                <button className="btn"
@@ -82,6 +82,11 @@ const MyDonations = () => {
       <div className="overflow-x-auto">
          {isLoading && <Spinner isLoading={isLoading}></Spinner>}
          {isError && errorMsg(error.message)}
+         
+         {/* heading------------- */}
+          <h2 className="flex justify-center text-3xl font-semibold text-[teal] my-4">💝 My donation</h2>
+           {/* Short message under heading */}
+           <p className="flex justify-center text-[#ffffff] tracking-wide">You have donated <span className="mx-2 text-xl font-semibold text-orange-300">{donatorData.length} </span> campaigns.Thank you for your kindness!</p>
          <table className="table">
             {/* head */}
             <thead>
