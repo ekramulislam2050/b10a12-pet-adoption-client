@@ -36,14 +36,14 @@ const AdoptionRequest = () => {
         columnHelper.accessor("userEmail", {
             id: "userEmail",
             header: () => <span className="text-orange-400">userEmail</span>,
-            cell: (info) => <span className="text-[#ffffff]">{info.getValue()}</span>
+            cell: (info) => <span className="text-[#ffffff] pr-2">{info.getValue()}</span>
         }),
         columnHelper.accessor("userPhone", {
             id: "userPhone",
             header: () => <span className="text-orange-400">Phone</span>,
             cell: (info) => {
                 return (
-                    <span className="text-[#ffffff]">{info.getValue()}</span>
+                    <span className="text-[#ffffff] pr-2">{info.getValue()}</span>
                 )
             }
         }),
@@ -54,20 +54,20 @@ const AdoptionRequest = () => {
         }),
         columnHelper.display({
             id: "action",
-            header: () => <span className="text-orange-400">Action</span>,
+            header: () => <span className="hidden text-orange-400 sm:block">Action</span>,
             cell: (info) => {
                 const rowData = info.row.original
                 return (
-                    <div className="flex gap-2">
+                    <div className="hidden gap-2 sm:flex">
                         <button
                             className="border btn btn-success border-[teal]"
                             onClick={() => handleAccept(rowData._id)}
-                            disabled={rowData.status==="accepted"}
+                            disabled={rowData.status === "accepted"}
                         >Accept</button>
-                        <button 
-                        className="border btn btn-error border-[teal]" 
-                        onClick={() => handleReject(rowData._id)}
-                        disabled={rowData.status === "rejected"}
+                        <button
+                            className="border btn btn-error border-[teal]"
+                            onClick={() => handleReject(rowData._id)}
+                            disabled={rowData.status === "rejected"}
                         >Reject</button>
                     </div>
                 )
@@ -110,14 +110,16 @@ const AdoptionRequest = () => {
         }
     }
     return (
-        <div className="overflow-x-auto">
+        <div className="w-full overflow-x-auto ">
             {isLoading && <Spinner isLoading={isLoading}></Spinner>}
             {isError && errorMsg(error.message)}
-            {/* heading --------- */}
-            <h2 className="flex justify-center my-4 text-3xl font-semibold text-[teal]"> 📩 Adoption Requests for your pets</h2>
-            {/* Short message under heading */}
-            <p className="flex justify-center text-[#ffffff] tracking-wide">You have <span className="mx-1 text-xl font-semibold text-orange-400"> {requestedForAdopt.length} </span>pending request</p>
-            <table className="table">
+            <div className="flex flex-col items-center">
+                {/* heading --------- */}
+                <h2 className="flex justify-center my-4 sm:text-3xl font-semibold text-[teal] text-2xl"> 📩 Adoption Requests for your pets</h2>
+                {/* Short message under heading */}
+                <p className="flex justify-center text-[#ffffff] tracking-wide">You have <span className="mx-1 text-xl font-semibold text-orange-400"> {requestedForAdopt.length} </span>pending request</p>
+            </div>
+            <table className="mx-auto sm:table">
                 {/* head */}
                 <thead>
                     {
@@ -139,20 +141,48 @@ const AdoptionRequest = () => {
                 <tbody>
                     {/* row 1 */}
                     {
-                        table.getRowModel().rows.map((row) => (
-                            <tr key={row.id}>
-                                {
-                                    row.getVisibleCells().map((cell) => (
-                                        <td key={cell.id}>
-                                            {
-                                                flexRender(cell.column.columnDef.cell, cell.getContext())
-                                            }
+                        table.getRowModel().rows.map((row) => {
+                            const data = row.original
+                            return (
+                                <>
+                                    <tr key={row.id}>
+                                        {
+                                            row.getVisibleCells().map((cell) => (
+                                                <td key={cell.id}>
+                                                    {
+                                                        flexRender(cell.column.columnDef.cell, cell.getContext())
+                                                    }
+                                                </td>
+
+                                            )
+
+                                            )
+                                        }
+
+                                    </tr>
+                                    {/* for mobile------------- */}
+                                    <tr>
+                                        <td colSpan={6}>
+                                            <div className="flex justify-center gap-2 py-2 border-[teal] border-b-2 sm:hidden">
+                                                <button
+                                                    className="border btn btn-success border-[teal] btn-sm"
+                                                    onClick={() => handleAccept(data._id)}
+                                                    disabled={data.status === "accepted"}
+                                                >Accept</button>
+                                                <button
+                                                    className="border btn btn-error border-[teal] btn-sm"
+                                                    onClick={() => handleReject(data._id)}
+                                                    disabled={data.status === "rejected"}
+                                                >Reject</button>
+                                            </div>
                                         </td>
-                                    ))
-                                }
-                            </tr>
-                        ))
+                                    </tr>
+                                </>
+                            )
+                        }
+                        )
                     }
+
                 </tbody>
 
             </table>
