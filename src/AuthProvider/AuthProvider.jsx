@@ -105,6 +105,7 @@ const AuthProvider = ({ children }) => {
 
   // facebook login----------------------------
      const facebookProvider = new FacebookAuthProvider()
+      facebookProvider.addScope("email")
     const loginByFB=async()=>{
         try{
              setLoading(true)

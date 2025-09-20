@@ -1,14 +1,41 @@
 import useAuth from "@/Hooks/Auth/useAuth";
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
+import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { useFormik } from "formik"
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import *as Yup from "yup"
 
 const Login = () => {
+      const axiosSecure=useAxiosSecure()
     const {login,loginByGoogle,loginByFB}=useAuth()
     const navigate = useNavigate()
     const location=useLocation()
     const from = location?.state?.from?.pathname || "/"
+
+
+    // logged user data------------
+
+    const saveToDB= async(loggedUser)=>{
+            console.log("fb login==",loggedUser)
+           try{
+              const email=loggedUser?.email || "ekramulislam2050@gmail.com"
+              const userInfo={
+                  name:loggedUser?.displayName || "Guest User",
+                  email:email,
+                  image:loggedUser?.photoURL || "https://i.ibb.co/tj6ybPZ/faveIcon.png",
+                  role:"user",
+                  status:"active"
+              }
+                console.log("userInfo=",userInfo)
+              const res=await axiosSecure.post("/loginUsers",userInfo)
+                if(res.data){
+                    successMsg("login success and save to db")
+                }
+           }catch(err){
+              errorMsg(err.message)
+           }
+    }
      
     // use formik------------------
     const formik = useFormik({
@@ -19,8 +46,10 @@ const Login = () => {
         
         onSubmit: async(values) => {
             try{
-               const user = await login(values.email,values.password)
-                 if(user){
+               const result = await login(values.email,values.password)
+                 if(result){
+                   
+                    await saveToDB(result)
                      navigate(from,{replace:true})
                  }
               
@@ -40,8 +69,10 @@ const Login = () => {
     // handle google login--------------
       const handleGoogleLogin = async()=>{
          try{
-              const user = await loginByGoogle()
-               if( user){
+              const result = await loginByGoogle()
+             
+               if( result){
+               await saveToDB(result)
                   navigate(from,{replace:true})
                }
          }catch(err){
@@ -53,8 +84,10 @@ const Login = () => {
 
     const handleFacebookLogin=async()=>{
        try{
-          const user = await loginByFB()
-          if(user){
+          const result = await loginByFB()
+          if(result){
+            console.log("fb login=",result)
+            await saveToDB(result)
             navigate(from,{replace:true})
           }
        }catch(err){
