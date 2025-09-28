@@ -1,6 +1,7 @@
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
+import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { useQuery } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 
@@ -10,7 +11,7 @@ import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "
 const AllUser = () => {
     const axiosSecure = useAxiosSecure()
 
-    const { data=[], isLoading, isError, error } = useQuery({
+    const { data = [], isLoading, isError, error,refetch } = useQuery({
         queryKey: ["loggedUser"],
         queryFn: async () => {
             const res = await axiosSecure.get("/loginUsers")
@@ -22,6 +23,32 @@ const AllUser = () => {
     }
     if (isError) {
         return errorMsg(error.message)
+    }
+
+    // update user role---------------
+
+    const handleMakeAdmin = async (id) => {
+        try {
+            const res = await axiosSecure.patch(`/makeAdmin/${id}`)
+            if (res.data.modifiedCount > 0) {
+                successMsg("make admin successful")
+                refetch()
+            }
+        } catch (err) {
+           errorMsg(err.message)
+        }
+    }
+
+    const handleBanAdmin = async (id) => {
+        try{
+            const res=await axiosSecure.patch(`/banAdmin/${id}`)
+            if(res.data.modifiedCount>0){
+                successMsg("admin ban successfully")
+                refetch()
+            }
+        }catch(err){
+            errorMsg(err.message)
+        }
     }
 
 
@@ -47,20 +74,13 @@ const AllUser = () => {
         columnHelper.accessor("email", {
             id: "email",
             header: () => "Email",
-            cell: (info) => {
-                const adopted = info.getValue()
-                return (
-                    <span className={`${adopted ? "text-[#ffffff]" : "text-red-500"}`}>
-                        {adopted ? "Adopted" : "Not Adopted"}
-                    </span>
-                )
-            }
+            cell: (info) =><span className="text-white">{info.getValue()}</span>
         }),
         columnHelper.display({
             id: "action",
             header: () => <span className="hidden sm:block">Action</span>,
             cell: (info) => {
-                const pet = info.row.original
+                const loginUser = info.row.original
 
                 return (
 
@@ -68,18 +88,13 @@ const AllUser = () => {
                     <div className="hidden gap-2 sm:flex">
                         {/* update-------- */}
                         <button className="px-2 py-1 btn btn-primary btn-sm"
-                            onClick={() => navigate(`/dashboard/updatedMyAddedPets/${pet._id}`)}
-                        >Update</button>
+                            onClick={() => handleMakeAdmin(loginUser._id)}
+                        >Make Admin</button>
                         {/* delete ---------- */}
                         <button className="px-2 py-1 btn btn-error btn-sm"
-                            onClick={() => handleDelete(pet._id)}
-                        >Delete</button>
-                        {/*adopt--------  */}
-                        <button
-                            className={`px-2 py-1 btn btn-success btn-sm ${pet.adopted ? " text-[#04709b] border-[#2fbbf2] " : ""}`}
-                            onClick={() => handleAdopt(pet._id)}
-                            disabled={pet.adopted}
-                        >Adopt</button>
+                            onClick={() => handleBanAdmin(loginUser._id)}
+                        >Ban Admin</button>
+
                     </div>
 
 
@@ -95,12 +110,14 @@ const AllUser = () => {
         columns,
         getCoreRowModel: getCoreRowModel(),
     })
+
+
     return (
         <div className="flex flex-col items-center overflow-x-auto">
             {/* heading ---------- */}
             <div>
-                <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">My Added Pets</h2>
-                <p className="flex justify-center text-[#ffffff] pb-2">Here you can manage all the pets you have added </p>
+                <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2"> All Registered Users</h2>
+                <p className="flex justify-center text-[#ffffff] pb-2">Here you can manage all registered users of your platform. </p>
             </div>
             <div className="w-full overflow-hidden ">
                 {isLoading && <Spinner isLoading={isLoading}></Spinner>}
@@ -132,11 +149,11 @@ const AllUser = () => {
                         {/* row 1 */}
                         <tr className="w-full border border-[#2fbbf2] sm:hidden text-center"></tr>
                         {table.getRowModel().rows.map((row) => {
-                            const pet = row.original
+                            const user = row.original
                             return (
                                 <>
 
-                                    <tr key={row.id}>
+                                    <tr key={user._id}>
                                         {row.getVisibleCells().map((cell) => (
                                             <td key={cell.id}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -145,23 +162,18 @@ const AllUser = () => {
                                     </tr>
 
                                     {/* for mobile responsiveness--------- */}
-                                    <tr tr className=" sm:hidden" >
+                                    <tr  className=" sm:hidden" >
                                         <td colSpan={6}  >
                                             <div className="flex justify-evenly ">
                                                 {/* update-------- */}
                                                 <button className=" btn btn-primary btn-sm"
-                                                    onClick={() => navigate(`/dashboard/updatedMyAddedPets/${pet._id}`)}
-                                                >Update</button>
+                                                    onClick={()=>handleMakeAdmin(user._id)}
+                                                >Make Admin</button>
                                                 {/* delete ---------- */}
                                                 <button className="px-2 py-1 btn btn-error btn-sm"
-                                                    onClick={() => handleDelete(pet._id)}
-                                                >Delete</button>
-                                                {/*adopt--------  */}
-                                                <button
-                                                    className={`px-2 py-1 btn btn-success btn-sm ${pet.adopted ? " text-[#04709b] border-[#2fbbf2] " : ""}`}
-                                                    onClick={() => handleAdopt(pet._id)}
-                                                    disabled={pet.adopted}
-                                                >Adopt</button>
+                                                    onClick={()=>handleBanAdmin(user._id)}
+                                                >Ban Admin</button>
+                                              
 
                                             </div>
                                             <div className="border border-[#2fbbf2] mt-2 w-full text-center"></div>
