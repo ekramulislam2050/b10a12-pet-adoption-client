@@ -24,109 +24,131 @@ import MyDonations from "@/Components/MyDonations/MyDonations";
 import DonationCampaignDetails from "@/Components/DonationCampaignDetail/DonationCampaignDetails";
 import RecommendationDonationDetails from "@/Pages/RecommendedDonationDetails/RecommendationDonationDetails";
 import UpdatedMyAddedPets from "@/Pages/UpdatedMyAddedPets/UpdatedMyAddedPets";
- 
- 
+import AllUser from "@/Components/AllUser/AllUser";
+import AllPet from "@/Components/AllPet/AllPet";
+import AllDonation from "@/Components/AllDonation/AllDonation";
 
 
-const router =createBrowserRouter([
+
+
+const router = createBrowserRouter([
     {
-        path:"/",
-        element:<MainLayOut></MainLayOut>,
-        errorElement:<ErrorPage></ErrorPage>,
-        children:[
+        path: "/",
+        element: <MainLayOut></MainLayOut>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
             {
-                path:"/",
-                element:<Home></Home>
-            },
-            {
-                path:"/login",
-                element:<Login></Login>
+                path: "/",
+                element: <Home></Home>
             },
             {
-                path:"/register",
-                element:<Register></Register>
+                path: "/login",
+                element: <Login></Login>
             },
             {
-                path:"/petListing",
-                element:<PetListing></PetListing>
-            },
-            {   
-                path:"/donationCampaigns",
-                element:<PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
-            },
-             {
-                path:"/donationCampaigns/:id",
-                element:<DonationCampaignDetails></DonationCampaignDetails>,
-                loader:({params})=>fetch(`http://localhost:5000/cdcData/${params.id}`)
-             },
-            {
-                path:"/cats",
-                element:<Cats></Cats>
+                path: "/register",
+                element: <Register></Register>
             },
             {
-                path:"/dogs",
-                element:<Dogs></Dogs>
+                path: "/petListing",
+                element: <PetListing></PetListing>
             },
             {
-                path:"/rabbits",
-                element:<Rabbits></Rabbits>
+                path: "/donationCampaigns",
+                element: <PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
             },
             {
-                path:"/fish",
-                element:<Fish></Fish>
+                path: "/donationCampaigns/:id",
+                element: <DonationCampaignDetails></DonationCampaignDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/cdcData/${params.id}`)
             },
             {
-                path:"/petCareTipsDetails",
-                element:<PetCareTipsDetails></PetCareTipsDetails>
+                path: "/cats",
+                element: <Cats></Cats>
             },
             {
-                path:'/petDetails/:id',
-                element:<PetDetails></PetDetails>,
-                loader:({params})=>fetch(`http://localhost:5000/allpet/${params.id}`)
+                path: "/dogs",
+                element: <Dogs></Dogs>
             },
-           {
-            path:"/recommendedDonationDetails/:id",
-            element:<RecommendationDonationDetails></RecommendationDonationDetails>,
-            loader:({params})=>fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
-           }
+            {
+                path: "/rabbits",
+                element: <Rabbits></Rabbits>
+            },
+            {
+                path: "/fish",
+                element: <Fish></Fish>
+            },
+            {
+                path: "/petCareTipsDetails",
+                element: <PetCareTipsDetails></PetCareTipsDetails>
+            },
+            {
+                path: '/petDetails/:id',
+                element: <PetDetails></PetDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/allpet/${params.id}`)
+            },
+            {
+                path: "/recommendedDonationDetails/:id",
+                element: <RecommendationDonationDetails></RecommendationDonationDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
+            }
         ]
     },
     // normal user---------------
     {
-        path:"/dashboard",
-        element:<Dashboard></Dashboard>,
-        errorElement:<DashboardError></DashboardError>,
-        children:[
-              {
-                path:"/dashboard/addPet",
-                element:<PrivateRouter><AddPet></AddPet></PrivateRouter>
-              },
-              {
-                path:"/dashboard/myAddedPets",
-                element:<MyAddedPets></MyAddedPets>
-              },
-              {
-                path:"/dashboard/adoptionRequest",
-                element:<AdoptionRequest></AdoptionRequest>
-              },
-              {
-                path:"/dashboard/createDonationCampaign",
-                element:<CreateDonationCampaigns></CreateDonationCampaigns>
-              },
-              {
-                path:"/dashboard/myDonationsCampaign",
-                element:<MyDonationCampaigns></MyDonationCampaigns>
-              },
-              {
-                path:"/dashboard/myDonations",
-                element:<MyDonations></MyDonations>
-              },
-              {
-                path:"/dashboard/updatedMyAddedPets/:id",
-                element:<UpdatedMyAddedPets></UpdatedMyAddedPets>,
-                loader:(params)=>fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
-              }
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+        errorElement: <DashboardError></DashboardError>,
+        children: [
+            {
+                path: "/dashboard/addPet",
+                element: <PrivateRouter><AddPet></AddPet></PrivateRouter>
+            },
+            {
+                path: "/dashboard/myAddedPets",
+                element: <MyAddedPets></MyAddedPets>
+            },
+            {
+                path: "/dashboard/adoptionRequest",
+                element: <AdoptionRequest></AdoptionRequest>
+            },
+            {
+                path: "/dashboard/createDonationCampaign",
+                element: <CreateDonationCampaigns></CreateDonationCampaigns>
+            },
+            {
+                path: "/dashboard/myDonationsCampaign",
+                element: <MyDonationCampaigns></MyDonationCampaigns>
+            },
+            {
+                path: "/dashboard/myDonations",
+                element: <MyDonations></MyDonations>
+            },
+            {
+                path: "/dashboard/updatedMyAddedPets/:id",
+                element: <UpdatedMyAddedPets></UpdatedMyAddedPets>,
+                loader: (params) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
+            }
+        ]
+    },
+    {
+        path: "/dashboard/admin",
+        element: <Dashboard></Dashboard>,
+        errorElement: <DashboardError></DashboardError>,
+        children: [
+            {
+                path: "allUser",
+                element: <AllUser></AllUser>
+            },
+            {
+                path: "allPet",
+                element: <AllPet></AllPet>
+            },
+            {
+                path: "allDonation",
+                element: <AllDonation></AllDonation>
+            }
         ]
     }
-]) 
+])
 export default router;
