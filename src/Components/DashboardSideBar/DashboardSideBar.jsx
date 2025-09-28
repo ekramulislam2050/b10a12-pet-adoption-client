@@ -20,28 +20,28 @@ const DashboardSideBar = () => {
     //   loginUsers.role="admin"
     const links = (
         <>
-            {loginUsers?.role ==="user" && (
-                <>
+           
+                {/* <>
                     <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/addPet"}>Add a pet</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myAddedPets"}>My added pets</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/adoptionRequest"}>Adoption Request</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/createDonationCampaign"}>Create Donation Campaign</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myDonationsCampaign"}>My Donation Campaigns</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myDonations"}>My Donations</NavLink></li>
-                </>
-            )
+                </> */}
+         
 
-            }
-            {loginUsers?.role === "admin" &&(
+          
+           
                 <>
                     <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/admin/allUser"}>All User</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/admin/allPet"}>All Pet</NavLink></li>
                     <li className="border border-[#07c19f] mb-5 rounded-full  sm:pl-5"><NavLink to={"/dashboard/admin/allDonation"}>All Donation</NavLink></li>
 
                 </>
-            )
+         
 
-            }
+           
 
         </>
     )
@@ -61,7 +61,7 @@ const DashboardSideBar = () => {
                 {/* divider------------ */}
                 <div className="divider divider-warning"></div>
 
-
+                    
 
 
             </div>
