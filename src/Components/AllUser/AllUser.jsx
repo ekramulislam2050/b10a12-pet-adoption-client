@@ -2,51 +2,47 @@ import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import React from "react";
 
 
 
 
 const AllUser = () => {
     const axiosSecure = useAxiosSecure()
-
-    const { data = [], isLoading, isError, error,refetch } = useQuery({
+    const queryClient = useQueryClient()
+    const { data = [], isLoading, isError, error, refetch } = useQuery({
         queryKey: ["loggedUser"],
         queryFn: async () => {
             const res = await axiosSecure.get("/loginUsers")
             return res.data
         }
     })
-    if (isLoading) {
-        return <Spinner isLoading={isLoading}></Spinner>
-    }
-    if (isError) {
-        return errorMsg(error.message)
-    }
+
 
     // update user role---------------
 
     const handleMakeAdmin = async (id) => {
         try {
-            const res = await axiosSecure.patch(`/makeAdmin/${id}`)
+            const res = await axiosSecure.patch(`/makeAdmin/${id}`, { role: "admin" })
             if (res.data.modifiedCount > 0) {
                 successMsg("make admin successful")
-                refetch()
+                queryClient.invalidateQueries(["loggedUser"])
             }
         } catch (err) {
-           errorMsg(err.message)
+            errorMsg(err.message)
         }
     }
 
     const handleBanAdmin = async (id) => {
-        try{
-            const res=await axiosSecure.patch(`/banAdmin/${id}`)
-            if(res.data.modifiedCount>0){
+        try {
+            const res = await axiosSecure.patch(`/banAdmin/${id}`, { role: "banned" })
+            if (res.data.modifiedCount > 0) {
                 successMsg("admin ban successfully")
-                refetch()
+                queryClient.invalidateQueries(["loggedUser"])
             }
-        }catch(err){
+        } catch (err) {
             errorMsg(err.message)
         }
     }
@@ -74,7 +70,7 @@ const AllUser = () => {
         columnHelper.accessor("email", {
             id: "email",
             header: () => "Email",
-            cell: (info) =><span className="text-white">{info.getValue()}</span>
+            cell: (info) => <span className="text-white">{info.getValue()}</span>
         }),
         columnHelper.display({
             id: "action",
@@ -111,7 +107,12 @@ const AllUser = () => {
         getCoreRowModel: getCoreRowModel(),
     })
 
-
+    if (isLoading) {
+        return <Spinner isLoading={isLoading}></Spinner>
+    }
+    if (isError) {
+        return errorMsg(error.message)
+    }
     return (
         <div className="flex flex-col items-center overflow-x-auto">
             {/* heading ---------- */}
@@ -151,9 +152,9 @@ const AllUser = () => {
                         {table.getRowModel().rows.map((row) => {
                             const user = row.original
                             return (
-                                <>
+                                <React.Fragment key={user._id}>
 
-                                    <tr key={user._id}>
+                                    <tr key={`${user._id}-main`} >
                                         {row.getVisibleCells().map((cell) => (
                                             <td key={cell.id}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -162,24 +163,24 @@ const AllUser = () => {
                                     </tr>
 
                                     {/* for mobile responsiveness--------- */}
-                                    <tr  className=" sm:hidden" >
+                                    <tr className=" sm:hidden" key={`${user._id}-mobile`}>
                                         <td colSpan={6}  >
                                             <div className="flex justify-evenly ">
                                                 {/* update-------- */}
                                                 <button className=" btn btn-primary btn-sm"
-                                                    onClick={()=>handleMakeAdmin(user._id)}
+                                                    onClick={() => handleMakeAdmin(user._id)}
                                                 >Make Admin</button>
                                                 {/* delete ---------- */}
                                                 <button className="px-2 py-1 btn btn-error btn-sm"
-                                                    onClick={()=>handleBanAdmin(user._id)}
+                                                    onClick={() => handleBanAdmin(user._id)}
                                                 >Ban Admin</button>
-                                              
+
 
                                             </div>
                                             <div className="border border-[#2fbbf2] mt-2 w-full text-center"></div>
                                         </td>
                                     </tr>
-                                </>
+                                </React.Fragment>
                             )
 
                         })}

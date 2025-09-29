@@ -101,6 +101,10 @@ const router = createBrowserRouter([
         errorElement: <DashboardError></DashboardError>,
         children: [
             {
+               path: "/dashboard",
+                element: <PrivateRouter><AddPet></AddPet></PrivateRouter>
+            },
+            {
                 path: "/dashboard/addPet",
                 element: <PrivateRouter><AddPet></AddPet></PrivateRouter>
             },
@@ -136,6 +140,10 @@ const router = createBrowserRouter([
         element: <Dashboard></Dashboard>,
         errorElement: <DashboardError></DashboardError>,
         children: [
+            {
+                 path: "/dashboard/admin",
+                element: <AllUser></AllUser>
+            },
             {
                 path: "allUser",
                 element: <AllUser></AllUser>
