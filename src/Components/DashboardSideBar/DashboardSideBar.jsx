@@ -1,27 +1,14 @@
-import useAuth from "@/Hooks/Auth/useAuth";
-import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
+
+import useAdmin from "@/Hooks/Admin/useAdmin";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
-import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 
 
 
 const DashboardSideBar = () => {
-    const axiosSecure = useAxiosSecure()
-    const { user } = useAuth()
-
-    const { data = [], isLoading, isError, error } = useQuery({
-        queryKey: ['loginUsers'],
-        queryFn: async () => {
-            const res = await axiosSecure.get("/loginUsers")
-            return res.data
-        }
-    })
-    const loginUsers = data.find((loggedUser) => loggedUser?.email === user?.email)
-
-    console.log(loginUsers)
-    //   loginUsers.role="admin"
+     const {loginUsers,isLoading,isError,error}=useAdmin()
+    
     const links = (
         <>
             {/* user--------------- */}
@@ -46,9 +33,9 @@ const DashboardSideBar = () => {
             {
                 loginUsers?.role == "admin" && (
                     <>
-                        <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/admin/allUser"}>All User</NavLink></li>
-                        <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/admin/allPet"}>All Pet</NavLink></li>
-                        <li className="border border-[#07c19f] mb-5 rounded-full  sm:pl-5"><NavLink to={"/dashboard/admin/allDonation"}>All Donation</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/allUser"}>All User</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/allPet"}>All Pet</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full  sm:pl-5"><NavLink to={"/dashboard/allDonation"}>All Donation</NavLink></li>
 
                     </>
                 )

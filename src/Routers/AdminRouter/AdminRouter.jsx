@@ -1,9 +1,11 @@
+import useAdmin from "@/Hooks/Admin/useAdmin";
 import useAuth from "@/Hooks/Auth/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
 
  
 
 const AdminRouter = ({children}) => {
+     const {loginUsers}=useAdmin()
      const {user,loading}=useAuth()
      const location=useLocation()
      if(loading){
@@ -15,7 +17,7 @@ const AdminRouter = ({children}) => {
      if(!user){
         return <Navigate to={"/login"} state={{from:location}} replace></Navigate>
      }
-     if(user.role !=="admin"){
+     if(loginUsers.role !=="admin"){
         return <Navigate to={"/dashboard"} state={{from:location}} replace></Navigate>
      }
      return children

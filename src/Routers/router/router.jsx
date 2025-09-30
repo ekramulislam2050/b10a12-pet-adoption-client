@@ -27,6 +27,8 @@ import UpdatedMyAddedPets from "@/Pages/UpdatedMyAddedPets/UpdatedMyAddedPets";
 import AllUser from "@/Components/AllUser/AllUser";
 import AllPet from "@/Components/AllPet/AllPet";
 import AllDonation from "@/Components/AllDonation/AllDonation";
+import AdminRouter from "../AdminRouter/AdminRouter";
+import DashboardHome from "@/Components/DashboardHome/DashboardHome";
 
 
 
@@ -94,69 +96,75 @@ const router = createBrowserRouter([
             }
         ]
     },
-    // normal user---------------
+
+    // dashboard---------------
     {
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
         errorElement: <DashboardError></DashboardError>,
         children: [
+            // default path-----------
             {
-               path: "/dashboard",
-                element: <PrivateRouter><AddPet></AddPet></PrivateRouter>
+                path:"/dashboard",
+                element:<DashboardHome></DashboardHome>
             },
+            // user--------------
+            
             {
                 path: "/dashboard/addPet",
                 element: <PrivateRouter><AddPet></AddPet></PrivateRouter>
             },
             {
                 path: "/dashboard/myAddedPets",
-                element: <MyAddedPets></MyAddedPets>
+                element: <PrivateRouter><MyAddedPets></MyAddedPets></PrivateRouter>
             },
             {
                 path: "/dashboard/adoptionRequest",
-                element: <AdoptionRequest></AdoptionRequest>
+                element: <PrivateRouter><AdoptionRequest></AdoptionRequest></PrivateRouter>
             },
             {
                 path: "/dashboard/createDonationCampaign",
-                element: <CreateDonationCampaigns></CreateDonationCampaigns>
+                element: <PrivateRouter><CreateDonationCampaigns></CreateDonationCampaigns></PrivateRouter>
             },
             {
                 path: "/dashboard/myDonationsCampaign",
-                element: <MyDonationCampaigns></MyDonationCampaigns>
+                element: <PrivateRouter><MyDonationCampaigns></MyDonationCampaigns></PrivateRouter>
             },
             {
                 path: "/dashboard/myDonations",
-                element: <MyDonations></MyDonations>
+                element: <PrivateRouter><MyDonations></MyDonations></PrivateRouter>
             },
             {
                 path: "/dashboard/updatedMyAddedPets/:id",
-                element: <UpdatedMyAddedPets></UpdatedMyAddedPets>,
+                element: <PrivateRouter><UpdatedMyAddedPets></UpdatedMyAddedPets></PrivateRouter>,
                 loader: (params) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
+            },
+            // admin--------
+          
+            {
+                path: "/dashboard/allUser",
+                element: <AdminRouter><AllUser></AllUser></AdminRouter>
+            },
+            {
+                path: "/dashboard/allPet",
+                element: <AdminRouter><AllPet></AllPet></AdminRouter>
+            },
+            {
+                path: "/dashboard/allDonation",
+                element: <AdminRouter> <AllDonation></AllDonation></AdminRouter>
             }
         ]
     },
-    {
-        path: "/dashboard/admin",
-        element: <Dashboard></Dashboard>,
-        errorElement: <DashboardError></DashboardError>,
-        children: [
-            {
-                 path: "/dashboard/admin",
-                element: <AllUser></AllUser>
-            },
-            {
-                path: "allUser",
-                element: <AllUser></AllUser>
-            },
-            {
-                path: "allPet",
-                element: <AllPet></AllPet>
-            },
-            {
-                path: "allDonation",
-                element: <AllDonation></AllDonation>
-            }
-        ]
-    }
+
+    // admin----------
+    // {
+    //     path: "/dashboard/admin",
+    //     element: <Dashboard></Dashboard>,
+    //     errorElement: <DashboardError></DashboardError>,
+    //     children: [
+
+
+    //     ]
+    // }
 ])
 export default router;
