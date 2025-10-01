@@ -1,23 +1,90 @@
+import useAdmin from "@/Hooks/Admin/useAdmin";
 import useAuth from "@/Hooks/Auth/useAuth";
+import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
+import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const DashboardNavbar = () => {
-    const navigate=useNavigate()
-    const {logOut}=useAuth()
-    const handleLogOut=()=>{
+    const { loginUsers, isLoading, isError, error } = useAdmin()
+    
+    const navigate = useNavigate()
+    const { logOut } = useAuth()
+    const handleLogOut = () => {
         logOut()
         navigate("/")
     }
-    const links = <>
-        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/addPet"}>Add a pet</NavLink></li>
-        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myAddedPets"}>My added pets</NavLink></li>
-        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/adoptionRequest"}>Adoption Request</NavLink></li>
-        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/createDonationCampaign"}>Create Donation Campaign</NavLink></li>
-        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myDonationsCampaign"}>My Donation Campaigns</NavLink></li>
-        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myDonations"}>My Donations</NavLink></li>
 
-    </>
+    const links = (
+        <>
+            {/* user--------------- */}
+            {
+                loginUsers?.role === "user" && (
+
+                    <>
+
+                        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/addPet"}>Add a pet</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myAddedPets"}>My added pets</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/adoptionRequest"}>Adoption Request</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/createDonationCampaign"}>Create Donation Campaign</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myDonationsCampaign"}>My Donation Campaigns</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full"><NavLink to={"/dashboard/myDonations"}>My Donations</NavLink></li>
+                    </>
+                )
+            }
+
+
+
+            {/* admin--------------- */}
+            {
+                loginUsers?.role == "admin" && (
+                    <>
+                        <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/allUser"}>All User</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full sm:px-10"><NavLink to={"/dashboard/allPet"}>All Pet</NavLink></li>
+                        <li className="border border-[#07c19f] mb-5 rounded-full  sm:pl-5"><NavLink to={"/dashboard/allDonation"}>All Donation</NavLink></li>
+
+                    </>
+                )
+            }
+
+            {/* banned user------------- */}
+            <>
+                {
+                    loginUsers?.role === "banned" && (
+                        <p className="mt-5 text-center text-red-500">  ❌ Your account is banned.</p>
+                    )
+                }
+            </>
+            {/* data not found----------- */}
+            <>
+                {
+
+                    (!loginUsers || !loginUsers?.role) && (
+                        <div className="flex flex-col items-center justify-center ">
+                            <h3 className="mb-2 text-5xl">⚠️</h3>
+                            <p className="text-[#ffffff] px-3"> User data not found.Please login again</p>
+                        </div>
+                    )
+
+
+
+
+                }
+
+
+
+            </>
+
+        </>
+    )
+    if (isLoading) {
+        return <Spinner isLoading={true}></Spinner>
+    }
+    if (isError) {
+        return errorMsg(error?.message)
+    }
+
+
     return (
         <div className="shadow-sm navbar bg-gradient-to-l from-[#0e5a4d] to-[#054560]    ">
             <div className="navbar-start">
@@ -52,12 +119,12 @@ const DashboardNavbar = () => {
                     <ul
                         tabIndex={0}
                         className="right-0 p-2 mt-3 shadow menu menu-sm dropdown-content  bg-[#0e5a4d]  rounded-box z-1 w-52 border border-[#07c19f]">
-                          <NavLink to={"/"} className='cursor-pointer btn-ghost btn'>
-                              <li  >Homepage</li>
-                          </NavLink>
-                          <li onClick={handleLogOut} className="cursor-pointer btn-ghost btn">LogOut</li>
-                         
-                        
+                        <NavLink to={"/"} className='cursor-pointer btn-ghost btn'>
+                            <li  >Homepage</li>
+                        </NavLink>
+                        <li onClick={handleLogOut} className="cursor-pointer btn-ghost btn">LogOut</li>
+
+
                     </ul>
                 </div>
 

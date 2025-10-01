@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
         displayName: name,
         photoURL: photoUrl
       })
-      successMsg('user profile updated')
+      // successMsg('user profile updated')
 
     } catch (err) {
       errorMsg(err.message)
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
 
       const user = result.user
       if (user) {
-        successMsg("Login successful")
+        // successMsg("Login successful")
 
         return user
       }
@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
               const result = await signInWithPopup(auth,facebookProvider)
                const user = result.user
                if(user){
-                 successMsg("login by facebook successful")
+                //  successMsg("login by facebook successful")
                  return user
                }
         }catch(err){

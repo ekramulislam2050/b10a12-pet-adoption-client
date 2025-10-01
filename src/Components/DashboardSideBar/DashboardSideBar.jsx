@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const DashboardSideBar = () => {
      const {loginUsers,isLoading,isError,error}=useAdmin()
-    
+    //    console.log(loginUsers)
     const links = (
         <>
             {/* user--------------- */}
@@ -54,13 +54,19 @@ const DashboardSideBar = () => {
         </>
     )
     if (isLoading) {
-        return <Spinner isLoading={isLoading}></Spinner>
+        return <Spinner isLoading={true}></Spinner>
     }
     if (isError) {
-        return errorMsg(error.message)
+        return errorMsg(error?.message)
     }
-    if (!loginUsers) {
-        return <Spinner isLoading={true}></Spinner>
+    
+    if (!loginUsers || !loginUsers?.role) {
+        return(
+            <div className="flex flex-col items-center justify-center min-h-screen">
+                 <h3 className="mb-2 text-5xl">⚠️</h3>
+                 <p className="text-[#ffffff] px-3"> User data not found.Please login again</p>
+            </div>
+        )
     }
 
     return (

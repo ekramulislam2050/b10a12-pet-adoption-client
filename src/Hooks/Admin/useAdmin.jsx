@@ -12,12 +12,12 @@ const useAdmin = () => {
         enabled:!!user?.email,
         queryFn: async () => {
             const res = await axiosSecure.get("/loginUsers")
-            return res.data
+            return res.data 
         }
     })
-    const loginUsers = allLoginUser.find((loggedUser) => loggedUser?.email === user?.email || null)
-
-     return {loginUsers,isLoading,isError,error}
+    const loginUsers = allLoginUser.find((loggedUser) => loggedUser?.email === user?.email )
+      console.log(loginUsers)
+     return {loginUsers:loginUsers||{},isLoading,isError,error}
 };
 
 export default useAdmin;
