@@ -1,12 +1,13 @@
-
+import AllAddedPetsModal from"../../Components/AllAddedPetsModal/AllAddedPetsModal"
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { useQuery } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import React from "react";
+import React, { useState } from "react";
 
 const AllPet = () => {
+  const [selectedPet,setSelectedPet]=useState(null)
   const axiosSecure = useAxiosSecure()
   const { data: allPetWithOwner = [], isLoading, isError, error } = useQuery({
     queryKey: ["allPetWithOwner"],
@@ -17,13 +18,36 @@ const AllPet = () => {
   })
   console.log(allPetWithOwner)
 
+  // handleEdit------------
+  const handleEdit=(id)=>{
+    
+  }
+
+  // handleDelete-------------
+  const handleDelete=()=>{
+    
+  }
+
+  // handleStatus----------
+  const handleStatus=()=>{
+    
+  }
+
 
 
   // tanstack table-----------
   const columnHelper = createColumnHelper()
   const columns = [
-    columnHelper.accessor("petName", {
-      id: "petName",
+    columnHelper.accessor("image", {
+      id: "image",
+      header: () => <span className="">petImg</span>,
+       cell: (info) => (
+                <img src={info.getValue()} alt="petImg" className="w-10 h-10 border rounded-full border-[#2fbbf2] sm:rounded sm:w-14 sm:h-14" />
+            )
+    }),
+    
+    columnHelper.accessor("name", {
+      id: "name",
       header: () => <span className="">petName</span>,
       cell: (info) => (
         <span className="text-blue-100 ">
@@ -31,35 +55,58 @@ const AllPet = () => {
         </span>
       )
     }),
+
+     columnHelper.accessor("category", {
+      id: "category",
+      header: () => "Category",
+      cell: (info) => <span className="text-white">{info.getValue()}</span>
+    }),
    
-    columnHelper.accessor("Owner", {
+    columnHelper.accessor((row)=>row.petInfoWithOwner?.name || "UnKnown", 
+    {
       id: "Owner",
       header: () => "Owner",
       cell: (info) => <span className="text-white">{info.getValue()}</span>
     }),
+
+     columnHelper.accessor("adopted", {
+      id: "adopted",
+      header: () => "Status",
+      cell: (info) => <span className={`${info?.getValue()?"text-green-600":"text-red-500"}`}>
+        {info.getValue()?"Adopted":"NotAdopted"}
+        </span>
+    }),
+   
     columnHelper.display({
       id: "action",
       header: () => <span className="hidden sm:block">Action</span>,
       cell: (info) => {
-        const loginUser = info.row.original
+        const petWithOwner = info.row.original
 
         return (
 
-
+            
           <div className="hidden gap-2 sm:flex">
             {/* update-------- */}
-            <button className="px-2 py-1 btn btn-primary btn-sm"
-              onClick={() => handleMakeAdmin(loginUser._id)}
+            <button className="px-4 py-1 btn btn-primary btn-sm"
+              onClick={()=>{
+                 setSelectedPet(petWithOwner)
+                document.getElementById("petWithOwnerModal").showModal()
+              }
+              }
             >Edit</button>
+            
             {/* delete ---------- */}
             <button className="px-2 py-1 btn btn-error btn-sm"
-              onClick={() => handleBanAdmin(loginUser._id)}
+              onClick={() => handleDelete(petWithOwner._id)}
             >Delete</button>
             {/* change status ---------- */}
-            <button className="px-2 py-1 btn btn-error btn-sm"
-              onClick={() => handleBanAdmin(loginUser._id)}
+            <button className="px-2 py-1 btn btn-success btn-sm"
+              onClick={() => handleStatus(petWithOwner._id)}
             >Change status</button>
-
+            
+           
+              
           </div>
 
 
@@ -83,10 +130,14 @@ const AllPet = () => {
   }
   return (
     <div className="flex flex-col items-center overflow-x-auto">
+        {/* modal components------------------- */}
+       <AllAddedPetsModal data={selectedPet} ></AllAddedPetsModal>
       {/* heading ---------- */}
       <div>
-        <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2"> All Registered Users</h2>
-        <p className="flex justify-center text-[#ffffff] pb-2">Here you can manage all registered users of your platform. </p>
+        <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">All Added Pets</h2>
+        <p className="flex justify-center text-[#ffffff] pb-2">Here you can view, update, delete, or manage the status of all pets added by users on the platform. </p>
+        
+        
       </div>
       <div className="w-full overflow-hidden ">
         {isLoading && <Spinner isLoading={isLoading}></Spinner>}
