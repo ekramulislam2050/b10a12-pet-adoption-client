@@ -1,4 +1,5 @@
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
+import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
@@ -15,13 +16,13 @@ const AllAddedPetsModal = ({ data, onClose }) => {
     const posted_date=data?.postedDate
     const postedDateValue= new Date(posted_date).toISOString().split("T")[0];
      const age = data?.age
-     const numericAge=age?parseInt(age.replace(/\D/g,""),10)||"":""
+     const numericAge=age ? parseInt(age.toString().replace(/\D/g, ""), 10) || "" : "";
       console.log(postedDateValue,numericAge)
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            petName: data?.name || "",
-            petPicture: data?.image || "",
+            name: data?.name || "",
+            image: data?.image || "",
             category: data?.category || "",
             shortDescription: data?.shortDescription || "",
             longDescription: data?.longDescription || "",
@@ -32,12 +33,12 @@ const AllAddedPetsModal = ({ data, onClose }) => {
         },
         onSubmit: async (values, { resetForm }) => {
             try {
-                // const result = await axiosSecure.patch(`/cdcData/${data._id}`, values)
-                // if (result.data.modifiedCount > 0) {
-                //     successMsg("patch successful ")
-                //     resetForm();
-                //     navigate("/donationCampaigns")
-                // }
+                const result = await axiosSecure.patch(`/updateAllPetByAdmin/${data._id}`, values)
+                if (result.data.modifiedCount > 0) {
+                    successMsg("patch successful ")
+                    resetForm();
+                    navigate("/petListing")
+                }
                 onClose()
                 resetForm()
             } catch (err) {
@@ -52,21 +53,21 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                 <div className="bg-[#054560] h-[400px] overflow-y-auto p-5 rounded-xl shadow-lg  ">
                     {/* heading------------ */}
                     <div className="flex justify-center p-2 mt-3">
-                        <h1 className="text-orange-300 text-4xl font-[kapakana]  tracking-wide sm:text-5xl font-semibold" >✏️ Edit Donation Campaign</h1>
+                        <h1 className="text-orange-300 text-4xl font-[kapakana]  tracking-wide sm:text-5xl font-semibold" >✏️ Edit Pet Information</h1>
                     </div>
                     <div className="flex flex-col ">
                         <form onSubmit={formik.handleSubmit}>
 
                             {/* pet name------------ */}
                             <div className="flex flex-col gap-3 px-2 py-3 ">
-                                <label htmlFor="petPicture" className="text-[#ffffff] ">Pet Name :</label>
+                                <label htmlFor="name" className="text-[#ffffff] ">Pet Name :</label>
                                 <input
-                                    id="petName"
-                                    name="petName"
+                                    id="name"
+                                    name="name"
                                     type="text"
-                                    placeholder="pet Name"
+                               
                                     onChange={formik.handleChange}
-                                    value={formik?.values?.petName || ""}
+                                    value={formik?.values?.name || ""}
                                     className="bg-[#054560] border border-orange-300 w-full
                                         rounded-[8px] p-1 text-[#ffffff]
                                        "
@@ -74,14 +75,14 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                             </div>
                             {/* pet picture------------ */}
                             <div className="flex flex-col gap-3 px-2 py-3 ">
-                                <label htmlFor="petPicture" className="text-[#ffffff] ">Pet Picture :</label>
+                                <label htmlFor="image" className="text-[#ffffff] ">Pet Picture :</label>
                                 <input
-                                    id="petPicture"
-                                    name="petPicture"
+                                    id="image"
+                                    name="image"
                                     type="url"
-                                    placeholder="input pet image link"
+                                  
                                     onChange={formik.handleChange}
-                                    value={formik.values.petPicture || ""}
+                                    value={formik.values.image || ""}
                                     className="bg-[#054560] border border-orange-300 w-full
                                         rounded-[8px] p-1 text-[#ffffff]
                                        "
@@ -91,10 +92,10 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                             <div className="sm:justify-between sm:flex ">
                                 {/*category----------------- */}
                                 <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%]">
-                                    <label htmlFor="maximumDonationAmount" className="text-[#ffffff] ">Category :</label>
+                                    <label htmlFor="Category" className="text-[#ffffff] ">Category :</label>
                                     <input
-                                        id="maximumDonationAmount"
-                                        name="maximumDonationAmount"
+                                        id="category"
+                                        name="category"
                                         type="text"
                                         onChange={formik.handleChange}
                                         value={formik.values.category || ""}
@@ -106,7 +107,7 @@ const AllAddedPetsModal = ({ data, onClose }) => {
 
                                 {/* location----------------- */}
                                 <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%]">
-                                    <label htmlFor="maximumDonationAmount" className="text-[#ffffff] ">Location :</label>
+                                    <label htmlFor="Location" className="text-[#ffffff] ">Location :</label>
                                     <input
                                         id="location"
                                         name="location"
@@ -124,7 +125,7 @@ const AllAddedPetsModal = ({ data, onClose }) => {
 
                                 {/* age----------------- */}
                                 <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%] ">
-                                    <label htmlFor="lastDateOfDonation" className="text-[#ffffff] ">Age :</label>
+                                    <label htmlFor="Age" className="text-[#ffffff] ">Age :</label>
                                     <input
                                         id="age"
                                         name="age"
@@ -138,10 +139,10 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                                 </div>
                                 {/* postedDate----------------- */}
                                 <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%] ">
-                                    <label htmlFor="lastDateOfDonation" className="text-[#ffffff] ">postedDate :</label>
+                                    <label htmlFor="postedDate" className="text-[#ffffff] ">postedDate :</label>
                                     <input
-                                        id="age"
-                                        name="age"
+                                        id="postedDate"
+                                        name="postedDate"
                                         type="date"
                                         onChange={formik.handleChange}
                                         value={formik.values.postedDate
@@ -158,7 +159,7 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                                 <textarea
                                     id="shortDescription"
                                     name="shortDescription"
-                                    placeholder="write short description"
+                                 
                                     onChange={formik.handleChange}
                                     value={formik.values.shortDescription || ""}
                                     className="bg-[#054560] border border-orange-300 w-full
@@ -172,7 +173,7 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                                 <textarea
                                     id="longDescription"
                                     name="longDescription"
-                                    placeholder="write long description"
+                             
                                     onChange={formik.handleChange}
                                     value={formik.values.longDescription || ""}
                                     className="bg-[#054560] border border-orange-300 w-full
