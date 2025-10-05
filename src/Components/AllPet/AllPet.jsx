@@ -8,6 +8,7 @@ import React, { useState } from "react";
 
 const AllPet = () => {
   const [selectedPet,setSelectedPet]=useState(null)
+  console.log("selectedPet=",selectedPet)
   const axiosSecure = useAxiosSecure()
   const { data: allPetWithOwner = [], isLoading, isError, error } = useQuery({
     queryKey: ["allPetWithOwner"],
@@ -82,18 +83,14 @@ const AllPet = () => {
       header: () => <span className="hidden sm:block">Action</span>,
       cell: (info) => {
         const petWithOwner = info.row.original
-
+           console.log("petWithOwner=",petWithOwner)
         return (
 
             
           <div className="hidden gap-2 sm:flex">
             {/* update-------- */}
             <button className="px-4 py-1 btn btn-primary btn-sm"
-              onClick={()=>{
-                 setSelectedPet(petWithOwner)
-                document.getElementById("petWithOwnerModal").showModal()
-              }
-              }
+              onClick={()=>{setSelectedPet(petWithOwner)}}
             >Edit</button>
             
             {/* delete ---------- */}
@@ -131,7 +128,11 @@ const AllPet = () => {
   return (
     <div className="flex flex-col items-center overflow-x-auto">
         {/* modal components------------------- */}
-       <AllAddedPetsModal data={selectedPet} ></AllAddedPetsModal>
+          {
+            selectedPet &&(
+                <AllAddedPetsModal data={selectedPet} onClose={()=>setSelectedPet(null)}></AllAddedPetsModal>
+            )
+          }
       {/* heading ---------- */}
       <div>
         <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">All Added Pets</h2>
