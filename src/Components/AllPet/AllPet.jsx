@@ -1,14 +1,17 @@
-import AllAddedPetsModal from"../../Components/AllAddedPetsModal/AllAddedPetsModal"
+import AllAddedPetsModal from "../../Components/AllAddedPetsModal/AllAddedPetsModal"
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
-import { useQuery } from "@tanstack/react-query";
+import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 const AllPet = () => {
-  const [selectedPet,setSelectedPet]=useState(null)
-  console.log("selectedPet=",selectedPet)
+  const queryClient = useQueryClient()
+  const [selectedPet, setSelectedPet] = useState(null)
+  console.log("selectedPet=", selectedPet)
   const axiosSecure = useAxiosSecure()
   const { data: allPetWithOwner = [], isLoading, isError, error } = useQuery({
     queryKey: ["allPetWithOwner"],
@@ -19,22 +22,60 @@ const AllPet = () => {
   })
   console.log(allPetWithOwner)
 
-  // handleEdit------------
-  const handleEdit=(id)=>{
-    
-  }
+  // handleDelete----------
+  const handleDelete = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!"
+      });
 
-  // handleDelete-------------
-  const handleDelete=()=>{
-    
-  }
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/deletePetByAdmin/${id}`);
+        if (res.data.deletedCount > 0) {
+          successMsg("Pet deleted successfully!");
+          queryClient.invalidateQueries(["allPetWithOwner"]);
+        } else {
+          errorMsg("Pet not found or already deleted.");
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      errorMsg("Failed to delete pet.");
+    }
+  };
 
-  // handleStatus----------
-  const handleStatus=()=>{
-    
-  }
 
+  // handle change status-----------
+  const handleStatus = async (id, currentStatus) => {
+    try {
+      const { isConfirmed } = await Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to change this pet's adoption status?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, change it!",
+      });
 
+      if (!isConfirmed) return;
+
+      const newStatus = { adopted: !currentStatus };
+      const res = await axiosSecure.patch(`/statusUpdateByAdmin/${id}`, newStatus);
+
+      if (res.data.modifiedCount > 0) {
+        successMsg("Status updated successfully!");
+        queryClient.invalidateQueries(["allPetWithOwner"]);
+      } else {
+        Swal.fire("No Change", "The status was already the same.", "info");
+      }
+    } catch (err) {
+      console.error(err);
+      errorMsg("Failed to update pet status.");
+    }
+  };
 
   // tanstack table-----------
   const columnHelper = createColumnHelper()
@@ -42,11 +83,11 @@ const AllPet = () => {
     columnHelper.accessor("image", {
       id: "image",
       header: () => <span className="">petImg</span>,
-       cell: (info) => (
-                <img src={info.getValue()} alt="petImg" className="w-10 h-10 border rounded-full border-[#2fbbf2] sm:rounded sm:w-14 sm:h-14" />
-            )
+      cell: (info) => (
+        <img src={info.getValue()} alt="petImg" className="w-10 h-10 border rounded-full border-[#2fbbf2] sm:rounded sm:w-14 sm:h-14   " />
+      )
     }),
-    
+
     columnHelper.accessor("name", {
       id: "name",
       header: () => <span className="">petName</span>,
@@ -57,53 +98,53 @@ const AllPet = () => {
       )
     }),
 
-     columnHelper.accessor("category", {
+    columnHelper.accessor("category", {
       id: "category",
-      header: () => "Category",
-      cell: (info) => <span className="text-white">{info.getValue()}</span>
-    }),
-   
-    columnHelper.accessor((row)=>row.petInfoWithOwner?.name || "UnKnown", 
-    {
-      id: "Owner",
-      header: () => "Owner",
-      cell: (info) => <span className="text-white">{info.getValue()}</span>
+      header: () => <span className="hidden sm:block">Category</span>,
+      cell: (info) => <span className="hidden text-white sm:block">{info.getValue()}</span>
     }),
 
-     columnHelper.accessor("adopted", {
+    columnHelper.accessor((row) => row.petInfoWithOwner?.name || "UnKnown",
+      {
+        id: "Owner",
+        header: () => "Owner",
+        cell: (info) => <span className="text-white">{info.getValue()}</span>
+      }),
+
+    columnHelper.accessor("adopted", {
       id: "adopted",
       header: () => "Status",
-      cell: (info) => <span className={`${info?.getValue()?"text-green-600":"text-red-500"}`}>
-        {info.getValue()?"Adopted":"NotAdopted"}
-        </span>
+      cell: (info) => <span className={`${info?.getValue() ? "text-green-600" : "text-red-500"}`}>
+        {info.getValue() ? "Adopted" : "NotAdopted"}
+      </span>
     }),
-   
+
     columnHelper.display({
       id: "action",
       header: () => <span className="hidden sm:block">Action</span>,
       cell: (info) => {
         const petWithOwner = info.row.original
-           console.log("petWithOwner=",petWithOwner)
+        console.log("petWithOwner=", petWithOwner)
         return (
 
-            
+
           <div className="hidden gap-2 sm:flex">
             {/* update-------- */}
             <button className="px-4 py-1 btn btn-primary btn-sm"
-              onClick={()=>{setSelectedPet(petWithOwner)}}
+              onClick={() => { setSelectedPet(petWithOwner) }}
             >Edit</button>
-            
+
             {/* delete ---------- */}
             <button className="px-2 py-1 btn btn-error btn-sm"
               onClick={() => handleDelete(petWithOwner._id)}
             >Delete</button>
             {/* change status ---------- */}
             <button className="px-2 py-1 btn btn-success btn-sm"
-              onClick={() => handleStatus(petWithOwner._id)}
+              onClick={() => handleStatus(petWithOwner._id, petWithOwner.adopted)}
             >Change status</button>
-            
-           
-              
+
+
+
           </div>
 
 
@@ -115,7 +156,7 @@ const AllPet = () => {
   ]
   // table instance-----------
   const table = useReactTable({
-    data:allPetWithOwner,
+    data: allPetWithOwner,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
@@ -127,18 +168,18 @@ const AllPet = () => {
   }
   return (
     <div className="flex flex-col items-center overflow-x-auto">
-        {/* modal components------------------- */}
-          {
-            selectedPet &&(
-                <AllAddedPetsModal data={selectedPet} onClose={()=>setSelectedPet(null)}></AllAddedPetsModal>
-            )
-          }
+      {/* modal components------------------- */}
+      {
+        selectedPet && (
+          <AllAddedPetsModal data={selectedPet} onClose={() => setSelectedPet(null)}></AllAddedPetsModal>
+        )
+      }
       {/* heading ---------- */}
-      <div>
+      <div className="px-2 text-center">
         <h2 className="flex justify-center text-[#04709b] text-3xl font-semibold py-2">All Added Pets</h2>
-        <p className="flex justify-center text-[#ffffff] pb-2">Here you can view, update, delete, or manage the status of all pets added by users on the platform. </p>
-        
-        
+        <p className="flex sm:justify-center text-[#ffffff] pb-2 text-sm ">Here you can view, update, delete, or manage the status of all pets added by users on the platform. </p>
+
+
       </div>
       <div className="w-full overflow-hidden ">
         {isLoading && <Spinner isLoading={isLoading}></Spinner>}
@@ -187,13 +228,19 @@ const AllPet = () => {
                     <td colSpan={6}  >
                       <div className="flex justify-evenly ">
                         {/* update-------- */}
-                        <button className=" btn btn-primary btn-sm"
-                          onClick={() => handleMakeAdmin(user._id)}
-                        >Make Admin</button>
+                        <button className="px-4 py-1 btn btn-primary btn-sm"
+                          onClick={() => { setSelectedPet(user) }}
+                        >Edit</button>
+
                         {/* delete ---------- */}
                         <button className="px-2 py-1 btn btn-error btn-sm"
-                          onClick={() => handleBanAdmin(user._id)}
-                        >Ban Admin</button>
+                          onClick={() => handleDelete(user._id)}
+                        >Delete</button>
+                        {/* change status ---------- */}
+                        <button className="px-2 py-1 btn btn-success btn-sm"
+                          onClick={() => handleStatus(user._id, user.adopted)}
+                        >Change status</button>
+
 
 
                       </div>
