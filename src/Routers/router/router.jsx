@@ -57,11 +57,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/donationCampaigns",
-                element: <PrivateRouter><DonationCampaigns></DonationCampaigns></PrivateRouter>
+                element: <DonationCampaigns></DonationCampaigns>
             },
             {
                 path: "/donationCampaigns/:id",
-                element: <DonationCampaignDetails></DonationCampaignDetails>,
+                element:<PrivateRouter> <DonationCampaignDetails></DonationCampaignDetails></PrivateRouter>,
                 loader: ({ params }) => fetch(`http://localhost:5000/cdcData/${params.id}`)
             },
             {
@@ -86,12 +86,12 @@ const router = createBrowserRouter([
             },
             {
                 path: '/petDetails/:id',
-                element: <PetDetails></PetDetails>,
+                element:<PrivateRouter> <PetDetails></PetDetails></PrivateRouter>,
                 loader: ({ params }) => fetch(`http://localhost:5000/allpet/${params.id}`)
             },
             {
                 path: "/recommendedDonationDetails/:id",
-                element: <RecommendationDonationDetails></RecommendationDonationDetails>,
+                element:<PrivateRouter><RecommendationDonationDetails></RecommendationDonationDetails></PrivateRouter>,
                 loader: ({ params }) => fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
             }
         ]
@@ -137,7 +137,7 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/updatedMyAddedPets/:id",
                 element: <PrivateRouter><UpdatedMyAddedPets></UpdatedMyAddedPets></PrivateRouter>,
-                loader: (params) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
+                loader: ({params}) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
             },
             // admin--------
           

@@ -102,7 +102,7 @@ const AllDonation = () => {
 
         columnHelper.accessor("maximumDonationAmount", {
             id: "maximumDonationAmount",
-            header: () => <span className="hidden sm:block">Maximum</span>,
+            header: () => <span className="">Maximum</span>,
             cell: (info) => (
                 <span className="text-blue-100 ">
                     {info.getValue()}<span className="p-1 text-sm font-extrabold text-orange-400">৳</span>
@@ -112,15 +112,15 @@ const AllDonation = () => {
 
         columnHelper.accessor("totalDonation", {
             id: "totalDonation",
-            header: () => <span className="hidden sm:block">Total</span>,
-            cell: (info) => <span className="hidden text-white sm:block">{info.getValue()}<span className="p-1 text-sm font-extrabold text-orange-400">৳</span></span>
+            header: () => <span className="">Total</span>,
+            cell: (info) => <span className="text-white ">{info.getValue()}<span className="p-1 text-sm font-extrabold text-orange-400">৳</span></span>
         }),
 
         columnHelper.accessor("email",
             {
                 id: "email",
-                header: () => "Owner",
-                cell: (info) => <span className="text-white">{info?.getValue()}</span>
+                header: () => <span className="hidden sm:block">Owner</span>,
+                cell: (info) => <span className="hidden text-white sm:block">{info?.getValue()}</span>
             }),
 
         columnHelper.accessor("status", {
@@ -156,7 +156,7 @@ const AllDonation = () => {
                                 }`}
                             onClick={() => handleStatus(cdcData._id, cdcData.status)}
                         >
-                            {cdcData.status==="Active" ? "Pause ⏸️" : "Unpause ▶️"}
+                            {cdcData.status === "Active" ? "Pause ⏸️" : "Unpause ▶️"}
                         </button>
 
 
@@ -253,9 +253,13 @@ const AllDonation = () => {
                                                     onClick={() => handleDelete(data._id)}
                                                 >Delete</button>
                                                 {/* change status ---------- */}
-                                                <button className="px-2 py-1 btn btn-success btn-sm"
+                                                <button
+                                                    className={`px-2 py-1 btn btn-sm ${data.status === "Active" ? "btn-warning" : "btn-success"
+                                                        }`}
                                                     onClick={() => handleStatus(data._id, data.status)}
-                                                >Change status</button>
+                                                >
+                                                    {data.status === "Active" ? "Pause ⏸️" : "Unpause ▶️"}
+                                                </button>
 
 
 
