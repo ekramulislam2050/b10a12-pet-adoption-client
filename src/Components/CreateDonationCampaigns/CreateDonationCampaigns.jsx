@@ -7,10 +7,12 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 
 
 const CreateDonationCampaigns = () => {
+    const navigate=useNavigate()
     const axiosPublic=useAxiosPublic()
     const {user}=useAuth()
     const [selectedDate, setSelectedDate] = useState(null)
@@ -32,6 +34,7 @@ const CreateDonationCampaigns = () => {
                     successMsg("successful post")
                     resetForm();
                     setSelectedDate(null)
+                    navigate("/donationCampaigns")
                 }
             } catch (err) {
                 errorMsg(err.message)

@@ -37,10 +37,11 @@ const AllAddedPetsModal = ({ data, onClose }) => {
                 if (result.data.modifiedCount > 0) {
                     successMsg("patch successful ")
                     resetForm();
+                    onClose()
                     navigate("/petListing")
                 }
-                onClose()
-                resetForm()
+                
+            
             } catch (err) {
                 errorMsg(err.message)
             }

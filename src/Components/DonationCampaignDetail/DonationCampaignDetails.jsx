@@ -11,9 +11,9 @@ import RecommendedDonation from "../RecommendedDonation/RecommendedDonation";
 
 const DonationCampaignDetails = () => {
     const { id } = useParams()
- 
+
     const axiosPublic = useAxiosPublic()
-    const { data: dcDetails = {}, isLoading, isError, error,  } = useQuery({
+    const { data: dcDetails = {}, isLoading, isError, error, } = useQuery({
         queryKey: ['dcDetails', id],
         queryFn: async () => {
             const res = await axiosPublic.get(`/cdcData/${id}`)
@@ -58,7 +58,14 @@ const DonationCampaignDetails = () => {
                                 </p>
                             </div>
                             {/* Open the modal using document.getElementById('ID').showModal() method */}
-                            <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_4').showModal()}>Donate Now</button>
+                            <button
+                                className={`btn btn-primary w-full text-xl tracking-wide animate-pulse ${dcDetails.status === "Pause" ? "btn-disabled" : ""}`}
+                                disabled={dcDetails.status === "Pause"}
+                                onClick={() => document.getElementById('my_modal_4').showModal()}
+                            >
+                                {dcDetails.status === "Pause" ? "Donation Paused ⏸️" : "Donate Now"}
+                            </button>
+
                             <DonationModal data={dcDetails}  ></DonationModal>
 
 
