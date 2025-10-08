@@ -136,7 +136,7 @@ const AuthProvider = ({ children }) => {
 
           const data = await res.json();
           if (data.token) {
-            localStorage.setItem("accessToken", data.token)
+            localStorage.setItem("access-token", data.token)
           }
 
          setUser(currentUser)

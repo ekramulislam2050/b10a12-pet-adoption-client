@@ -7,94 +7,126 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import *as Yup from "yup"
 
 const Login = () => {
-      const axiosSecure=useAxiosSecure()
-    const {login,loginByGoogle,loginByFB}=useAuth()
+    const axiosSecure = useAxiosSecure()
+    const { login, loginByGoogle, loginByFB } = useAuth()
     const navigate = useNavigate()
-    const location=useLocation()
+    const location = useLocation()
     const from = location?.state?.from?.pathname || "/"
 
 
     // logged user data------------
 
-    const saveToDB= async(loggedUser)=>{
-            console.log("fb login==",loggedUser)
-           try{
-              const email=loggedUser?.email || "ekramulislam2050@gmail.com"
-              const userInfo={
-                  name:loggedUser?.displayName || "Guest User",
-                  email:email,
-                  image:loggedUser?.photoURL || "https://i.ibb.co/tj6ybPZ/faveIcon.png",
-                  role:"user",
-                  status:"active"
-              }
-                console.log("userInfo=",userInfo)
-              const res=await axiosSecure.post("/loginUsers",userInfo)
-                if(res.data){
-                    successMsg("login success and save to db")
-                }
-           }catch(err){
-              errorMsg(err.message)
-           }
+    const saveToDB = async (loggedUser) => {
+        console.log("fb login==", loggedUser)
+        try {
+            const email = loggedUser?.email || "ekramulislam2050@gmail.com"
+            const userInfo = {
+                name: loggedUser?.displayName || "Guest User",
+                email: email,
+                image: loggedUser?.photoURL || "https://i.ibb.co/tj6ybPZ/faveIcon.png",
+                role: "user",
+                status: "active"
+            }
+            console.log("userInfo=", userInfo)
+            const res = await axiosSecure.post("/loginUsers", userInfo)
+            if (res.data) {
+                successMsg("login success and save to db")
+            }
+        } catch (err) {
+            errorMsg(err.message)
+        }
     }
-     
+
     // use formik------------------
     const formik = useFormik({
         initialValues: {
             email: '',
             password: ''
         },
-        
-        onSubmit: async(values) => {
-            try{
-               const result = await login(values.email,values.password)
-                 if(result){
-                   
-                    await saveToDB(result)
-                     navigate(from,{replace:true})
-                 }
-              
-            }catch(err){
-                errorMsg(err.message)
+
+        onSubmit: async (values) => {
+            try {
+                const user = await login(values.email, values.password);
+                if (user?.email) {
+                    // JWT fetch
+                    const res = await fetch("http://localhost:5000/jwt", {
+                        method: "POST",
+                        headers: { "content-type": "application/json" },
+                        body: JSON.stringify({ email: user.email })
+                    });
+                    const data = await res.json();
+                    if (data.token) {
+                        localStorage.setItem("access-token", data.token);
+                    }
+
+                    await saveToDB(user);
+                    navigate(from, { replace: true });
+                }
+            } catch (err) {
+                errorMsg(err.message);
             }
-            // console.log(values)
-        },
-        
+        }
+        ,
+
         validationSchema: Yup.object({
-            email:Yup.string().required(),
-            password:Yup.string().min(6).required()
+            email: Yup.string().required(),
+            password: Yup.string().min(6).required()
         })
-     
+
     })
 
     // handle google login--------------
-      const handleGoogleLogin = async()=>{
-         try{
-              const result = await loginByGoogle()
+    const handleGoogleLogin = async () => {
+        try {
+            const user = await loginByGoogle();
+            if (user?.email) {
+                // JWT fetch
+                const res = await fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ email: user.email })
+                });
+                const data = await res.json();
+                if (data.token) {
+                    localStorage.setItem("access-token", data.token); 
+                }
+
+              
+                await saveToDB(user);
+
              
-               if( result){
-               await saveToDB(result)
-                  navigate(from,{replace:true})
-               }
-         }catch(err){
-            errorMsg(err.message)
-         }
-      }
+                navigate(from, { replace: true });
+            }
+        } catch (err) {
+            errorMsg(err.message);
+        }
+    };
 
     // handle facebook login---------------
 
-    const handleFacebookLogin=async()=>{
-       try{
-          const result = await loginByFB()
-          if(result){
-            console.log("fb login=",result)
-            await saveToDB(result)
-            navigate(from,{replace:true})
-          }
-       }catch(err){
-        errorMsg(err.message)
-       }
-    }
-    
+    const handleFacebookLogin = async () => {
+        try {
+            const user = await loginByFB();
+            if (user?.email) {
+                // JWT fetch
+                const res = await fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ email: user.email })
+                });
+                const data = await res.json();
+                if (data.token) {
+                    localStorage.setItem("access-token", data.token);
+                }
+
+                await saveToDB(user);
+                navigate(from, { replace: true });
+            }
+        } catch (err) {
+            errorMsg(err.message);
+        }
+    };
+
     return (
         <div className="flex items-center justify-center min-h-screen ">
             <div className="w-full max-w-sm shadow-xl card border border-[#F3D6C2] bg-white">
@@ -143,34 +175,34 @@ const Login = () => {
                                 <p className="text-red-500">{formik.errors.password}</p>
                             )}
                         </div>
-                          <div className="my-1">
-                             <Link to={"/register"}>
-                                  <p className="flex items-center justify-center gap-1 text-sm"> Do not have an account?
-                                  <span className="font-semibold text-red-500 underline">Register</span>    
-                                
-                               </p>
-                             </Link>
-                          </div>
+                        <div className="my-1">
+                            <Link to={"/register"}>
+                                <p className="flex items-center justify-center gap-1 text-sm"> Do not have an account?
+                                    <span className="font-semibold text-red-500 underline">Register</span>
+
+                                </p>
+                            </Link>
+                        </div>
                         <div className="form-control">
                             <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]">
                                 Login
                             </button>
                         </div>
                     </form>
-                      <div className="divider">OR</div>
-                      {/* google login------------- */}
-                      <div>
-                          <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]" onClick={handleGoogleLogin}>
-                                Login By Google
-                            </button>
-                      </div>
-                      <div className="divider">OR</div>
-                      {/* facebook login------------- */}
-                      <div>
-                          <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]" onClick={handleFacebookLogin}>
-                                Login By Facebook
-                            </button>
-                      </div>
+                    <div className="divider">OR</div>
+                    {/* google login------------- */}
+                    <div>
+                        <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]" onClick={handleGoogleLogin}>
+                            Login By Google
+                        </button>
+                    </div>
+                    <div className="divider">OR</div>
+                    {/* facebook login------------- */}
+                    <div>
+                        <button type="submit" className="w-full btn bg-[#A47149] text-white hover:bg-[#8c5e3d]" onClick={handleFacebookLogin}>
+                            Login By Facebook
+                        </button>
+                    </div>
 
                 </div>
             </div>

@@ -7,6 +7,7 @@ import PetCare from "@/Components/PetCare/PetCare";
 import SuccessChart from "@/Components/SuccessChart/SuccessChart";
 
 
+
  const Home = () => {
     return (
         <div className="overflow-hidden">
@@ -17,6 +18,7 @@ import SuccessChart from "@/Components/SuccessChart/SuccessChart";
             <AboutUs></AboutUs>
             <PetCare></PetCare>
             <SuccessChart></SuccessChart>
+          
         </div>
     );
 };
