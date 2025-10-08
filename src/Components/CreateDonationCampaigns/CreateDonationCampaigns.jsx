@@ -1,5 +1,6 @@
 import useAuth from "@/Hooks/Auth/useAuth";
-import useAxiosPublic from "@/Hooks/AxiosPublic/useAxiosPublic";
+
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
@@ -13,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateDonationCampaigns = () => {
     const navigate=useNavigate()
-    const axiosPublic=useAxiosPublic()
+  const axiosSecure=useAxiosSecure()
     const {user}=useAuth()
     const [selectedDate, setSelectedDate] = useState(null)
     const formik = useFormik({
@@ -29,7 +30,7 @@ const CreateDonationCampaigns = () => {
         enableReinitialize:true,
         onSubmit: async (values, { resetForm }) => {
             try {
-                const result = await axiosPublic.post("/createDonationCampaign", values)
+                const result = await axiosSecure.post("/createDonationCampaign", values)
                 if (result.data.insertedId) {
                     successMsg("successful post")
                     resetForm();

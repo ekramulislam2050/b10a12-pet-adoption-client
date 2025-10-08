@@ -7,16 +7,17 @@ import img1 from "../../assets/Pet-Care-img/care-1.png"
 import img2 from "../../assets/Pet-Care-img/care-2.png"
 import DonationModal from "../DonationModal/DonationModal";
 import RecommendedDonation from "../RecommendedDonation/RecommendedDonation";
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 
 
 const DonationCampaignDetails = () => {
     const { id } = useParams()
 
-    const axiosPublic = useAxiosPublic()
+    const axiosSecure=useAxiosSecure()
     const { data: dcDetails = {}, isLoading, isError, error, } = useQuery({
         queryKey: ['dcDetails', id],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/cdcData/${id}`)
+            const res = await axiosSecure.get(`/cdcData/${id}`)
             return res.data
         }
     })

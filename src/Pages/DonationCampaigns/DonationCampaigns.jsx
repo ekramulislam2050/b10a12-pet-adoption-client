@@ -1,5 +1,6 @@
 import InfiniteScrolling from "@/Components/InfiniteScrolling/InfiniteScrolling";
-import useAxiosPublic from "@/Hooks/AxiosPublic/useAxiosPublic";
+
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
  
@@ -8,11 +9,11 @@ import { useQuery } from "@tanstack/react-query";
  
  
  const DonationCampaigns = () => {
-    const axiosPublic=useAxiosPublic()
+      const axiosSecure=useAxiosSecure()
     const {data:cdcData=[],isLoading,isError,error, }=useQuery({
         queryKey:["cdcData"],
         queryFn:async()=>{
-            const res=await axiosPublic.get("/cdcData")
+            const res=await axiosSecure.get("/cdcData")
              return res.data
         }
     })

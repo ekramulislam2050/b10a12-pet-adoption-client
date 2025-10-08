@@ -1,11 +1,12 @@
 import useAuth from '@/Hooks/Auth/useAuth';
 import { Formik, Field, Form } from 'formik';
 import img2 from "../../assets/Pet-Care-img/care-2.png"
-import useAxiosPublic from '@/Hooks/AxiosPublic/useAxiosPublic';
+
 import successMsg from '@/ReUseAbleFunction/SuccessMsg/successMsg';
 import errorMsg from '@/ReUseAbleFunction/ErrorMsg/errorMsg';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAxiosSecure from '@/Hooks/AxiosSecure/useAxiosSecure';
 
 
 
@@ -13,7 +14,7 @@ const Modal = ({ data }) => {
     const navigate = useNavigate()
     const modalRef = useRef()
     const { user } = useAuth()
-    const axiosPublic = useAxiosPublic()
+   const axiosSecure=useAxiosSecure()
     // console.log(user)
     const { name, image, _id, category,email } = data || {}
     console.log(data)
@@ -48,7 +49,7 @@ const Modal = ({ data }) => {
 
                         try {
                             console.log(values)
-                            const res = await axiosPublic.post("/adoptPets", values)
+                            const res = await axiosSecure.post("/adoptPets", values)
                             if (res.data.insertedId) {
                                 successMsg("post successful")
                                 //  modal close---------

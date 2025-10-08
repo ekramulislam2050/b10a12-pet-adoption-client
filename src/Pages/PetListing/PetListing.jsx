@@ -1,16 +1,18 @@
 import InfiniteScrolling from "@/Components/InfiniteScrolling/InfiniteScrolling";
-import useAxiosPublic from "@/Hooks/AxiosPublic/useAxiosPublic";
+
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import Spinner from "@/ReUseAbleFunction/Spinner/Spinner";
 import { useQuery } from "@tanstack/react-query";
 
 
 const PetListing = () => {
-    const axiosPublic=useAxiosPublic()
+   
+    const axiosSecure=useAxiosSecure()
     const {data:availablePets=[],isLoading,isError,error}=useQuery({
         queryKey:["availablePets"],
         queryFn:async()=>{
-            const res=await axiosPublic.get("/availablePets")
+            const res=await axiosSecure.get("/availablePets")
             return res.data
         }
     })
