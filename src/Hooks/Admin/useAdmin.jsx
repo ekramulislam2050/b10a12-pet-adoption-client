@@ -16,7 +16,7 @@ const useAdmin = () => {
         }
     })
     const loginUsers = allLoginUser.find((loggedUser) => loggedUser?.email === user?.email )
-      console.log(loginUsers)
+   
      return {loginUsers:loginUsers||{},isLoading,isError,error}
 };
 

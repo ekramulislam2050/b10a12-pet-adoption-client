@@ -11,13 +11,13 @@ const AllAddedPetsModal = ({ data, onClose }) => {
     }
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
-    // console.log("editModal", data)
+   
     
     const posted_date=data?.postedDate
     const postedDateValue= new Date(posted_date).toISOString().split("T")[0];
      const age = data?.age
      const numericAge=age ? parseInt(age.toString().replace(/\D/g, ""), 10) || "" : "";
-      console.log(postedDateValue,numericAge)
+      
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {

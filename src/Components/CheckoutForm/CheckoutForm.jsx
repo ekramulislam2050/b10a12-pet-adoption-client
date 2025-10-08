@@ -46,12 +46,12 @@ const CheckoutForm = ({ id }) => {
 
         if (error) {
             errorMsg(error.message)
-            console.log('[error]', error)
+        
             return
         } else {
             successMsg("created paymentMethod successfully")
             document.getElementById("my_modal_4").close()
-            console.log("[paymentMethod]", paymentMethod)
+            
         }
         // stripe confirmation------------
         let paymentStatus = ""
@@ -96,7 +96,7 @@ const CheckoutForm = ({ id }) => {
 
         // post payment to db--------
         const response = await axiosSecure.post("/donationPayment", paymentDetails)
-        console.log(response)
+      
         if (response?.data?.insertedId) {
             successMsg("payment details post success")
           queryClient.invalidateQueries("cdcData");

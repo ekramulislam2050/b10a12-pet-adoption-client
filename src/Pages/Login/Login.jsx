@@ -17,7 +17,7 @@ const Login = () => {
     // logged user data------------
 
     const saveToDB = async (loggedUser) => {
-        console.log("fb login==", loggedUser)
+     
         try {
             const email = loggedUser?.email || "ekramulislam2050@gmail.com"
             const userInfo = {
@@ -27,7 +27,7 @@ const Login = () => {
                 role: "user",
                 status: "active"
             }
-            console.log("userInfo=", userInfo)
+         
             const res = await axiosSecure.post("/loginUsers", userInfo)
             if (res.data) {
                 successMsg("login success and save to db")
@@ -49,7 +49,7 @@ const Login = () => {
                 const user = await login(values.email, values.password);
                 if (user?.email) {
                     // JWT fetch
-                    const res = await fetch("http://localhost:5000/jwt", {
+                    const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                         method: "POST",
                         headers: { "content-type": "application/json" },
                         body: JSON.stringify({ email: user.email })
@@ -81,7 +81,7 @@ const Login = () => {
             const user = await loginByGoogle();
             if (user?.email) {
                 // JWT fetch
-                const res = await fetch("http://localhost:5000/jwt", {
+                const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({ email: user.email })
@@ -109,7 +109,7 @@ const Login = () => {
             const user = await loginByFB();
             if (user?.email) {
                 // JWT fetch
-                const res = await fetch("http://localhost:5000/jwt", {
+                const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({ email: user.email })

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const instance = axios.create({
-    baseURL: "http://localhost:5000/",
+    baseURL: "https://b10a12-pet-adoption-server.vercel.app/",
     headers: { "content-type": "application/json" }
 })
 const useAxiosSecure = () => {
@@ -17,7 +17,7 @@ const useAxiosSecure = () => {
         const requestInterceptors=instance.interceptors.request.use(
             (config) => {
                 const token = localStorage.getItem("access-token")
-                 console.log("token=",token)
+               
                 if (token) {
                     config.headers=config.headers || {}
                     config.headers.Authorization = `Bearer ${token}`
@@ -25,7 +25,7 @@ const useAxiosSecure = () => {
                 return config
             },
             (error) => {
-                console.log("err form request interceptors")
+               
                 return Promise.reject(error)
             }
         )

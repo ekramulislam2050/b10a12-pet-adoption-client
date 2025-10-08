@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 const UpdatedMyAddedPets = () => {
     const axiosSecure=useAxiosSecure()
     const {id} = useParams()
-    //  console.log(id)
+  
     const {data:myAddedPets=[]}=useQuery({
         queryKey:["myAddedPets",id],
         queryFn:async()=>{
@@ -17,7 +17,7 @@ const UpdatedMyAddedPets = () => {
         }
         
     })
-    console.log(myAddedPets)
+  
     return (
         <div>
             <UpdatedForm data={myAddedPets}></UpdatedForm>

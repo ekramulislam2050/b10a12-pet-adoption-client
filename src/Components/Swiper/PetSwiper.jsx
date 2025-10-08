@@ -11,7 +11,7 @@ import { Grid, Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 
 const PetSwiper = ({ pets }) => {
-    // console.log(pets)
+
     
     return (
         <Swiper

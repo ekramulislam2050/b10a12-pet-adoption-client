@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const EditModal = ({id,data }) => {
     const axiosSecure = useAxiosSecure()
     const navigate =useNavigate()
-    // console.log("editModal", data)
+    
 
     const formik = useFormik({
         enableReinitialize: true,

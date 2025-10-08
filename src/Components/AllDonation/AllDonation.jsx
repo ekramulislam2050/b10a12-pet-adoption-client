@@ -20,7 +20,7 @@ const AllDonation = () => {
             return res.data
         }
     })
-    console.log("cdcDataForAdmin=", cdcDataForAdmin)
+   
 
     // handleDelete----------
     const handleDelete = async (id) => {
@@ -59,8 +59,8 @@ const AllDonation = () => {
             const isActive = normalizedStatus === "active";
             const newStatus = isActive ? "Pause" : "Active";
 
-            console.log("currentStatus:", currentStatus, "normalized:", normalizedStatus);
-            console.log("newStatus:", newStatus);
+           
+           
 
             const { isConfirmed } = await Swal.fire({
                 title: `Are you sure you want to ${isActive ? "pause" : "unpause"} this campaign?`,
@@ -73,7 +73,7 @@ const AllDonation = () => {
 
             const res = await axiosSecure.patch(`/cdcStatusUpdateByAdmin/${id}`, { status: newStatus });
 
-            console.log("Backend Response:", res.data);
+         
 
             if (res.data.modifiedCount > 0) {
                 successMsg(`Campaign ${isActive ? "paused" : "resumed"} successfully!`);

@@ -11,7 +11,7 @@ import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 const PetDetails = () => {
 
     const { id } = useParams()
-    // console.log(id)
+ 
    
     const axiosSecure=useAxiosSecure()
     const { data, isError, isLoading, error } = useQuery({
@@ -29,7 +29,7 @@ const PetDetails = () => {
     }
 
     const { name, age, category, image, location, postedDate, _id,shortDescription,longDescription } = data || {}
-    // console.log(data)
+   
     return (
         <div className="min-h-screen ">
             <div className="flex flex-col items-center mt-5">

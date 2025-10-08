@@ -29,7 +29,7 @@ const MyDonationCampaigns = () => {
   if (!email) {
     return
   }
-  console.log('cdc=', dpData)
+
   if (isLoading) {
     return <Spinner isLoading={isLoading}></Spinner>
   }

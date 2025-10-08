@@ -15,9 +15,9 @@ const Modal = ({ data }) => {
     const modalRef = useRef()
     const { user } = useAuth()
    const axiosSecure=useAxiosSecure()
-    // console.log(user)
+    
     const { name, image, _id, category,email } = data || {}
-    console.log(data)
+
     const categoryToPath = {
         Dog: "dogs",
         Cat: "cats",
@@ -48,7 +48,7 @@ const Modal = ({ data }) => {
                     onSubmit={async (values) => {
 
                         try {
-                            console.log(values)
+                         
                             const res = await axiosSecure.post("/adoptPets", values)
                             if (res.data.insertedId) {
                                 successMsg("post successful")

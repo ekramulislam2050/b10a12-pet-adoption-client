@@ -4,7 +4,7 @@ import useAuth from "@/Hooks/Auth/useAuth";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 const Navbar = () => {
     const { user, logOut } = useAuth()
-    // console.log(user)
+   
     const links = <>
         <li className="hover:text-[#A47149]"><NavLink to={"/"}>Home</NavLink></li>
         <li className="hover:text-[#A47149]"><NavLink to={"/petListing"}>PetListing</NavLink></li>

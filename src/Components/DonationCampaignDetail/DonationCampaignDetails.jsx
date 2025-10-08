@@ -21,7 +21,7 @@ const DonationCampaignDetails = () => {
             return res.data
         }
     })
-    // console.log(dcDetails)
+ 
     if (isLoading) {
         return <Spinner isLoading={isLoading}></Spinner>
     }

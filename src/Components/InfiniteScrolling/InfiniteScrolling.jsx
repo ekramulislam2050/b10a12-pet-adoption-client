@@ -4,7 +4,7 @@ import DonationCampaignsUi from "../DonationCampaignsUI/DonationCampaignsUi";
 
 
 const InfiniteScrolling = ({ data, type }) => {
-  // console.log(availablePets)
+
   const { scrollYProgress } = useScroll()
 
   return (

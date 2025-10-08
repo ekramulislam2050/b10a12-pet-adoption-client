@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 const AllPet = () => {
   const queryClient = useQueryClient()
   const [selectedPet, setSelectedPet] = useState(null)
-  console.log("selectedPet=", selectedPet)
+
   const axiosSecure = useAxiosSecure()
   const { data: allPetWithOwner = [], isLoading, isError, error } = useQuery({
     queryKey: ["allPetWithOwner"],
@@ -20,7 +20,7 @@ const AllPet = () => {
       return res.data
     }
   })
-  console.log(allPetWithOwner)
+ 
 
   // handleDelete----------
   const handleDelete = async (id) => {
@@ -124,7 +124,7 @@ const AllPet = () => {
       header: () => <span className="hidden sm:block">Action</span>,
       cell: (info) => {
         const petWithOwner = info.row.original
-        console.log("petWithOwner=", petWithOwner)
+        
         return (
 
 

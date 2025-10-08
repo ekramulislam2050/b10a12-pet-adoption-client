@@ -17,7 +17,7 @@ const Dogs = () => {
         return null
       }
       const dogs = allData.filter(pets=>pets.category === "Dog" && pets.adopted===false)
-      console.log(dogs)
+
     return (
         <div className="mt-2">
             <div className="pt-5 pb-10">

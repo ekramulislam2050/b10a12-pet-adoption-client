@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 
 const DonarModal = ({ data, id }) => {
-    console.log(data)
+   
     const axiosSecure = useAxiosSecure()
     const { data: donarData = [] } = useQuery({
         queryKey: ["donarData", data._id],

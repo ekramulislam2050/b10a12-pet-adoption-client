@@ -20,7 +20,7 @@ const AdoptionRequest = () => {
         },
         enabled: !!ownerEmail
     })
-    console.log(requestedForAdopt)
+   
 
     // tanstack column def----------
     const columnHelper = createColumnHelper()
