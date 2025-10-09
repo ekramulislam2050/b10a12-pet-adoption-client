@@ -1,6 +1,7 @@
 
 import useAuth from "@/Hooks/Auth/useAuth";
-import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
+import useAxiosPublic from "@/Hooks/AxiosPublic/useAxiosPublic";
+
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
@@ -11,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 const CheckoutForm = ({ id }) => {
 
     const { user } = useAuth()
-    const axiosSecure = useAxiosSecure()
+    const AxiosPublic=useAxiosPublic()
     const stripe = useStripe()
     const elements = useElements()
   const queryClient = useQueryClient();
@@ -24,7 +25,7 @@ const CheckoutForm = ({ id }) => {
 
 
         // clientSecret--------------
-        const res = await axiosSecure.post("/create_payment_intent", { donationAmount })
+        const res = await AxiosPublic.post("/create_payment_intent", { donationAmount })
         const clientSecret = res.data.clientSecret
 
         if (!stripe || !elements) {
