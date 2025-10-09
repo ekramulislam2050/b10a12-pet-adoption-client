@@ -131,7 +131,7 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
       try {
         if (currentUser) {
-            const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
+            const res = await fetch("http://localhost:5000/jwt", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ email: currentUser.email })
