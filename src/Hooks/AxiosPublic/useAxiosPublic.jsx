@@ -2,7 +2,7 @@ import axios from "axios";
 
  
  const instance=axios.create({
-    baseURL:"http://localhost:5000",
+    baseURL:"https://b10a12-pet-adoption-server.vercel.app",
     headers:{
         "Content-Type":"application/json"
     }

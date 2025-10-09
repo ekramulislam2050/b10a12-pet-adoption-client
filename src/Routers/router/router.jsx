@@ -62,7 +62,7 @@ const router = createBrowserRouter([
             {
                 path: "/donationCampaigns/:id",
                 element:<PrivateRouter> <DonationCampaignDetails></DonationCampaignDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5000/cdcData/${params.id}`)
+                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/cdcData/${params.id}`)
             },
             {
                 path: "/cats",
@@ -87,12 +87,12 @@ const router = createBrowserRouter([
             {
                 path: '/petDetails/:id',
                 element:<PrivateRouter> <PetDetails></PetDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5000/allpet/${params.id}`)
+                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/allpet/${params.id}`)
             },
             {
                 path: "/recommendedDonationDetails/:id",
                 element:<PrivateRouter><RecommendationDonationDetails></RecommendationDonationDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
+                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/recommended_donation/ ${params.id}`)
             }
         ]
     },

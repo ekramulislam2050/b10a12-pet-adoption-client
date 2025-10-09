@@ -1,5 +1,5 @@
 import useAuth from "@/Hooks/Auth/useAuth";
-import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
+import useAxiosPublic from "@/Hooks/AxiosPublic/useAxiosPublic";
 import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { useFormik } from "formik"
@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import *as Yup from "yup"
 
 const Login = () => {
-    const axiosSecure = useAxiosSecure()
+    const AxiosPublic=useAxiosPublic()
     const { login, loginByGoogle, loginByFB } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
@@ -28,7 +28,7 @@ const Login = () => {
                 status: "active"
             }
          
-            const res = await axiosSecure.post("/loginUsers", userInfo)
+            const res = await AxiosPublic.post("/loginUsers", userInfo)
             if (res.data) {
                 successMsg("login success and save to db")
             }
@@ -49,7 +49,7 @@ const Login = () => {
                 const user = await login(values.email, values.password);
                 if (user?.email) {
                     // JWT fetch
-                    const res = await fetch("http://localhost:5000/jwt", {
+                    const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                         method: "POST",
                         headers: { "content-type": "application/json" },
                         body: JSON.stringify({ email: user.email })
@@ -81,7 +81,7 @@ const Login = () => {
             const user = await loginByGoogle();
             if (user?.email) {
                 // JWT fetch
-                const res = await fetch("http://localhost:5000/jwt", {
+                const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({ email: user.email })
@@ -109,7 +109,7 @@ const Login = () => {
             const user = await loginByFB();
             if (user?.email) {
                 // JWT fetch
-                const res = await fetch("http://localhost:5000/jwt", {
+                const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({ email: user.email })
