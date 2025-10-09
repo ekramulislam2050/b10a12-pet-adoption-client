@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const instance = axios.create({
-    baseURL: "https://b10a12-pet-adoption-server.vercel.app/",
+    baseURL: "https://b10a12-pet-adoption-server.vercel.app",
     headers: { "content-type": "application/json" }
 })
 const useAxiosSecure = () => {
@@ -14,42 +14,42 @@ const useAxiosSecure = () => {
 
     useEffect(() => {
         // request interceptor------------
-        const requestInterceptors=instance.interceptors.request.use(
+        const requestInterceptors = instance.interceptors.request.use(
             (config) => {
                 const token = localStorage.getItem("access-token")
-               
+
                 if (token) {
-                    config.headers=config.headers || {}
+                    config.headers = config.headers || {}
                     config.headers.Authorization = `Bearer ${token}`
                 }
                 return config
             },
             (error) => {
-               
+
                 return Promise.reject(error)
             }
         )
 
         // response interceptor--------------
-        const responseInterceptors=instance.interceptors.response.use(
+        const responseInterceptors = instance.interceptors.response.use(
             (response) => {
                 return response
             },
             (error) => {
                 const status = error.response?.status
                 if (status === 401 || status === 403) {
-                    logOut()
-                    navigate("/login")
+                    logOut?.()
+                  
                 }
                 return Promise.reject(error)
             }
         )
 
-        return ()=>{
+        return () => {
             instance.interceptors.request.eject(requestInterceptors)
             instance.interceptors.response.eject(responseInterceptors)
         }
-    }, [logOut,navigate])
+    }, [logOut, navigate])
 
     return instance
 };

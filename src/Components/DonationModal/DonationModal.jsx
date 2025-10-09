@@ -1,14 +1,16 @@
 
- 
+
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 
 
-const DonationModal = ({ data  }) => {
-    const stripePromise = loadStripe(import.meta.env.VITE_stripe_pk)
-    const { petPicture,_id } = data || {}
-  
+const DonationModal = ({ data }) => {
+    const stripePromise = import.meta.env.VITE_stripe_pk
+        ? loadStripe(import.meta.env.VITE_stripe_pk)
+        : null;
+    const { petPicture, _id } = data || {}
+
     return (
 
         <dialog id="my_modal_4" className="modal modal-bottom sm:modal-middle">
@@ -16,7 +18,7 @@ const DonationModal = ({ data  }) => {
             <div className="modal-box">
                 <div className="flex flex-col items-center mt-1">
                     <img src={petPicture} alt="img1" className="w-[35%] h-[105px] rounded-lg" />
-                   
+
                     <div>
                         <h2 className="text-2xl font-bold text-center text-[#A47149] mb-4 flex items-center justify-center gap-2">
                             🐾 Support with Love
@@ -27,11 +29,11 @@ const DonationModal = ({ data  }) => {
                     </div>
                 </div>
                 {/* stripe----------- */}
-                <div>
+                {stripePromise && (
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm id={_id}  ></CheckoutForm>
+                        <CheckoutForm id={_id} />
                     </Elements>
-                </div>
+                )}
 
             </div>
 

@@ -3,11 +3,13 @@ import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { createUserWithEmailAndPassword, FacebookAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
+  const navigate=useNavigate()
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -74,9 +76,10 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true)
       await signOut(auth)
+      localStorage.removeItem("access-token")
       setUser(null)
       successMsg("logout successful")
-
+      navigate("/login")
     } catch (err) {
       errorMsg(err.message)
     }finally{
@@ -135,12 +138,15 @@ const AuthProvider = ({ children }) => {
           })
 
           const data = await res.json();
-          if (data.token) {
+          if (data?.token) {
             localStorage.setItem("access-token", data.token)
           }
 
          setUser(currentUser)
      
+        }else{
+          localStorage.removeItem("access-token")
+          setUser(null)
         }
       } catch (err) {
         errorMsg(err.message)
