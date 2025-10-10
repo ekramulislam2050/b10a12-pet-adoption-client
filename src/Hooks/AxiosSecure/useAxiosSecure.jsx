@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const instance = axios.create({
-    baseURL: "http://localhost:5000" || "http://localhost:5000",
+    baseURL: "https://b10a12-pet-adoption-server.vercel.app" || "http://localhost:5000",
     headers: { "content-type": "application/json" }
 })
 const useAxiosSecure = () => {
