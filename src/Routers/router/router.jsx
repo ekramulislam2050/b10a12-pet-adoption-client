@@ -98,7 +98,13 @@ const router = createBrowserRouter([
             {
                 path: "/recommendedDonationDetails/:id",
                 element: <PrivateRouter><RecommendationDonationDetails></RecommendationDonationDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
+                loader:async ({ params }) => {
+                    const token=localStorage.getItem("access-token")
+                    const res = await fetch(`http://localhost:5000/recommended_donation/${params.id}`,{headers:{Authorization:`Bearer ${token}`}})
+                    const data= await res.json()
+                    return data
+                    
+                }
             }
         ]
     },
