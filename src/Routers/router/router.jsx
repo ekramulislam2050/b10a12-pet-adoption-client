@@ -29,6 +29,7 @@ import AllPet from "@/Components/AllPet/AllPet";
 import AllDonation from "@/Components/AllDonation/AllDonation";
 import AdminRouter from "../AdminRouter/AdminRouter";
 import DashboardHome from "@/Components/DashboardHome/DashboardHome";
+import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 
 
 
@@ -61,8 +62,13 @@ const router = createBrowserRouter([
             },
             {
                 path: "/donationCampaigns/:id",
-                element:<PrivateRouter> <DonationCampaignDetails></DonationCampaignDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/cdcData/${params.id}`)
+                element: <PrivateRouter> <DonationCampaignDetails></DonationCampaignDetails></PrivateRouter>,
+                loader: async ({ params }) => {
+                    const token = localStorage.getItem("access-token")
+                    const res = await fetch(`http://localhost:5000/cdcData/${params.id}`, { headers: { Authorization: `Bearer ${token}` } })
+                    const data = await res.json()
+                    return data
+                }
             },
             {
                 path: "/cats",
@@ -86,13 +92,13 @@ const router = createBrowserRouter([
             },
             {
                 path: '/petDetails/:id',
-                element:<PrivateRouter> <PetDetails></PetDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/allpet/${params.id}`)
+                element: <PrivateRouter> <PetDetails></PetDetails></PrivateRouter>,
+                loader: ({ params }) => fetch(`http://localhost:5000/allpet/${params.id}`)
             },
             {
                 path: "/recommendedDonationDetails/:id",
-                element:<PrivateRouter><RecommendationDonationDetails></RecommendationDonationDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/recommended_donation/ ${params.id}`)
+                element: <PrivateRouter><RecommendationDonationDetails></RecommendationDonationDetails></PrivateRouter>,
+                loader: ({ params }) => fetch(`http://localhost:5000/recommended_donation/ ${params.id}`)
             }
         ]
     },
@@ -105,11 +111,11 @@ const router = createBrowserRouter([
         children: [
             // default path-----------
             {
-                path:"/dashboard",
-                element:<DashboardHome></DashboardHome>
+                path: "/dashboard",
+                element: <DashboardHome></DashboardHome>
             },
             // user--------------
-            
+
             {
                 path: "/dashboard/addPet",
                 element: <PrivateRouter><AddPet></AddPet></PrivateRouter>
@@ -137,10 +143,10 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/updatedMyAddedPets/:id",
                 element: <PrivateRouter><UpdatedMyAddedPets></UpdatedMyAddedPets></PrivateRouter>,
-                loader: ({params}) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
             },
             // admin--------
-          
+
             {
                 path: "/dashboard/allUser",
                 element: <AdminRouter><AllUser></AllUser></AdminRouter>

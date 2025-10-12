@@ -12,6 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const CheckoutForm = ({ id }) => {
     const axiosSecure=useAxiosSecure()
+   
     const { user } = useAuth()
     const AxiosPublic=useAxiosPublic()
     const stripe = useStripe()
@@ -28,7 +29,7 @@ const CheckoutForm = ({ id }) => {
         // clientSecret--------------
         const res = await AxiosPublic.post("/create_payment_intent", { donationAmount })
         const clientSecret = res.data.clientSecret
-
+            console.log("clientSecret",clientSecret)
         if (!stripe || !elements) {
             return
         }
@@ -45,19 +46,20 @@ const CheckoutForm = ({ id }) => {
             type: "card",
             card: cardNumber
         });
-
+     
         if (error) {
             errorMsg(error.message)
         
             return
         } else {
             successMsg("created paymentMethod successfully")
-            document.getElementById("my_modal_4").close()
+           
             
         }
+       
         // stripe confirmation------------
         let paymentStatus = ""
-        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+        const { paymentIntent, error: confirmError } = await stripe?.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: cardNumber,
                 billing_details: {
@@ -66,7 +68,9 @@ const CheckoutForm = ({ id }) => {
                 }
             }
         })
+      
         if (confirmError) {
+           
             errorMsg(confirmError.message)
             paymentStatus = "failed"
         } else {
@@ -79,6 +83,8 @@ const CheckoutForm = ({ id }) => {
                 cardNumber?.clear()
                 expiry?.clear()
                 cvc?.clear()
+                // close modal-----------
+                 document.getElementById("my_modal_4")?.close()
                 // for show recommendation donation section--------
                 document.getElementById("rd").style.display = "block"
 
