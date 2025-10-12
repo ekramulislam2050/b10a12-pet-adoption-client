@@ -7,19 +7,19 @@ import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useQueryClient } from "@tanstack/react-query";
- 
+
 
 
 const CheckoutForm = ({ id }) => {
-    const axiosSecure=useAxiosSecure()
-   
+    const axiosSecure = useAxiosSecure()
+
     const { user } = useAuth()
-    const AxiosPublic=useAxiosPublic()
+    const AxiosPublic = useAxiosPublic()
     const stripe = useStripe()
     const elements = useElements()
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
- 
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         // donation amount field---------
@@ -29,7 +29,7 @@ const CheckoutForm = ({ id }) => {
         // clientSecret--------------
         const res = await AxiosPublic.post("/create_payment_intent", { donationAmount })
         const clientSecret = res.data.clientSecret
-            console.log("clientSecret",clientSecret)
+        console.log("clientSecret", clientSecret)
         if (!stripe || !elements) {
             return
         }
@@ -46,17 +46,17 @@ const CheckoutForm = ({ id }) => {
             type: "card",
             card: cardNumber
         });
-     
+
         if (error) {
             errorMsg(error.message)
-        
+
             return
         } else {
             successMsg("created paymentMethod successfully")
-           
-            
+
+
         }
-       
+
         // stripe confirmation------------
         let paymentStatus = ""
         const { paymentIntent, error: confirmError } = await stripe?.confirmCardPayment(clientSecret, {
@@ -68,9 +68,9 @@ const CheckoutForm = ({ id }) => {
                 }
             }
         })
-      
+
         if (confirmError) {
-           
+
             errorMsg(confirmError.message)
             paymentStatus = "failed"
         } else {
@@ -84,17 +84,25 @@ const CheckoutForm = ({ id }) => {
                 expiry?.clear()
                 cvc?.clear()
                 // close modal-----------
-                 document.getElementById("my_modal_4")?.close()
+                const modal = document.getElementById("my_modal_4");
+                if (modal) {
+                    modal.close();
+                }
                 // for show recommendation donation section--------
-                document.getElementById("rd").style.display = "block"
+                const rdSection = document.getElementById("rd")
+                if (rdSection) {
+                    rdSection.style.display = "block"
+
+                }
+
 
             }
         }
 
         // payment details-----------
         const paymentDetails = {
-            photo:user?.photoURL,
-            name:user?.displayName,
+            photo: user?.photoURL,
+            name: user?.displayName,
             email: user?.email,
             donationAmount: donationAmount,
             petId: id,
@@ -104,10 +112,10 @@ const CheckoutForm = ({ id }) => {
 
         // post payment to db--------
         const response = await axiosSecure.post("/donationPayment", paymentDetails)
-      
+
         if (response?.data?.insertedId) {
             successMsg("payment details post success")
-          queryClient.invalidateQueries("cdcData");
+            queryClient.invalidateQueries("cdcData");
         }
 
     }
