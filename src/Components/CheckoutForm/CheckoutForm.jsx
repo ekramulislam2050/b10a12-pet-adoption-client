@@ -94,7 +94,7 @@ const CheckoutForm = ({ id,donateFromRD }) => {
                    
                 }
                 if(donateFromRD){
-                     navigate("/")
+                     navigate("/donationCampaigns")
                 }
                 // for show recommendation donation section--------
                 const rdSection = document.getElementById("rd")
