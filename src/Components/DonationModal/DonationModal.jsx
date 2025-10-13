@@ -5,7 +5,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 
 
-const DonationModal = ({ data }) => {
+const DonationModal = ({ data,donateFromRD }) => {
+ 
     const stripePromise = import.meta.env.VITE_stripe_pk
         ? loadStripe(import.meta.env.VITE_stripe_pk)
         : null;
@@ -31,7 +32,7 @@ const DonationModal = ({ data }) => {
                 {/* stripe----------- */}
                 {stripePromise && (
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm id={_id} />
+                        <CheckoutForm id={_id} donateFromRD={donateFromRD} />
                     </Elements>
                 )}
 

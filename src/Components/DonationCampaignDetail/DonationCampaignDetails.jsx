@@ -10,9 +10,10 @@ import RecommendedDonation from "../RecommendedDonation/RecommendedDonation";
 import useAxiosSecure from "@/Hooks/AxiosSecure/useAxiosSecure";
 
 
+
 const DonationCampaignDetails = () => {
     const { id } = useParams()
-
+  
     const axiosSecure=useAxiosSecure()
     const { data: dcDetails = {}, isLoading, isError, error, } = useQuery({
         queryKey: ['dcDetails', id],
@@ -69,6 +70,7 @@ const DonationCampaignDetails = () => {
 
                             <DonationModal data={dcDetails}  ></DonationModal>
 
+                          
 
 
 

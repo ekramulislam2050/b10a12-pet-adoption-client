@@ -6,9 +6,11 @@ import { useParams } from "react-router-dom";
 import img1 from "../../assets/Pet-Care-img/care-1.png"
 import img2 from "../../assets/Pet-Care-img/care-2.png"
 import DonationModal from "@/Components/DonationModal/DonationModal";
+import { useState } from "react";
 
 
 const RecommendationDonationDetails = () => {
+    const [donateFromRD, setDonateFromRD] = useState(false)
     const axiosSecure = useAxiosSecure()
     const { id } = useParams()
     const { data: rd_details = {}, isError, isLoading, error } = useQuery({
@@ -56,8 +58,13 @@ const RecommendationDonationDetails = () => {
                             </p>
                         </div>
                         {/* Open the modal using document.getElementById('ID').showModal() method */}
-                        <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => document.getElementById('my_modal_4').showModal()}>Donate Now</button>
-                        <DonationModal data={rd_details}></DonationModal>
+                        <button className=" btn btn-primary bg-[#e48d11] w-full text-xl tracking-wide animate-pulse" onClick={() => {
+                            document.getElementById('my_modal_4').showModal()
+                            setDonateFromRD(true)
+                        }
+                        }>Donate Now</button>
+                        
+                        <DonationModal data={rd_details} donateFromRD={donateFromRD}></DonationModal>
 
 
 

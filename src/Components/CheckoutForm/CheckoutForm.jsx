@@ -7,12 +7,15 @@ import errorMsg from "@/ReUseAbleFunction/ErrorMsg/errorMsg";
 import successMsg from "@/ReUseAbleFunction/SuccessMsg/successMsg";
 import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 
 
-const CheckoutForm = ({ id }) => {
+const CheckoutForm = ({ id,donateFromRD }) => {
+    
+    
     const axiosSecure = useAxiosSecure()
-
+    const navigate=useNavigate()
     const { user } = useAuth()
     const AxiosPublic = useAxiosPublic()
     const stripe = useStripe()
@@ -85,8 +88,13 @@ const CheckoutForm = ({ id }) => {
                 cvc?.clear()
                 // close modal-----------
                 const modal = document.getElementById("my_modal_4");
+               
                 if (modal) {
                     modal.close();
+                   
+                }
+                if(donateFromRD){
+                     navigate("/")
                 }
                 // for show recommendation donation section--------
                 const rdSection = document.getElementById("rd")
