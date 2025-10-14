@@ -49,7 +49,7 @@ const UpdatedForm = ({ data }) => {
         },
         enableReinitialize: true,
         onSubmit: values => {
-
+           
             mutate(values)
         }
     })
@@ -117,7 +117,7 @@ const UpdatedForm = ({ data }) => {
                         <div className="flex flex-col gap-3 px-2 py-3 ">
                             <label htmlFor="image" className="text-[#ffffff] ">Pet Picture :</label>
                             <input
-                                required
+                              
                                 id="image"
                                 name="image"
                                 type="file"
