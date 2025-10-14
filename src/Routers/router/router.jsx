@@ -65,7 +65,7 @@ const router = createBrowserRouter([
                 element: <PrivateRouter> <DonationCampaignDetails></DonationCampaignDetails></PrivateRouter>,
                 loader: async ({ params }) => {
                     const token = localStorage.getItem("access-token")
-                    const res = await fetch(`http://localhost:5000/cdcData/${params.id}`, { headers: { Authorization: `Bearer ${token}` } })
+                    const res = await fetch(`https://b10a12-pet-adoption-server.vercel.app/cdcData/${params.id}`, { headers: { Authorization: `Bearer ${token}` } })
                     const data = await res.json()
                     return data
                 }
@@ -93,14 +93,14 @@ const router = createBrowserRouter([
             {
                 path: '/petDetails/:id',
                 element: <PrivateRouter> <PetDetails></PetDetails></PrivateRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5000/allpet/${params.id}`)
+                loader: ({ params }) => fetch(`https://b10a12-pet-adoption-server.vercel.app/allpet/${params.id}`)
             },
             {
                 path: "/recommendedDonationDetails/:id",
                 element: <PrivateRouter><RecommendationDonationDetails></RecommendationDonationDetails></PrivateRouter>,
                 loader:async ({ params }) => {
                     const token=localStorage.getItem("access-token")
-                    const res = await fetch(`http://localhost:5000/recommended_donation/${params.id}`,{headers:{Authorization:`Bearer ${token}`}})
+                    const res = await fetch(`https://b10a12-pet-adoption-server.vercel.app/recommended_donation/${params.id}`,{headers:{Authorization:`Bearer ${token}`}})
                     const data= await res.json()
                     return data
                     
@@ -149,8 +149,9 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/updatedMyAddedPets/:id",
                 element: <PrivateRouter><UpdatedMyAddedPets></UpdatedMyAddedPets></PrivateRouter>,
-                loader: ({ params }) => fetch(`http://localhost:5173/dashboard/myAddedPets/${params.id}`)
+                
             },
+
             // admin--------
 
             {
@@ -168,15 +169,6 @@ const router = createBrowserRouter([
         ]
     },
 
-    // admin----------
-    // {
-    //     path: "/dashboard/admin",
-    //     element: <Dashboard></Dashboard>,
-    //     errorElement: <DashboardError></DashboardError>,
-    //     children: [
-
-
-    //     ]
-    // }
+   
 ])
 export default router;

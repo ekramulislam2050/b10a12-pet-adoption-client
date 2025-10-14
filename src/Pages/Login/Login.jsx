@@ -52,7 +52,7 @@ const Login = () => {
                 const user = await login(values.email, values.password);
                 if (user?.email) {
                     // JWT fetch
-                    const res = await fetch("http://localhost:5000/jwt", {
+                    const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                         method: "POST",
                         headers: { "content-type": "application/json" },
                         body: JSON.stringify({ email: user.email })
@@ -84,7 +84,7 @@ const Login = () => {
             const user = await loginByGoogle();
             if (user?.email) {
                 // JWT fetch
-                const res = await fetch("http://localhost:5000/jwt", {
+                const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({ email: user.email })
@@ -112,7 +112,7 @@ const Login = () => {
             const user = await loginByFB();
             if (user?.email) {
                 // JWT fetch
-                const res = await fetch("http://localhost:5000/jwt", {
+                const res = await fetch("https://b10a12-pet-adoption-server.vercel.app/jwt", {
                     method: "POST",
                     headers: { "content-type": "application/json" },
                     body: JSON.stringify({ email: user.email })
