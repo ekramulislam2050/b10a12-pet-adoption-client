@@ -114,7 +114,7 @@ const CreateDonationCampaigns = () => {
                          "
                             />
                         </div>
-                        {/* last date of donation----------------- */}
+                        {/*get last date of donation by react dataPicker---------------- */}
                         <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%]  ">
                            
                            <label htmlFor="lastDateOfDonation" className="text-[#ffffff] ">Last date of donation :</label>
