@@ -13,21 +13,21 @@ import { useNavigate } from "react-router-dom";
 
 
 const CreateDonationCampaigns = () => {
-    const navigate=useNavigate()
-  const axiosSecure=useAxiosSecure()
-    const {user}=useAuth()
+    const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
+    const { user } = useAuth()
     const [selectedDate, setSelectedDate] = useState(null)
     const formik = useFormik({
         initialValues: {
-            email:user?.email ||'',
-            petName:'',
+            email: user?.email || '',
+            petName: '',
             petPicture: '',
             maximumDonationAmount: '',
             lastDateOfDonation: '',
             shortDescription: '',
             longDescription: ''
         },
-        enableReinitialize:true,
+        enableReinitialize: true,
         onSubmit: async (values, { resetForm }) => {
             try {
                 const result = await axiosSecure.post("/createDonationCampaign", values)
@@ -115,23 +115,23 @@ const CreateDonationCampaigns = () => {
                             />
                         </div>
                         {/* last date of donation----------------- */}
-                        <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%] ">
-                            <label htmlFor="lastDateOfDonation" className="text-[#ffffff] ">Last date of donation :</label>
+                        <div className="flex flex-col gap-3 px-2 py-3 sm:w-[50%]  ">
+                           
+                           <label htmlFor="lastDateOfDonation" className="text-[#ffffff] ">Last date of donation :</label>
                             <DatePicker
+                                required
                                 id="lastDateOfDonation"
                                 name="lastDateOfDonation"
                                 selected={selectedDate}
                                 onChange={(date) => {
-                                    const formattedDate = date.toISOString().split("T")[0]
                                     setSelectedDate(date)
-                                    formik.setFieldValue('lastDateOfDonation', formattedDate)
+                                    formik.setFieldValue("lastDateOfDonation", date)
                                 }}
                                 dateFormat="dd/MM/yyyy"
-                                placeholderText="select a date"
-                                className="bg-[#054560] border border-orange-300 w-full
-                          rounded-[8px] p-1 text-[#ffffff]
-                         "
-                            />
+                                className="bg-[#054560] border border-orange-300 w-full rounded-[8px] p-1 text-[#ffffff]"
+                                calendarClassName="custom-calendar  "
+                            ></DatePicker>
+
                         </div>
                     </div>
                     {/* short description----------------- */}
